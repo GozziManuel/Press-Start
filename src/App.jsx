@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 // CSS
+import "./assets/css/navbar.css";
 import "./assets/css/index.css";
 
 export default function App() {
