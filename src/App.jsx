@@ -1,3 +1,25 @@
+import { BrowserRouter, Routes, Route } from "react-router";
+import HomePage from "./pages/HomePage";
+import ProductsListPage from "./pages/ProductsListPage";
+
+// Bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
+import "bootstrap-icons/font/bootstrap-icons.min.css";
+// CSS
+import "./assets/css/index.css";
+
 export default function App() {
-  return <h1>Demo Vite & React</h1>;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route Component={DefaultTemplate}>
+          <Route index Component={HomePage} />
+          <Route path="products">
+            <Route index Component={ProductsListPage} />
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
 }
