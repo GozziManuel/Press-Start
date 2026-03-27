@@ -3,11 +3,12 @@ import "../assets/css/navbar.css";
 
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg bg-viola">
+    <nav className="navbar navbar-expand-lg bg-viola nav-separator pb-0">
       <div className="container-fluid">
         <NavLink
-          className="navbar-brand nav-title star-crush gr-viola"
-          href="#">
+          className="navbar-brand nav-title star-crush gr-viola pb-0"
+          href="#"
+        >
           Press Start
         </NavLink>
         <button
@@ -17,7 +18,8 @@ export default function Navbar() {
           data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
-          aria-label="Toggle navigation">
+          aria-label="Toggle navigation"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse " id="navbarSupportedContent">
@@ -26,14 +28,13 @@ export default function Navbar() {
               <NavLink
                 to="#"
                 className="nav-link star-crush gr-viola"
-                aria-current="page">
+                aria-current="page"
+              >
                 Home
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink
-                to="#"
-                className="nav-link star-crush gr-viola">
+              <NavLink to="#" className="nav-link star-crush gr-viola">
                 About Us
               </NavLink>
             </li>
