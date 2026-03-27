@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import HomePage from "./pages/HomePage";
 import ProductsListPage from "./pages/ProductsListPage";
-import DefaultTemplate from "./layouts/DefaultTemplate";
+import DefaultTemplate from "./Template/DefaultTemplate";
 
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";

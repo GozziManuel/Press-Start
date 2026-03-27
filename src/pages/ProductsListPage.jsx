@@ -1,3 +1,3 @@
 export default function ProductsListPage() {
-  return <h1>Demo Vite & React</h1>;
+  return <h1>ProductsListPage</h1>;
 }
