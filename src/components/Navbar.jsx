@@ -6,7 +6,7 @@ export default function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-viola nav-separator pb-0">
         <div className="container-fluid">
-          <NavLink className=" nav-title star-crush gr-viola pb-0" href="#">
+          <NavLink className=" nav-title star-crush gr-viola pb-0" to={"/"}>
             Press Start
           </NavLink>
           <button
@@ -27,16 +27,20 @@ export default function Navbar() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink
-                  to="#"
+                  to="/products"
                   className="nav-link star-crush"
                   aria-current="page"
                   id="nav-link"
                 >
-                  Home
+                  Viaggia nel tempo!
                 </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to="#" className="nav-link star-crush " id="nav-link">
+                <NavLink
+                  to="/About-us"
+                  className="nav-link star-crush "
+                  id="nav-link"
+                >
                   About Us
                 </NavLink>
               </li>

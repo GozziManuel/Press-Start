@@ -43,8 +43,8 @@
   color: #ccc;
 }
 .separator {
-  width: 150%;
-  right: 100px;
+  width: 300%;
+  right: 100%;
   position: relative;
   color: rgba(29, 31, 60);
   margin: 0;

@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import HomePage from "./pages/HomePage";
 import ProductsListPage from "./pages/ProductsListPage";
 import DefaultTemplate from "./Template/DefaultTemplate";
+import AboutUs from "./pages/AboutUs";
 
 // Fonts
 import "./assets/fonts/ByteBounce.ttf";
@@ -20,9 +21,10 @@ export default function App() {
       <Routes>
         <Route Component={DefaultTemplate}>
           <Route index Component={HomePage} />
-          <Route path="products">
+          <Route path="/products" Component={ProductsListPage}>
             <Route index Component={ProductsListPage} />
           </Route>
+          <Route path="/About-us" Component={AboutUs}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
