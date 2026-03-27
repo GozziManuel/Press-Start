@@ -3,6 +3,9 @@ import HomePage from "./pages/HomePage";
 import ProductsListPage from "./pages/ProductsListPage";
 import DefaultTemplate from "./Template/DefaultTemplate";
 
+// Fonts
+import "./assets/fonts/ByteBounce.ttf";
+import "./assets/fonts/star-crush.regular.ttf";
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";

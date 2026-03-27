@@ -1,0 +1,23 @@
+/* Fonts */
+@font-face {
+  font-family: "ByteBounce";
+  src:
+    local("ByteBounce"),
+    url("../fonts/ByteBounce.ttf") format("truetype");
+  font-weight: bold;
+}
+/* Fonts */
+@font-face {
+  font-family: "ByteBounce";
+  src:
+    local("star-crush"),
+    url("../fonts/star-crush.regular.ttf") format("truetype");
+  font-weight: bold;
+}
+
+/* Navbar */
+.nav-title {
+  font-family: "ByteBounce";
+  font-size: 70px;
+  padding: 0;
+}

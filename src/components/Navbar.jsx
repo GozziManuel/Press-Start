@@ -4,7 +4,7 @@ export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" href="#">
+        <NavLink className="navbar-brand nav-title" href="#">
           Press Start
         </NavLink>
         <button
