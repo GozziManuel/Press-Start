@@ -1,3 +1,29 @@
+:root {
+  --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
+  --bg-viola: #111827;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 /* Fonts */
 @font-face {
   font-family: "ByteBounce";
@@ -15,58 +41,21 @@
   font-weight: bold;
 }
 
-/* Navbar */
-.nav-title {
+/* Util */
+.byte-bounce {
+  font-family: "ByteBounce";
+}
+.star-crush {
   font-family: "Star-Crush";
-  font-size: 70px;
-  padding: 0;
-  color: white;
-  margin-right: 40px;
-  background: linear-gradient(90deg, #8a2be2, #00bfff);
+}
+
+.gr-viola {
+  background: var(--gr-viola);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
 }
-
-.navtheme {
-  background-color: rgba(17, 24, 39);
-}
-.space {
-  width: 70px;
-  height: 50px;
-  margin-right: 100px;
-}
-#nav-link {
-  position: relative;
-  background: linear-gradient(90deg, #8a2be2, #00bfff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
-  font-family: "Star-Crush";
-  font-size: 20px;
-  text-decoration: none;
-  font-size: 18px;
-  letter-spacing: 1px;
-}
-
-#nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 0;
-  height: 2px;
-  background: white;
-  transition: width 0.25s steps(6);
-  background: linear-gradient(90deg, #8a2be2, #00bfff);
-}
-
-#nav-link:hover::after {
-  width: 100%;
-}
-
-#nav-link:hover {
-  color: #ccc;
+.bg-viola {
+  background-color: var(--bg-viola);
 }

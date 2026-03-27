@@ -1,0 +1,32 @@
+.nav-title {
+  font-size: 60px;
+  margin-right: 40px;
+}
+
+.nav-link {
+  position: relative;
+  font-size: 20px;
+  text-decoration: none;
+  font-size: 18px;
+  letter-spacing: 1px;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 2px;
+  background: white;
+  transition: width 0.25s steps(6);
+  background: var(--gr-viola);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link:hover {
+  color: #ccc;
+}
