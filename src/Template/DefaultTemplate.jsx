@@ -5,8 +5,8 @@ import Footer from "../components/Footer";
 export default function DefaultTemplate() {
   return (
     <>
-      <div className="d-flex flex-column min-vh-100">
-      <Navbar />
+      <div className="container d-flex flex-column min-vh-100">
+        <Navbar />
         <main className="container flex-grow-1">
           <Outlet />
         </main>

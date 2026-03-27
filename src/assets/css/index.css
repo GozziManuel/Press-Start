@@ -1,6 +1,7 @@
 :root {
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
   --bg-viola: #111827;
+  --viola: #8a2be2;
 }
 
 /* Reset */
@@ -51,14 +52,22 @@ a {
 
 .gr-viola {
   background: var(--gr-viola);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
 }
 .bg-viola {
   background-color: var(--bg-viola);
 }
+
+.viola {
+  color: #8a2be2;
+}
 body {
   background-color: var(--bg-viola);
+  overflow: hidden;
+}
+
+/* Glowing effect to reuse */
+.glowing {
+  text-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
 }

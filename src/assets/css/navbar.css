@@ -1,14 +1,26 @@
 .nav-title {
-  font-size: 60px;
-  margin-right: 40px;
+  font-size: 30px;
+  margin-right: 70px;
+  transition: transform 0.2s ease;
+}
+.nav-title:hover {
+  filter: brightness(1.3);
+  transform: translateY(-2px) scale(1.05);
 }
 
-.nav-link {
+#nav-link {
   position: relative;
   font-size: 20px;
   text-decoration: none;
   font-size: 18px;
   letter-spacing: 1px;
+  color: #00bfff;
+}
+
+#nav-link:hover {
+  background: var(--gr-viola);
+  background-clip: text;
+  color: transparent;
 }
 
 .nav-link::after {
@@ -30,9 +42,26 @@
 .nav-link:hover {
   color: #ccc;
 }
+.separator {
+  width: 150%;
+  right: 100px;
+  position: relative;
+  color: rgba(29, 31, 60);
+  margin: 0;
+  opacity: 100%;
+}
+
+/* Icon gamepad */
 .icon {
   color: #8a2be2;
 }
-.nav-separator {
-  border-bottom: solid 1px rgba(29, 31, 60);
+.icon::before {
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.icon:hover::before {
+  transform: scale(1.2) rotate(20deg);
+  opacity: 1;
 }
