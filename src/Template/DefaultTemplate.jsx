@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 export default function DefaultTemplate() {
   return (
     <div className="container d-flex flex-column min-vh-100">
-      <Header />
+      <Navbar />
       <main className="flex-grow-1">
         <Outlet />
       </main>
