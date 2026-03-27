@@ -2,10 +2,9 @@ import { NavLink } from "react-router";
 
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navtheme">
+    <nav className="navbar navbar-expand-lg navtheme nav-separator">
       <div className="container-fluid">
-        <img src="/space.png" alt="space" className="space" />
-        <NavLink className="navbar-brand nav-title" href="#">
+        <NavLink className="navbar-brand nav-title ms-3" href="#">
           Press Start
         </NavLink>
         <button
@@ -19,7 +18,7 @@ export default function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse " id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink
@@ -39,6 +38,9 @@ export default function Navbar() {
 
             <li className="nav-item"></li>
           </ul>
+          <div>
+            <i class="bi bi-controller fs-1 icon"></i>
+          </div>
         </div>
       </div>
     </nav>

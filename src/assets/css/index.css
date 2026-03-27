@@ -14,7 +14,6 @@
     url("../fonts/star-crush.regular.ttf") format("truetype");
   font-weight: bold;
 }
-
 /* Navbar */
 .nav-title {
   font-family: "Star-Crush";
@@ -23,15 +22,14 @@
   color: white;
   margin-right: 40px;
   background: linear-gradient(90deg, #8a2be2, #00bfff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
 }
 
-.navtheme {
+body {
   background-color: rgba(17, 24, 39);
 }
+
 .space {
   width: 70px;
   height: 50px;
@@ -40,8 +38,6 @@
 #nav-link {
   position: relative;
   background: linear-gradient(90deg, #8a2be2, #00bfff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
   font-family: "Star-Crush";
@@ -66,7 +62,10 @@
 #nav-link:hover::after {
   width: 100%;
 }
+.icon {
+  color: #8a2be2;
+}
 
-#nav-link:hover {
-  color: #ccc;
+.nav-separator {
+  border-bottom: solid 1px rgba(29, 31, 60);
 }
