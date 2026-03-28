@@ -46,7 +46,6 @@ a {
 
 body {
   background-color: var(--bg-viola);
-  overflow: hidden;
 }
 
 /* Util */
@@ -73,12 +72,19 @@ body {
 }
 
 .separator {
-  width: 200%;
-  right: 50%;
-  position: relative;
   color: rgba(29, 31, 60);
   opacity: 100%;
 }
 .glowing {
   text-shadow: 0 0 10px #8a2be24d;
+}
+.container-manual {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+@media only screen and (max-width: 992px) {
+  .container-manual {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 }

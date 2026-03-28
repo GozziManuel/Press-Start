@@ -5,7 +5,7 @@ import "../assets/css/navbar.css";
 export default function Navbar() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-viola nav-separator pb-0">
+      <nav className="navbar navbar-expand-lg bg-viola nav-separator pb-0 container-manual">
         <div className="container-fluid">
           <NavLink to={"/"} className=" nav-title star-crush gr-viola pb-0">
             Press Start
@@ -21,7 +21,7 @@ export default function Navbar() {
               aria-label="Toggle navigation"
               id="navbar-toggler"
             >
-              <span class="navbar-toggler-icon " id="nav-toggler"></span>
+              <span className="navbar-toggler-icon " id="nav-toggler"></span>
             </button>
             <ThemeToggle />
           </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-const SunIcon = () => <i class="bi bi-brightness-high-fill"></i>;
-const MoonIcon = () => <i class="bi bi-moon"></i>;
+const SunIcon = () => <i className="bi bi-brightness-high-fill"></i>;
+const MoonIcon = () => <i className="bi bi-moon"></i>;
 
 export default function ThemeToggle() {
   const [dark, setDark] = useState(() => {

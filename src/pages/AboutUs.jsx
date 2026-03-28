@@ -5,8 +5,8 @@ export default function AboutUs() {
     <div className="py-3 byte-bounce gr-viola">
       <p style={{ fontSize: "30px" }}>Sito fatto da:</p>
       <ul style={{ fontSize: "30px" }}>
-        {names.map((name) => (
-          <li>- {name}</li>
+        {names.map((name, id) => (
+          <li key={id}>- {name}</li>
         ))}
       </ul>
     </div>
