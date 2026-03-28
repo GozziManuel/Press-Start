@@ -32,7 +32,8 @@ export default function ThemeToggle() {
         alignItems: "center",
         justifyContent: "center",
         transition: "background 0.2s, transform 0.15s",
-      }}>
+      }}
+    >
       {dark ? <SunIcon /> : <MoonIcon />}
     </button>
   );

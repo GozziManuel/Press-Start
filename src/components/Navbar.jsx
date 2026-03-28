@@ -10,19 +10,22 @@ export default function Navbar() {
           <NavLink to={"/"} className=" nav-title star-crush gr-viola pb-0">
             Press Start
           </NavLink>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            id="navbar-toggler"
-          >
-            {" "}
-            <span class="navbar-toggler-icon " id="nav-toggler"></span>
-          </button>
+          <div className="function">
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+              id="navbar-toggler"
+            >
+              <span class="navbar-toggler-icon " id="nav-toggler"></span>
+            </button>
+            <ThemeToggle />
+          </div>
+
           <div
             className="collapse navbar-collapse "
             id="navbarSupportedContent"
@@ -46,9 +49,6 @@ export default function Navbar() {
                 >
                   About Us
                 </NavLink>
-              </li>
-              <li className="nav-item">
-                <ThemeToggle />
               </li>
             </ul>
           </div>
