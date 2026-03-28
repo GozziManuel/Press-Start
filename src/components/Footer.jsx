@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <>
       <hr className="separator" />
-      <div className="footer row pb-0">
+      <div className="footer row pb-0 me-0 container-manual">
         <div className="byte-bounce gr-viola col-sm-12 col-md-5 mb-5">
           <h4 className="star-crush">Retro Games</h4>
           <p className="m-0 text ">
