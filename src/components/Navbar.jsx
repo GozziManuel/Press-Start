@@ -17,17 +17,24 @@ export default function Navbar() {
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-            aria-label="Toggle navigation"></button>
+            aria-label="Toggle navigation"
+            id="navbar-toggler"
+          >
+            {" "}
+            <span class="navbar-toggler-icon " id="nav-toggler"></span>
+          </button>
           <div
             className="collapse navbar-collapse "
-            id="navbarSupportedContent">
+            id="navbarSupportedContent"
+          >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink
                   to="/Products"
                   className="nav-link star-crush"
                   aria-current="page"
-                  id="nav-link">
+                  id="nav-link"
+                >
                   Viaggia nel tempo!
                 </NavLink>
               </li>
@@ -35,7 +42,8 @@ export default function Navbar() {
                 <NavLink
                   to="/About-us"
                   className="nav-link star-crush "
-                  id="nav-link">
+                  id="nav-link"
+                >
                   About Us
                 </NavLink>
               </li>
