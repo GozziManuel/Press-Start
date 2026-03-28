@@ -1,6 +1,11 @@
-:root {
+:root[data-theme="dark"] {
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
   --bg-viola: #111827;
+  --viola: #8a2be2;
+}
+:root[data-theme="light"] {
+  --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
+  --bg-viola: #ffffff;
   --viola: #8a2be2;
 }
 

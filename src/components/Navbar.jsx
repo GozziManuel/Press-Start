@@ -1,4 +1,5 @@
 import { NavLink } from "react-router";
+import ThemeToggle from "./ThemeToggle";
 import "../assets/css/navbar.css";
 
 export default function Navbar() {
@@ -16,8 +17,7 @@ export default function Navbar() {
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-            aria-label="Toggle navigation">
-          </button>
+            aria-label="Toggle navigation"></button>
           <div
             className="collapse navbar-collapse "
             id="navbarSupportedContent">
@@ -39,8 +39,9 @@ export default function Navbar() {
                   About Us
                 </NavLink>
               </li>
-
-              <li className="nav-item"></li>
+              <li className="nav-item">
+                <ThemeToggle />
+              </li>
             </ul>
           </div>
         </div>
