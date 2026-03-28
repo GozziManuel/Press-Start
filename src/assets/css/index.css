@@ -4,27 +4,6 @@
   --viola: #8a2be2;
 }
 
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-}
-
-ul {
-  list-style-type: none;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 /* Fonts */
 @font-face {
   font-family: "ByteBounce";
@@ -40,6 +19,29 @@ a {
     local("star-crush"),
     url("../fonts/star-crush.regular.ttf") format("truetype");
   font-weight: bold;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body {
+  background-color: var(--bg-viola);
+  overflow: hidden;
 }
 
 /* Util */
@@ -58,16 +60,20 @@ a {
 .bg-viola {
   background-color: var(--bg-viola);
 }
-
 .viola {
-  color: #8a2be2;
+  color: var(--viola);
 }
-body {
-  background-color: var(--bg-viola);
-  overflow: hidden;
+.border-viola {
+  border: 1px solid var(--viola);
 }
 
-/* Glowing effect to reuse */
+.separator {
+  width: 100vw;
+  right: 100%;
+  position: relative;
+  color: rgba(29, 31, 60);
+  opacity: 100%;
+}
 .glowing {
-  text-shadow: 0 0 15px rgba(138, 43, 226, 0.3);
+  text-shadow: 0 0 10px #8a2be24d;
 }

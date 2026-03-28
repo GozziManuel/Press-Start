@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router";
+import DefaultTemplate from "./template/DefaultTemplate";
 import HomePage from "./pages/HomePage";
 import ProductsListPage from "./pages/ProductsListPage";
-import DefaultTemplate from "./Template/DefaultTemplate";
 import AboutUs from "./pages/AboutUs";
 
 // Fonts
@@ -12,7 +12,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 // CSS
-import "./assets/css/navbar.css";
 import "./assets/css/index.css";
 
 export default function App() {
@@ -21,7 +20,7 @@ export default function App() {
       <Routes>
         <Route Component={DefaultTemplate}>
           <Route index Component={HomePage} />
-          <Route path="/products" Component={ProductsListPage}>
+          <Route path="/Products" Component={ProductsListPage}>
             <Route index Component={ProductsListPage} />
           </Route>
           <Route path="/About-us" Component={AboutUs}></Route>

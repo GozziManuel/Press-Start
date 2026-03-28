@@ -1,3 +1,10 @@
 export default function Footer() {
-  return <h1>Footer</h1>;
+  return (
+    <>
+      <hr className="separator" />
+      <div className="byte-bounce gr-viola">
+        <p style={{ fontSize: "40px" }}>Footer</p>
+      </div>
+    </>
+  );
 }

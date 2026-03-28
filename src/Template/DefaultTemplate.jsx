@@ -7,7 +7,7 @@ export default function DefaultTemplate() {
     <>
       <div className="container d-flex flex-column min-vh-100">
         <Navbar />
-        <main className="container flex-grow-1">
+        <main className="flex-grow-1">
           <Outlet />
         </main>
         <Footer />

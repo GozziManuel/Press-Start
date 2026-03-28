@@ -6,7 +6,7 @@ export default function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-viola nav-separator pb-0">
         <div className="container-fluid">
-          <NavLink className=" nav-title star-crush gr-viola pb-0" to={"/"}>
+          <NavLink to={"/"} className=" nav-title star-crush gr-viola pb-0">
             Press Start
           </NavLink>
           <button
@@ -16,22 +16,18 @@ export default function Navbar() {
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
+            aria-label="Toggle navigation">
           </button>
           <div
             className="collapse navbar-collapse "
-            id="navbarSupportedContent"
-          >
+            id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink
-                  to="/products"
+                  to="/Products"
                   className="nav-link star-crush"
                   aria-current="page"
-                  id="nav-link"
-                >
+                  id="nav-link">
                   Viaggia nel tempo!
                 </NavLink>
               </li>
@@ -39,17 +35,13 @@ export default function Navbar() {
                 <NavLink
                   to="/About-us"
                   className="nav-link star-crush "
-                  id="nav-link"
-                >
+                  id="nav-link">
                   About Us
                 </NavLink>
               </li>
 
               <li className="nav-item"></li>
             </ul>
-            <div>
-              <i class="bi bi-controller fs-1 icon"></i>
-            </div>
           </div>
         </div>
       </nav>

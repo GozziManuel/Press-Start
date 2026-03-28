@@ -42,14 +42,6 @@
 .nav-link:hover {
   color: #ccc;
 }
-.separator {
-  width: 300%;
-  right: 100%;
-  position: relative;
-  color: rgba(29, 31, 60);
-  margin: 0;
-  opacity: 100%;
-}
 
 /* Icon gamepad */
 .icon {
