@@ -18,8 +18,8 @@ export default function HomePage() {
           Compra e Gioca Giochi Retro.
         </p>
         <p
-          style={{ fontSize: "30px", color: "white", maxWidth: "650px" }}
-          className="byte-bounce"
+          style={{ fontSize: "30px", maxWidth: "650px" }}
+          className="byte-bounce text"
           id="text"
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor

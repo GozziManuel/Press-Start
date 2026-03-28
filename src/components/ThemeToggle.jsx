@@ -15,10 +15,6 @@ export default function ThemeToggle() {
       "data-theme",
       dark ? "dark" : "light",
     );
-    const el = document.getElementById("text");
-    if (el) {
-      el.style.color = dark ? "white" : "black";
-    }
 
     localStorage.setItem("theme", dark ? "dark" : "light");
   }, [dark]);
