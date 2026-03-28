@@ -20,6 +20,7 @@ export default function HomePage() {
         <p
           style={{ fontSize: "30px", color: "white", maxWidth: "650px" }}
           className="byte-bounce"
+          id="text"
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
           reiciendis similique fugit doloremque qui, eos vero ipsam dignissimos
