@@ -26,7 +26,7 @@ export default function AboutUs() {
       </div>
       <hr className="separator mt-0 mb-5" />
       <div className="text-center container-manual about">
-        <h3 className="star-crush gr-viola">Perché siamo qui</h3>
+        <h3 className="star-crush gr-viola">Perche' siamo qui</h3>
         <p className="fs-5 text byte-bounce">
           “Nato dalla nostra passione per i videogiochi degli anni ’80 e ’90, il
           progetto vuole riportare il fascino dei pixel e delle esperienze
