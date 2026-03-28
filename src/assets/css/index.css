@@ -82,6 +82,17 @@ body {
   padding-left: 100px;
   padding-right: 100px;
 }
+
+/* TEMA  TESTO*/
+[data-theme="dark"] .text {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+[data-theme="light"] .text {
+  color: black;
+}
+
+/* MEDIA */
 @media only screen and (max-width: 992px) {
   .container-manual {
     padding-left: 20px;
