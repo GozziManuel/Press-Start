@@ -35,7 +35,7 @@ export default function AboutUs() {
       </div>
 
       <hr className="separator my-5" />
-      <div className="container-manual team text-center">
+      <div className="container-manual team text-center mb-5">
         <h3 style={{ fontSize: "30px" }} className="star-crush gr-viola">
           Sito fatto da:
         </h3>
