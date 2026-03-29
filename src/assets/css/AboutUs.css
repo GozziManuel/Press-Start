@@ -35,6 +35,7 @@
   transform: scale(1.05);
   background: #8a2be2;
   color: white;
+  animation: float 3s ease-in-out infinite;
 }
 
 .about p {

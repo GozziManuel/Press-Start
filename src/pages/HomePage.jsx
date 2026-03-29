@@ -14,9 +14,11 @@ export default function HomePage() {
   return (
     <>
       <div className="py-3 star-crush gr-viola container-manual">
-        <p className="glowing" style={{ fontSize: "60px" }}>
-          Compra e Gioca Giochi Retro.
-        </p>
+        <div>
+          <p className="glowing" style={{ fontSize: "60px" }}>
+            Compra e Gioca Giochi Retro.
+          </p>
+        </div>
         <p
           style={{ fontSize: "30px", maxWidth: "650px" }}
           className="byte-bounce text"
