@@ -1,6 +1,6 @@
 .nav-title {
   font-size: 30px;
-  margin-right: 70px;
+  margin-right: 50px;
   transition: transform 0.2s ease;
 }
 .nav-title:hover {
@@ -56,4 +56,24 @@
 .icon:hover::before {
   transform: scale(1.2) rotate(20deg);
   opacity: 1;
+}
+
+#nav-toggler {
+  border: #00bfff;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280,191,220, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+#navbar-toggler {
+  border: 1px #00bfff solid;
+}
+.function {
+  display: flex;
+  gap: 10px;
+}
+
+/* Media for adjust themetoggler finally! */
+@media only screen and (min-width: 992px) {
+  .function {
+    position: absolute;
+    right: 49px;
+  }
 }

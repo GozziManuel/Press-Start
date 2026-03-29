@@ -1,0 +1,12 @@
+.footer {
+  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+#email:hover {
+  color: var(--gr-viola);
+  cursor: pointer;
+}
+#email {
+  max-width: 37%;
+}
