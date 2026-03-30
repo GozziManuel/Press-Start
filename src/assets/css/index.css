@@ -10,6 +10,7 @@
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
   --bg-viola: #111827;
   --viola: #8a2be2;
+  --text-primary: #ffffff;
   --light-blue: #00bfff;
 }
 :root[data-theme="light"] {

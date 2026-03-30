@@ -6,7 +6,7 @@ export default function Navbar() {
   // const { userInfo, isLogged, setIsLogged, token } = useUser();
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-viola nav-separator pb-0 container-manual">
+      <nav className="navbar navbar-expand-lg bg-viola nav-separator pb-0 container">
         <div className="container-fluid">
           <NavLink to={"/"} className=" nav-title star-crush gr-viola pb-0">
             Press Start

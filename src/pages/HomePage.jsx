@@ -1,16 +1,8 @@
 import { NavLink } from "react-router";
+import { fakeData } from "../data/fakeData";
 import GameCard from "../components/GameCard";
 
 export default function HomePage() {
-  const fakeData = [
-    { id: 1, name: "doom" },
-    { id: 2, name: "mario" },
-    { id: 3, name: "sonic" },
-    { id: 4, name: "final fantasy" },
-    { id: 5, name: "pokemon" },
-    { id: 6, name: "metal slug" },
-  ];
-
   return (
     <>
       <div className="py-3 star-crush gr-viola container-manual">
@@ -22,8 +14,7 @@ export default function HomePage() {
         <p
           style={{ fontSize: "30px", maxWidth: "650px" }}
           className="byte-bounce text"
-          id="text"
-        >
+          id="text">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
           reiciendis similique fugit doloremque qui, eos vero ipsam dignissimos
           eveniet aspernatur, minima cumque atque soluta. Ad laborum alias sint
