@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import DefaultTemplate from "./Template/DefaultTemplate";
+import DefaultTemplate from "./template/DefaultTemplate";
 import HomePage from "./pages/HomePage";
 import ProductsListPage from "./pages/ProductsListPage";
 import AboutUs from "./pages/AboutUs";
