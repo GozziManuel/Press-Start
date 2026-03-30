@@ -5,7 +5,7 @@ export default function AboutUs() {
   return (
     <>
       <div className="py-3 byte-bounce gr-viola container-manual">
-        <section class="hero pb-5">
+        <section className="hero pb-5">
           <h1 className="star-crush">
             Press Start e torna nell’epoca d’oro del gaming
           </h1>
@@ -14,7 +14,7 @@ export default function AboutUs() {
             un’esperienza retro con un tocco moderno.
           </p>
 
-          <div class="hero-buttons">
+          <div className="hero-buttons">
             <NavLink to={"/"} className="button primary text">
               Inizia a giocare
             </NavLink>
