@@ -1,3 +1,9 @@
+:root {
+  --light-blue: #00bfff;
+  --viola: #8a2be2;
+  --white: #ffffff;
+  --gray: #cccccc;
+}
 :root[data-theme="dark"] {
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
   --bg-viola: #111827;
@@ -10,6 +16,9 @@
   --white: #ffffff;
   --viola: #8a2be2;
   --black: black;
+  --glowing-primary: #8a2be24d;
+  --text-primary: #000000;
+  --separator-primary: #999999;
 }
 
 /* Fonts */
@@ -75,20 +84,16 @@ body {
 }
 
 .separator {
-  color: rgba(29, 31, 60);
+  color: var(--separator-primary);
   opacity: 100%;
 }
 .glowing {
-  text-shadow: 0 0 10px #8a2be24d;
+  text-shadow: 0 0 10px var(--glowing-primary);
 }
 
 /* TEMA  TESTO*/
-[data-theme="dark"] .text {
-  color: rgba(255, 255, 255, 0.75);
-}
-
-[data-theme="light"] .text {
-  color: black;
+.text {
+  color: var(--text-primary);
 }
 .floating:hover {
   animation: float 4s ease-in-out infinite;

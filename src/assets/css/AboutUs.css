@@ -25,16 +25,16 @@
 .button {
   padding: 10px 20px;
   text-decoration: none;
-  border: 2px solid #8a2be2;
-  color: white;
+  border: 2px solid var(--viola);
+  color: var(--white);
   transition: all 0.2s ease-in-out;
 }
 
 .button.primary:hover,
 .button.secondary:hover {
   transform: scale(1.05);
-  background: #8a2be2;
-  color: white;
+  background: var(--viola);
+  color: var(--white);
   animation: float 3s ease-in-out infinite;
 }
 
@@ -58,5 +58,5 @@
 .team li::before {
   content: ">";
   margin-right: 10px;
-  color: #8a2be2;
+  color: var(--viola);
 }
