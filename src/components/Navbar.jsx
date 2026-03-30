@@ -97,9 +97,6 @@ export default function Navbar() {
                   </li>
                 </>
               )}
-              <li className="nav-item">
-                <ThemeToggle />
-              </li>
             </ul>
           </div>
         </div>
