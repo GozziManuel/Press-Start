@@ -150,15 +150,19 @@ export default function RegisterPage() {
               name="check"
             />
             <br />
-            <button className="button primary buttonLogin">Send</button>
+            <button className="button primary buttonLogin text">Send</button>
           </form>
         </fieldset>
         {isCheck && (
-          <div className="check-terms">
-            <span onClick={verifyCheck}>
-              <i className="bi bi-file-x-fill"></i>
-            </span>
-            <h2>Termini di servizio e di privacy obbligatorio</h2>
+          <div className="d-flex justify-content-center">
+            <div className="check-terms">
+              <span onClick={verifyCheck}>
+                <i className="bi bi-file-x-fill"></i>
+              </span>
+              <h2 className="fs-5">
+                Termini di servizio e di privacy obbligatorio
+              </h2>
+            </div>
           </div>
         )}
       </div>
