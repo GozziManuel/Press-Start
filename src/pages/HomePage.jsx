@@ -5,9 +5,9 @@ import GameCard from "../components/GameCard";
 export default function HomePage() {
   return (
     <>
-      <div className="py-3 star-crush gr-viola container-manual">
+      <div className="py-3 star-crush container-manual">
         <div>
-          <p className="glowing" style={{ fontSize: "60px" }}>
+          <p className="glowing gr-viola" style={{ fontSize: "60px" }}>
             Compra e Gioca Giochi Retro.
           </p>
         </div>
