@@ -2,6 +2,7 @@ import { useNavigate } from "react-router";
 import { useUser } from "../contexts/UserContext";
 import axios from "axios";
 import { useState } from "react";
+import "../assets/css/Login.css";
 
 export default function AdminPage() {
   const { setIsLogged, token } = useUser();

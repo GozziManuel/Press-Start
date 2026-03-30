@@ -45,7 +45,7 @@
 
 /* Icon gamepad */
 .icon {
-  color: #8a2be2;
+  color: (var(--viola));
 }
 .icon::before {
   transition: transform 0.2s ease;

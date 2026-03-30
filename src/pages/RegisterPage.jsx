@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { useUser } from "../contexts/UserContext";
+import "../assets/css/Login.css";
+
 export default function RegisterPage() {
   const { handleHiddenPass, hiddenPass } = useUser();
   const [isCheck, setIsCheck] = useState(false);
@@ -51,64 +53,95 @@ export default function RegisterPage() {
 
   return (
     <section className="sec-reg">
-      <div>
-        <fieldset>
-          <legend>Register</legend>
+      <div className="container-manual">
+        <fieldset className="star-crush gr-viola">
+          <legend className="fs-2">Register</legend>
           <form onSubmit={sendSubmit}>
-            <label htmlFor="user-reg">Username</label>
-            <input
-              onChange={handleNew}
-              value={newUser.username}
-              type="text"
-              id="user-reg"
-              name="username"
-              required
-            />
-            <label htmlFor="user-reg">Email</label>
-            <input
-              onChange={handleNew}
-              value={newUser.email}
-              type="email"
-              id="email-reg"
-              name="email"
-              required
-            />
-            <label htmlFor="pass-reg">Password</label>
-            {hiddenPass && (
-              <div className="pass-reg-hidden">
-                <span onClick={handleHiddenPass}>
-                  <i className="bi bi-eye"></i>
-                </span>
+            <div className="d-flex row">
+              <div className="col-md-4 col-sm-12">
+                <label htmlFor="user-reg" className=" fs-5 me-4">
+                  Username:
+                </label>
                 <input
-                  type="password"
-                  name="password"
-                  id="pass-reg-hidden"
-                  value={newUser.password}
                   onChange={handleNew}
-                  required
-                />
-              </div>
-            )}
-            {!hiddenPass && (
-              <div className="pass-reg-hidden">
-                <span onClick={handleHiddenPass}>
-                  <i className="bi bi-eye-slash"></i>
-                </span>
-                <input
+                  value={newUser.username}
                   type="text"
-                  name="password"
-                  id="pass-reg-visible"
-                  value={newUser.password}
-                  onChange={handleNew}
+                  id="user-reg"
+                  name="username"
                   required
+                  className="inputLog"
+                  placeholder="Insert Username"
                 />
               </div>
-            )}
-            <label htmlFor="privacy">
+              <div className="col-md-4 col-sm-12">
+                <label htmlFor="user-reg" className="fs-5 me-4">
+                  Email:
+                </label>
+                <input
+                  onChange={handleNew}
+                  value={newUser.email}
+                  type="email"
+                  id="email-reg"
+                  name="email"
+                  required
+                  className="inputLog"
+                  style={{ marginLeft: "39px" }}
+                  placeholder="Insert Email"
+                />
+              </div>
+              <div className="col-md-4 col-sm-12">
+                <label htmlFor="pass-reg" className="fs-5  me-4 ms-4">
+                  Password:
+                </label>
+                {hiddenPass && (
+                  <div className="pass-reg-hidden">
+                    <span onClick={handleHiddenPass}>
+                      <i className="bi bi-eye"></i>
+                    </span>
+                    <input
+                      type="password"
+                      name="password"
+                      id="pass-reg-hidden"
+                      value={newUser.password}
+                      onChange={handleNew}
+                      required
+                      className="inputLog "
+                      style={{ marginLeft: "3px" }}
+                      placeholder="Insert Password"
+                    />
+                  </div>
+                )}
+                {!hiddenPass && (
+                  <div className="pass-reg-hidden">
+                    <span onClick={handleHiddenPass}>
+                      <i className="bi bi-eye-slash"></i>
+                    </span>
+                    <input
+                      type="text"
+                      name="password"
+                      id="pass-reg-visible"
+                      value={newUser.password}
+                      onChange={handleNew}
+                      required
+                      className="inputLog"
+                      placeholder="Insert Password"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+            <label htmlFor="privacy" className="text byte-bounce fs-5 me-4">
               {" "}
               Dichiaro di aver letto e di accettare i{" "}
-              <a href="#">Termini di servizio</a> e l'
-              <a href="#">informativa sulla privacy</a> di press Start
+              <a href="#" className="gr-viola text-decoration-underline">
+                {" "}
+                Termini di servizio
+              </a>{" "}
+              e {""}
+              <a href="#" className="gr-viola text-decoration-underline">
+                l'informativa sulla privacy
+              </a>{" "}
+              di press Start
             </label>
             <input
               onChange={handleNew}
@@ -116,7 +149,8 @@ export default function RegisterPage() {
               id="privacy"
               name="check"
             />
-            <button>send</button>
+            <br />
+            <button className="button primary buttonLogin">Send</button>
           </form>
         </fieldset>
         {isCheck && (

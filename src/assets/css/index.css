@@ -2,6 +2,7 @@
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
   --bg-viola: #111827;
   --viola: #8a2be2;
+  --light-blue: #00bfff;
 }
 :root[data-theme="light"] {
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
@@ -77,70 +78,6 @@ body {
 }
 .glowing {
   text-shadow: 0 0 10px #8a2be24d;
-}
-
-/* REGISTER */
-
-.pass-reg-hidden {
-  position: relative;
-  display: inline;
-}
-
-.pass-reg-hidden > span {
-  cursor: pointer;
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 5%;
-}
-
-.check-terms {
-  margin-top: 20px;
-  border-radius: 8px;
-  position: relative;
-  height: 100px;
-  background-color: rgb(247, 112, 112);
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sec-reg .bi.bi-file-x-fill {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  right: 10px;
-  font-size: 30px;
-}
-
-/* ADMIN PANEL */
-
-.list-all-user {
-  display: flex;
-  gap: 20px;
-}
-
-.arrow-list-all-user {
-  cursor: pointer;
-}
-
-.li-all-user {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-}
-
-.delete-user {
-  cursor: pointer;
-  background-color: red;
-  color: white;
-  padding: 2px;
-  border-radius: 8px;
-}
-.container-manual {
-  padding-left: 100px;
-  padding-right: 100px;
 }
 
 /* TEMA  TESTO*/
