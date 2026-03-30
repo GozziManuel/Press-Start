@@ -1,8 +1,9 @@
 import { NavLink } from "react-router";
 import ThemeToggle from "./ThemeToggle";
+import { useUser } from "../contexts/UserContext";
 import "../assets/css/navbar.css";
-
 export default function Navbar() {
+  const { userInfo, isLogged, setIsLogged, token } = useUser();
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-viola nav-separator pb-0">
@@ -17,17 +18,20 @@ export default function Navbar() {
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-            aria-label="Toggle navigation"></button>
+            aria-label="Toggle navigation"
+          ></button>
           <div
             className="collapse navbar-collapse "
-            id="navbarSupportedContent">
+            id="navbarSupportedContent"
+          >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink
                   to="/Products"
                   className="nav-link star-crush"
                   aria-current="page"
-                  id="nav-link">
+                  id="nav-link"
+                >
                   Viaggia nel tempo!
                 </NavLink>
               </li>
@@ -35,10 +39,48 @@ export default function Navbar() {
                 <NavLink
                   to="/About-us"
                   className="nav-link star-crush "
-                  id="nav-link">
+                  id="nav-link"
+                >
                   About Us
                 </NavLink>
               </li>
+              {isLogged && userInfo.role_id != 1 && (
+                <>
+                  <li className="nav-item">
+                    <NavLink
+                      to={"/user/" + userInfo.username}
+                      className="nav-link star-crush "
+                      id="nav-link"
+                    >
+                      User
+                    </NavLink>
+                  </li>
+                </>
+              )}
+              {!isLogged && (
+                <li className="nav-item">
+                  <NavLink
+                    to="/login"
+                    className="nav-link star-crush "
+                    id="nav-link"
+                  >
+                    Login
+                  </NavLink>
+                </li>
+              )}
+              {isLogged && userInfo.role_id === 1 && (
+                <>
+                  <li className="nav-item">
+                    <NavLink
+                      to="/admin"
+                      className="nav-link star-crush "
+                      id="nav-link"
+                    >
+                      Admin
+                    </NavLink>
+                  </li>
+                </>
+              )}
               <li className="nav-item">
                 <ThemeToggle />
               </li>
