@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { useUser } from "../contexts/UserContext";
+import "../assets/css/Login.css";
 
 export default function LoginPage() {
   const { setterLogged, setterUser } = useUser();
@@ -51,19 +52,30 @@ export default function LoginPage() {
   return (
     <main>
       <section className="sec-login">
-        <div className="div-login">
+        <div className="div-login container-manual">
           <fieldset>
-            <legend>Login</legend>
+            <legend className="star-crush gr-viola fs-2">Login</legend>
             <form onSubmit={handleSubmit}>
-              <label htmlFor="username">Username</label>
+              <label
+                htmlFor="username"
+                className="star-crush gr-viola pe-4 fs-5"
+              >
+                Username:
+              </label>
               <input
                 value={user.username}
                 onChange={handleuser}
                 type="text"
                 id="username"
                 name="username"
+                className="me-5"
               />
-              <label htmlFor="password">Password</label>
+              <label
+                htmlFor="password"
+                className="star-crush gr-viola pe-4 fs-5"
+              >
+                Password:
+              </label>
               <input
                 value={user.password}
                 onChange={handleuser}
@@ -71,10 +83,15 @@ export default function LoginPage() {
                 name="password"
                 id="password"
               />
-              <button>Login</button>
+              <button className="button secondary ms-5 byte-bounce buttonLogin text">
+                Login
+              </button>
               <div>
-                <span>
-                  You need an account? <Link to="/register">Register Now</Link>
+                <span className="byte-bounce text fs-5">
+                  You need an account?{" "}
+                  <Link to="/register" className="registerButton">
+                    Register Now
+                  </Link>
                 </span>
               </div>
             </form>
