@@ -46,7 +46,6 @@ a {
 
 body {
   background-color: var(--bg-viola);
-  overflow: hidden;
 }
 
 /* Util */
@@ -73,9 +72,6 @@ body {
 }
 
 .separator {
-  width: 100vw;
-  right: 100%;
-  position: relative;
   color: rgba(29, 31, 60);
   opacity: 100%;
 }
@@ -141,4 +137,40 @@ body {
   color: white;
   padding: 2px;
   border-radius: 8px;
+.container-manual {
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+/* TEMA  TESTO*/
+[data-theme="dark"] .text {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+[data-theme="light"] .text {
+  color: black;
+}
+.floating:hover {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* MEDIA */
+@media only screen and (max-width: 992px) {
+  .container-manual {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* Keyframes */
+@keyframes float {
+  0% {
+    transform: translatey(0px);
+  }
+  50% {
+    transform: translatey(-4px);
+  }
+  100% {
+    transform: translatey(0px);
+  }
 }

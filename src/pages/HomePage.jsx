@@ -1,3 +1,4 @@
+import { NavLink } from "react-router";
 import GameCard from "../components/GameCard";
 
 export default function HomePage() {
@@ -12,11 +13,17 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="py-3 byte-bounce gr-viola">
-        <p className="glowing" style={{ fontSize: "60px" }}>
-          Compra e Gioca Giochi Retro.
-        </p>
-        <p style={{ fontSize: "30px" }}>
+      <div className="py-3 star-crush gr-viola container-manual">
+        <div>
+          <p className="glowing" style={{ fontSize: "60px" }}>
+            Compra e Gioca Giochi Retro.
+          </p>
+        </div>
+        <p
+          style={{ fontSize: "30px", maxWidth: "650px" }}
+          className="byte-bounce text"
+          id="text"
+        >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
           reiciendis similique fugit doloremque qui, eos vero ipsam dignissimos
           eveniet aspernatur, minima cumque atque soluta. Ad laborum alias sint
@@ -24,8 +31,10 @@ export default function HomePage() {
         </p>
       </div>
       <hr className="separator" />
-      <div className="py-3 byte-bounce gr-viola">
-        <p style={{ fontSize: "30px" }}>Lista Giochi:</p>
+      <div className="py-3 byte-bounce gr-viola container-manual">
+        <p style={{ fontSize: "30px" }} className="star-crush">
+          Un piccolo assaggio:
+        </p>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-6 g-3">
           {fakeData.map((data, id) => (
             <div className="col" key={id}>
@@ -33,6 +42,9 @@ export default function HomePage() {
             </div>
           ))}
         </div>
+        <NavLink to={"/Products "} className="fs-3 w-0 seeMore">
+          See More...
+        </NavLink>
       </div>
     </>
   );

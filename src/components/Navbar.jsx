@@ -6,7 +6,7 @@ export default function Navbar() {
   const { userInfo, isLogged, setIsLogged, token } = useUser();
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-viola nav-separator pb-0">
+      <nav className="navbar navbar-expand-lg bg-viola nav-separator pb-0 container-manual">
         <div className="container-fluid">
           <NavLink to={"/"} className=" nav-title star-crush gr-viola pb-0">
             Press Start
@@ -20,6 +20,22 @@ export default function Navbar() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           ></button>
+          <div className="function">
+            <button
+              className="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+              id="navbar-toggler"
+            >
+              <span className="navbar-toggler-icon " id="nav-toggler"></span>
+            </button>
+            <ThemeToggle />
+          </div>
+
           <div
             className="collapse navbar-collapse "
             id="navbarSupportedContent"

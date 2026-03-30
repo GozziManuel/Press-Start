@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-const SunIcon = () => <i class="bi bi-brightness-high-fill"></i>;
-const MoonIcon = () => <i class="bi bi-moon"></i>;
+const SunIcon = () => <i className="bi bi-brightness-high-fill"></i>;
+const MoonIcon = () => <i className="bi bi-moon"></i>;
 
 export default function ThemeToggle() {
   const [dark, setDark] = useState(() => {
@@ -15,6 +15,7 @@ export default function ThemeToggle() {
       "data-theme",
       dark ? "dark" : "light",
     );
+
     localStorage.setItem("theme", dark ? "dark" : "light");
   }, [dark]);
 
@@ -32,7 +33,8 @@ export default function ThemeToggle() {
         alignItems: "center",
         justifyContent: "center",
         transition: "background 0.2s, transform 0.15s",
-      }}>
+      }}
+    >
       {dark ? <SunIcon /> : <MoonIcon />}
     </button>
   );
