@@ -1,9 +1,9 @@
 import { NavLink } from "react-router";
 import ThemeToggle from "./ThemeToggle";
-import { useUser } from "../contexts/UserContext";
+// import { useUser } from "../contexts/UserContext";
 import "../assets/css/navbar.css";
 export default function Navbar() {
-  const { userInfo, isLogged, setIsLogged, token } = useUser();
+  // const { userInfo, isLogged, setIsLogged, token } = useUser();
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-viola nav-separator pb-0 container-manual">
@@ -18,8 +18,7 @@ export default function Navbar() {
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-            aria-label="Toggle navigation"
-          ></button>
+            aria-label="Toggle navigation"></button>
           <div className="function">
             <button
               className="navbar-toggler"
@@ -29,25 +28,22 @@ export default function Navbar() {
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"
-              id="navbar-toggler"
-            >
-              <span className="navbar-toggler-icon " id="nav-toggler"></span>
+              id="navbar-toggler">
+              <span className="navbar-toggler-icon" id="nav-toggler"></span>
             </button>
             <ThemeToggle />
           </div>
 
           <div
             className="collapse navbar-collapse "
-            id="navbarSupportedContent"
-          >
+            id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink
                   to="/Products"
                   className="nav-link star-crush"
                   aria-current="page"
-                  id="nav-link"
-                >
+                  id="nav-link">
                   Viaggia nel tempo!
                 </NavLink>
               </li>
@@ -55,12 +51,11 @@ export default function Navbar() {
                 <NavLink
                   to="/About-us"
                   className="nav-link star-crush "
-                  id="nav-link"
-                >
+                  id="nav-link">
                   About Us
                 </NavLink>
               </li>
-              {isLogged && userInfo.role_id != 1 && (
+              {/* {isLogged && userInfo.role_id != 1 && (
                 <>
                   <li className="nav-item">
                     <NavLink
@@ -72,8 +67,8 @@ export default function Navbar() {
                     </NavLink>
                   </li>
                 </>
-              )}
-              {!isLogged && (
+              )} */}
+              {/* {!isLogged && (
                 <li className="nav-item">
                   <NavLink
                     to="/login"
@@ -83,8 +78,8 @@ export default function Navbar() {
                     Login
                   </NavLink>
                 </li>
-              )}
-              {isLogged && userInfo.role_id === 1 && (
+              )} */}
+              {/* {isLogged && userInfo.role_id === 1 && (
                 <>
                   <li className="nav-item">
                     <NavLink
@@ -96,7 +91,7 @@ export default function Navbar() {
                     </NavLink>
                   </li>
                 </>
-              )}
+              )} */}
             </ul>
           </div>
         </div>
