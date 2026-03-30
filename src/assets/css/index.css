@@ -3,19 +3,17 @@
   --viola: #8a2be2;
   --white: #ffffff;
   --gray: #cccccc;
+  --black: #000000;
+  --danger: rgb(247, 112, 112);
 }
 :root[data-theme="dark"] {
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
   --bg-viola: #111827;
   --viola: #8a2be2;
   --light-blue: #00bfff;
-  --danger: rgb(247, 112, 112);
 }
 :root[data-theme="light"] {
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
-  --white: #ffffff;
-  --viola: #8a2be2;
-  --black: black;
   --glowing-primary: #8a2be24d;
   --text-primary: #000000;
   --separator-primary: #999999;

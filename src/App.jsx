@@ -1,26 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router";
-import { UserProvider } from "./contexts/UserContext";
-
-// Template
 import DefaultTemplate from "./template/DefaultTemplate";
-
-// Pages
 import HomePage from "./pages/HomePage";
 import ProductsListPage from "./pages/ProductsListPage";
 import AboutUs from "./pages/AboutUs";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import NotFoundPage from "./pages/NotFoundPage";
-
-// import AuthRoute from "./components/AuthRoute";
-// import AdminRoute from "./components/AdminRoute";
-// import UserPage from "./pages/UserPage";
-// import AdminPage from "./pages/AdminPage";
+import AuthRoute from "./components/AuthRoute";
+import AdminRoute from "./components/AdminRoute";
+import UserPage from "./pages/UserPage";
+import AdminPage from "./pages/AdminPage";
+import { UserProvider } from "./contexts/UserContext";
 
 // Fonts
 import "./assets/fonts/ByteBounce.ttf";
 import "./assets/fonts/star-crush.regular.ttf";
-
 // Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
@@ -39,12 +32,11 @@ export default function App() {
             <Route path="/Products" Component={ProductsListPage}>
               <Route index Component={ProductsListPage} />
             </Route>
-            <Route path="/About-us" Component={AboutUs} />
-            <Route path="/login" element={LoginPage} />
-            <Route path="/register" element={RegisterPage} />
-            <Route path="*" Component={NotFoundPage} />
+            <Route path="/About-us" Component={AboutUs}></Route>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
 
-            {/* <Route
+            <Route
               path="/user/:username"
               element={
                 <AuthRoute>
@@ -59,7 +51,7 @@ export default function App() {
                 <AdminPage />
                 // {/* </AdminRoute> */}
               }
-            /> */}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
