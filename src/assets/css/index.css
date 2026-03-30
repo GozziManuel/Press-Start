@@ -3,11 +3,13 @@
   --bg-viola: #111827;
   --viola: #8a2be2;
   --light-blue: #00bfff;
+  --danger: rgb(247, 112, 112);
 }
 :root[data-theme="light"] {
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
-  --bg-viola: #ffffff;
+  --white: #ffffff;
   --viola: #8a2be2;
+  --black: black;
 }
 
 /* Fonts */

@@ -5,7 +5,7 @@
   color: var(--light-blue);
 }
 .inputLog {
-  border: solid black 1px;
+  border: solid 1px var(--black);
   width: 150px;
   padding: 5px;
   position: relative;
@@ -29,7 +29,7 @@
 .check-terms {
   position: relative;
   height: 70px;
-  background-color: rgb(247, 112, 112);
+  background-color: var(--danger);
   padding: 10px;
   width: 400px;
   display: flex;
@@ -64,8 +64,8 @@
 
 .delete-user {
   cursor: pointer;
-  background-color: red;
-  color: white;
+  background-color: var(--danger);
+  color: var(--white);
   padding: 2px;
   border-radius: 8px;
 }

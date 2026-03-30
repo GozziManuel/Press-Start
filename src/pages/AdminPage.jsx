@@ -46,7 +46,7 @@ export default function AdminPage() {
   return (
     <>
       <h1>Admin Panel</h1>
-      <div className="list-all-user">
+      <div className="list-all-user container-manual">
         <div>List all users</div>
         <div
           className="arrow-list-all-user"
@@ -59,7 +59,7 @@ export default function AdminPage() {
           ></i>
         </div>
         {seeAllUser && (
-          <div>
+          <div className="">
             <ul>
               {allUser.map((el) => {
                 return (
