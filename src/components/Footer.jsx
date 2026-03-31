@@ -21,7 +21,7 @@ export default function Footer() {
             noi? Il nostro team é sempre pronto ad aiutarti.
           </p>
           <p className="text byte-bounce fs-4" id="email">
-            support@retrogamehub.com
+            support@pressstart.com
           </p>
         </div>
       </div>
