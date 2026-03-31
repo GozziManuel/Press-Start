@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import "../assets/css/games.css";
 
 export default function GameCard({ data }) {
   return (
