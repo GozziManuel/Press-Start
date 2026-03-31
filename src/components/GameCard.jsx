@@ -9,12 +9,13 @@ export default function GameCard({ data }) {
           src={data.image}
           className="card-img-top"
           alt="img"
-          style={{ minHeight: "120px" }}></img>
+          style={{ height: "300px" }}
+        ></img>
         <div className="card-body">
-          <h5 className="card-title" style={{ fontSize: "50px" }}>
+          <h5 className="card-title" style={{ fontSize: "30px" }}>
             {data.name}
           </h5>
-          <p style={{ fontSize: "30px" }}>{data.price}</p>
+          <p style={{ fontSize: "30px" }}>{data.price}&#8364;</p>
         </div>
       </div>
     </Link>
