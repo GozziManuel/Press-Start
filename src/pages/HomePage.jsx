@@ -8,6 +8,8 @@ export default function HomePage() {
 
   const fetchData = () => {
     axios.get(`http://localhost:3000/products`).then((res) => {
+      console.log(res.data.result);
+
       setProducts(res.data.result.slice(0, 6));
     });
   };
@@ -25,7 +27,8 @@ export default function HomePage() {
         <p
           style={{ fontSize: "30px", maxWidth: "650px" }}
           className="byte-bounce text"
-          id="text">
+          id="text"
+        >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
           reiciendis similique fugit doloremque qui, eos vero ipsam dignissimos
           eveniet aspernatur, minima cumque atque soluta. Ad laborum alias sint
