@@ -4,11 +4,15 @@ import axios from "axios";
 import GameCard from "../components/GameCard";
 
 export default function HomePage() {
-  const [products, setProducts] = useState([]);
+  const [famoustProducts, setFamousProducts] = useState([]);
+  const [recentProducts, setRecentProducts] = useState([]);
 
   const fetchData = () => {
-    axios.get(`http://localhost:3000/products`).then((res) => {
-      setProducts(res.data.result.slice(0, 6));
+    axios.get(`http://localhost:3000/products/famous`).then((res) => {
+      setFamousProducts(res.data.result.slice(0, 6));
+    });
+    axios.get(`http://localhost:3000/products/recent`).then((res) => {
+      setRecentProducts(res.data.result.slice(0, 6));
     });
   };
 
@@ -38,7 +42,7 @@ export default function HomePage() {
           I Più Venduti:
         </p>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-6 g-3">
-          {products.map((data, id) => (
+          {famoustProducts.map((data, id) => (
             <div className="col" key={id}>
               <GameCard data={data} />
             </div>
@@ -53,7 +57,7 @@ export default function HomePage() {
           Ultimi Aggiunti:
         </p>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-6 g-3">
-          {products.map((data, id) => (
+          {recentProducts.map((data, id) => (
             <div className="col" key={id}>
               <GameCard data={data} />
             </div>
