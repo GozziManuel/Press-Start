@@ -14,7 +14,9 @@
   text-decoration: none;
   font-size: 18px;
   letter-spacing: 1px;
-  color: var(--light-blue);
+  background: var(--gr-viola);
+  background-clip: text;
+  color: transparent;
 }
 
 #nav-link:hover {

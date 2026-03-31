@@ -12,11 +12,10 @@
   --bg-viola: #111827;
   --viola: #8a2be2;
   --text-primary: #ffffff;
-  --light-blue: #00bfff;
 }
 :root[data-theme="light"] {
   --bg-primary: #e4e4e4;
-  --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
+  --gr-viola: linear-gradient(90deg, #6e00d4, #0694c4);
   --glowing-primary: #8a2be24d;
   --text-primary: #292929;
   --separator-primary: #999999;
