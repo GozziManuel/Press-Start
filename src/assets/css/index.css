@@ -4,7 +4,7 @@
   --white: #ffffff;
   --gray: #cccccc;
   --black: #000000;
-  --danger: rgb(247, 112, 112);
+  --danger: #f77070;
 }
 :root[data-theme="dark"] {
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
@@ -16,7 +16,7 @@
 :root[data-theme="light"] {
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
   --glowing-primary: #8a2be24d;
-  --text-primary: #000000;
+  --text-primary: #292929;
   --separator-primary: #999999;
 }
 

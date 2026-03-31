@@ -7,11 +7,11 @@ export default function AboutUs() {
       <div className="py-3 byte-bounce gr-viola container-manual">
         <section className="hero pb-5">
           <h1 className="star-crush">
-            Press Start e torna nell’epoca d’oro del gaming
+            Press Start e torna nell'epoca d'oro del gaming
           </h1>
           <p className="fs-4 text">
             Rivivi i grandi classici, scopri titoli senza tempo e immergiti in
-            un’esperienza retro con un tocco moderno.
+            un'esperienza retro con un tocco moderno.
           </p>
 
           <div className="hero-buttons">
