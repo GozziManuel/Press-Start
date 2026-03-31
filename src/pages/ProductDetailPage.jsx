@@ -32,6 +32,16 @@ export default function ProductDetailPage() {
             alt={product.image}
             className="DetaileImage"
           />
+          <p
+            style={{
+              color: "var(--text-primary)",
+              fontSize: "40px",
+              margin: "0",
+            }}
+          >
+            {product.price}{" "}
+            <span style={{ fontFamily: "star-crush" }}>&euro;</span>
+          </p>
         </div>
         <div className="col-sm-8 col-12 col-lg-9">
           <h3>Short Description</h3>
