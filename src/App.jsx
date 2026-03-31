@@ -31,7 +31,7 @@ export default function App() {
           <Route Component={DefaultTemplate}>
             <Route index Component={HomePage} />
             <Route path="/Products" Component={ProductsListPage} />
-            <Route path="/Products/:id" Component={ProductDetailPage} />
+            <Route path="/Products/:slug" Component={ProductDetailPage} />
             <Route path="/About-us" Component={AboutUs} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
