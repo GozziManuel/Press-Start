@@ -1,21 +1,25 @@
 import { Link } from "react-router";
-import "../assets/css/games.css";
+import "../assets/css/gameCard.css";
 
 export default function GameCard({ data }) {
   return (
-    <Link to={"/Products/" + data.id}>
-      <div className="card h-100">
+    <Link to={"/Products/" + data.slug}>
+      <div className="card h-100" style={{}}>
         <img
           src={data.image}
           className="card-img-top"
           alt="img"
-          style={{ height: "300px" }}
+          style={{ height: "35vh" }}
         ></img>
         <div className="card-body">
           <h5 className="card-title" style={{ fontSize: "30px" }}>
             {data.name}
           </h5>
-          <p style={{ fontSize: "30px" }}>{data.price}&#8364;</p>
+          <hr className="my-0" />
+          <p style={{ fontSize: "30px" }}>
+            {data.price} {""}
+            <span style={{ fontFamily: "star-crush" }}>&euro;</span>
+          </p>
         </div>
       </div>
     </Link>

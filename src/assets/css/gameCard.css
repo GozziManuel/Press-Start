@@ -1,0 +1,13 @@
+.card {
+  border-radius: 0;
+  background-color: var(--bg-card) !important;
+  box-shadow: 5px 5px 10px var(--black);
+  transition: transform 0.1s;
+  color: var(--text-primary) !important;
+}
+#card-title {
+  font-size: 30px;
+}
+.card:hover {
+  transform: translate(-2px, -2px);
+}
