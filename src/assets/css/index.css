@@ -7,6 +7,7 @@
   --danger: #f77070;
 }
 :root[data-theme="dark"] {
+  --bg-primary: #111827;
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
   --bg-viola: #111827;
   --viola: #8a2be2;
@@ -14,6 +15,7 @@
   --light-blue: #00bfff;
 }
 :root[data-theme="light"] {
+  --bg-primary: #e4e4e4;
   --gr-viola: linear-gradient(90deg, #8a2be2, #00bfff);
   --glowing-primary: #8a2be24d;
   --text-primary: #292929;
@@ -56,7 +58,7 @@ a {
 }
 
 body {
-  background-color: var(--bg-viola);
+  background-color: var(--bg-primary);
 }
 
 /* Util */
