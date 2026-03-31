@@ -3,7 +3,7 @@ import "../assets/css/games.css";
 
 export default function GameCard({ data }) {
   return (
-    <Link to={"/products/" + data.id}>
+    <Link to={"/Products/" + data.id}>
       <div className="card h-100">
         <img
           src={data.image}

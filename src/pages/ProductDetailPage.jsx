@@ -7,7 +7,7 @@ export default function ProductDetailPage() {
 
   const fetchData = () => {
     axios.get(`http://localhost:3000/products/` + id).then((res) => {
-      setProducts(res.data.result.slice(0, 6));
+      console.log(res.data.result);
     });
   };
 
