@@ -41,6 +41,25 @@ export default function HomePage() {
 
             {/* DESTRA */}
             <div className="col-lg-6 d-none d-lg-block text-center position-relative hero-graphic-container">
+              {/* Logo PlayStation */}
+              <img
+                src="/playstation-dark-blue.png"
+                className="icon-deco ps-icon"
+                alt="PS Logo"
+              />
+
+              {/* Logo Nintendo */}
+              <img
+                src="/nintendo-orange.png"
+                className="icon-deco nintendo-icon"
+                alt="Nintendo Logo"
+              />
+              {/* Logo Sega */}
+              <img
+                src="/sega-red.png"
+                className="icon-deco sega-icon"
+                alt="Nintendo Logo"
+              />
               <img
                 src="/controller-2.png"
                 alt="Hero Icon"
