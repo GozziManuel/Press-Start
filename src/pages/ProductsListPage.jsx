@@ -17,11 +17,11 @@ export default function ProductsListPage() {
       nome: "Price",
     },
     {
-      value: "Promo",
-      nome: "Promo",
+      value: "discount_value",
+      nome: "Discounted",
     },
     {
-      value: "Last",
+      value: "created_at",
       nome: "Last",
     },
   ];
