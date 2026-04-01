@@ -20,22 +20,37 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="py-3 star-crush container-manual">
-        <div>
-          <p className="glowing gr-viola" style={{ fontSize: "60px" }}>
-            Compra e Gioca Giochi Retro.
-          </p>
+      <div className="hero-full-width">
+        {" "}
+        {/* contenitore per lo sfondo */}
+        <div className="container-manual py-5">
+          <div className="row align-items-center min-vh-75">
+            {/* SINISTRA */}
+            <div className="col-lg-6 hero-text-box">
+              <h1 className="star-crush glowing gr-viola display-1 mb-3">
+                COMPRA E GIOCA <br /> GIOCHI RETRO.
+              </h1>
+              <p className="byte-bounce text fs-2 mb-5">
+                La più grande collezione di classici 8-bit e 16-bit. <br />
+                Recupera i titoli che hanno fatto la storia del gaming.
+              </p>
+              <NavLink to="/Products" className="btn-gaming star-crush">
+                EXPLORE NOW
+              </NavLink>
+            </div>
+
+            {/* DESTRA */}
+            <div className="col-lg-6 d-none d-lg-block text-center position-relative hero-graphic-container">
+              <img
+                src="/controller-2.png"
+                alt="Hero Icon"
+                className="img-fluid hero-main-img"
+              />
+            </div>
+          </div>
         </div>
-        <p
-          style={{ fontSize: "30px", maxWidth: "650px" }}
-          className="byte-bounce text"
-          id="text">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor
-          reiciendis similique fugit doloremque qui, eos vero ipsam dignissimos
-          eveniet aspernatur, minima cumque atque soluta. Ad laborum alias sint
-          dolores nobis.
-        </p>
       </div>
+
       <hr className="separator" />
       <div className="py-3 byte-bounce gr-viola container-manual">
         <p style={{ fontSize: "30px" }} className="star-crush">
