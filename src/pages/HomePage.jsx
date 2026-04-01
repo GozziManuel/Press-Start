@@ -67,6 +67,11 @@ export default function HomePage() {
                 alt="Nintendo Logo"
               />
               <img
+                src="/arcadeggg2-removebg.png"
+                className="icon-deco arcade-icon"
+                alt="Arcade Logo"
+              />
+              <img
                 src="/controller-2.png"
                 alt="Hero Icon"
                 className="img-fluid hero-main-img"
