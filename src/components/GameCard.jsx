@@ -7,7 +7,7 @@ export default function GameCard({ data }) {
       <div className="card h-100" style={{}}>
         <img
           src={data.image}
-          className="card-img-top"
+          className="card-img-top cardImage"
           alt="img"
           style={{ height: "35vh" }}
         ></img>
