@@ -2,9 +2,8 @@ import { Link } from "react-router";
 import "../assets/css/gameCard.css";
 
 export default function GameCard({ data }) {
-  const priceNumber = parseFloat(data?.price);
-  const discountRaw = data?.discount_value;
-  const discountNumber = parseFloat(discountRaw) || 0;
+  const priceNumber = parseInt(data?.price);
+  const discountNumber = parseInt(data?.discount_value);
   const discountedPrice = priceNumber - discountNumber;
 
   if (isNaN(priceNumber)) {
@@ -32,9 +31,12 @@ export default function GameCard({ data }) {
             {data.price} {""}
             <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
           </p>
-          <p style={{ fontSize: "30px" }} className=" m-0">
+          <p
+            style={{ fontSize: "30px" }}
+            className=" m-0 text-center discountPrice"
+          >
             {discountedPrice.toFixed(2)} {""}
-            <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
+            <span style={{ fontFamily: "pixel-sans" }}>&euro;! </span>
           </p>
         </>
       );

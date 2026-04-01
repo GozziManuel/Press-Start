@@ -33,17 +33,6 @@ export default function ProductsListPage() {
     `${products.name}`.trim().toLowerCase().includes(search.toLowerCase()),
   );
 
-  console.log("Search term:", search);
-  console.log(
-    "All products:",
-    products.map((p) => p.name),
-  );
-  console.log(
-    "Filtered products:",
-    productList.length,
-    productList.map((p) => p.name),
-  );
-
   return (
     <div className="container-manual py-3 byte-bounce gr-viola">
       <div className="d-flex align-items-center justify-content-between row">
