@@ -92,9 +92,16 @@ body {
   text-shadow: 0 0 10px var(--glowing-primary);
 }
 
+
 /* TEMA  TESTO*/
 .text {
   color: var(--text-primary);
+}
+.fs-title {
+  font-size: 60px;
+}
+.fs-text {
+  font-size: 24px;
 }
 .floating:hover {
   animation: float 4s ease-in-out infinite;

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
-import "../assets/css/productDetaile.css";
 
 export default function ProductDetailPage() {
   const { slug } = useParams();
@@ -23,50 +22,49 @@ export default function ProductDetailPage() {
     <div className="container-manual py-3 byte-bounce gr-viola">
       <div className="d-flex justify-content-between">
         <h1 className="star-crush">{product.name}</h1>
-        <p className="m-0 studioName">{product.studio_name}</p>
       </div>
-      <div className="d-flex row">
-        <div className="col-sm-4 col-12 col-lg-3">
+      <div className="row row-cols-1 row-cols-md-2">
+        <div>
+          {/* Image */}
           <img
             src={product.image}
-            alt={product.image}
-            className="DetaileImage"
+            alt={product.name}
+            style={{ maxHeight: "600px" }}
           />
-          <p
-            style={{
-              color: "var(--text-primary)",
-              fontSize: "40px",
-              margin: "0",
-            }}
-          >
-            {product.price}{" "}
+          {/* Cost */}
+          <p className="text fs-title">
+            {product.price}
             <span style={{ fontFamily: "star-crush" }}>&euro;</span>
           </p>
         </div>
-        <div className="col-sm-8 col-12 col-lg-9">
-          <h3>Short Description</h3>
-          <p className="productDescription">{product.description}</p>
-          <div className="d-flex justify-content-between">
-            <div>
-              <h3>Genres</h3>
-              <p style={{ fontSize: "20px", color: "var(--text-primary)" }}>
-                {product.genres}
-              </p>
-            </div>
-
+        <div>
+          {/* Descrizione */}
+          <div id="description">
+            <h3>Short Description</h3>
+            <p className="text fs-text">{product.description}</p>
+          </div>
+          {/* Generi */}
+          <div id="generes">
+            <h3>Genres</h3>
+            <p className="text fs-text">{product.genres}</p>
+          </div>
+          {/* Piattaforme */}
+          <div id="platforms">
+            <h3>Platforms</h3>
             {product?.platforms?.map((el) => (
-              <div>
-                <h3>Platforms</h3>
-                <p style={{ fontSize: "20px", color: "var(--text-primary)" }}>
-                  {el.name}
-                </p>
-                <div>
-                  <h3>Platform Company</h3>
-                  <p style={{ fontSize: "20px", color: "var(--text-primary)" }}>
-                    {el.company}
-                  </p>
-                </div>
-              </div>
+              <p className="text fs-text">{el.name}</p>
+            ))}
+          </div>
+          {/* Studio */}
+          <div id="studio">
+            <h3>Developer</h3>
+            <p className="text fs-text">{product.studio_name}</p>
+          </div>
+          {/* Compagnia */}
+          <div id="company">
+            <h3>Publisher</h3>
+            {product?.platforms?.map((el) => (
+              <p className="text fs-text">{el.company}</p>
             ))}
           </div>
         </div>
