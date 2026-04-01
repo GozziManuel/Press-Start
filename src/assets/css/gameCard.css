@@ -19,4 +19,5 @@
   rotate: 346deg;
   position: relative;
   bottom: 24px;
+  animation: colorRotate 6s linear 0s infinite;
 }
