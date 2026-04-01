@@ -2,59 +2,48 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import GameCard from "../components/GameCard";
 import "../assets/css/searchBar.css";
+import options from "../data/data.js";
 export default function ProductsListPage() {
-  const options = [
-    {
-      value: "all",
-      nome: "All",
-    },
-    {
-      value: "Name",
-      nome: "Name",
-    },
-    {
-      value: "Price",
-      nome: "Price",
-    },
-    {
-      value: "discount_value",
-      nome: "Discounted",
-    },
-    {
-      value: "created_at",
-      nome: "Last",
-    },
-  ];
+  // States
   const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [select, setSelect] = useState("");
+
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
-  console.log(select);
 
   const fetchData = () => {
     if (select === "") {
-      axios.get("http://localhost:3000/products").then((res) => {
-        console.log(res.data.result);
+      axios.get("http://localhost:3000/search/order?by=all").then((res) => {
         setProducts(res.data.result);
       });
     } else
       axios
         .get(`http://localhost:3000/search/order?by=${select}`)
         .then((res) => {
-          console.log(res.data.result);
           setProducts(res.data.result);
         });
   };
-
   useEffect(fetchData, [select]);
   const productList = products.filter((products) =>
-    `${products.name}`.toLowerCase().includes(search.toLowerCase()),
+    `${products.name}`.trim().toLowerCase().includes(search.toLowerCase()),
   );
+
+  console.log("Search term:", search);
+  console.log(
+    "All products:",
+    products.map((p) => p.name),
+  );
+  console.log(
+    "Filtered products:",
+    productList.length,
+    productList.map((p) => p.name),
+  );
+
   return (
     <div className="container-manual py-3 byte-bounce gr-viola">
       <div className="d-flex align-items-center justify-content-between row">

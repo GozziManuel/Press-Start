@@ -15,7 +15,6 @@ export default function ProductDetailPage() {
       setProduct(res.data.result);
     });
   };
-
   useEffect(fetchData, []);
 
   return (
@@ -33,8 +32,8 @@ export default function ProductDetailPage() {
           />
           {/* Cost */}
           <p className="text fs-title">
-            {product.price}
-            <span style={{ fontFamily: "star-crush" }}>&euro;</span>
+            {product.price}{" "}
+            <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
           </p>
         </div>
         <div>

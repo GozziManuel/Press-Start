@@ -2,6 +2,44 @@ import { Link } from "react-router";
 import "../assets/css/gameCard.css";
 
 export default function GameCard({ data }) {
+  const priceNumber = parseFloat(data?.price);
+  const discountRaw = data?.discount_value;
+  const discountNumber = parseFloat(discountRaw) || 0;
+  const discountedPrice = priceNumber - discountNumber;
+
+  if (isNaN(priceNumber)) {
+    return <div className="card h-100 p-3 text-center">Caricamento...</div>;
+  }
+
+  const hasDiscount = discountNumber > 0;
+  const discountProduct = () => {
+    if (!hasDiscount) {
+      return (
+        <>
+          <p style={{ fontSize: "30px" }} className="m-0">
+            {data.price} {""}
+            <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
+          </p>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <p
+            style={{ fontSize: "30px" }}
+            className="text-decoration-line-through m-0"
+          >
+            {data.price} {""}
+            <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
+          </p>
+          <p style={{ fontSize: "30px" }} className=" m-0">
+            {discountedPrice.toFixed(2)} {""}
+            <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
+          </p>
+        </>
+      );
+    }
+  };
   return (
     <Link to={"/Products/" + data.slug}>
       <div className="card h-100" style={{}}>
@@ -19,10 +57,7 @@ export default function GameCard({ data }) {
             className="my-0 "
             style={{ border: "solid 2px var(--light-blue)" }}
           />
-          <p style={{ fontSize: "30px" }}>
-            {data.price} {""}
-            <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
-          </p>
+          {discountProduct()}
         </div>
       </div>
     </Link>
