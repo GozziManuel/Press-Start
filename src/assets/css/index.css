@@ -38,6 +38,12 @@
     url("../fonts/star-crush.regular.ttf") format("truetype");
   font-weight: bold;
 }
+@font-face {
+  font-family: "Pixel-Sans";
+  src:
+    local("pixel-sans"),
+    url("../fonts/PixelifySans-VariableFont_wght.ttf") format("truetype");
+}
 
 /* Reset */
 * {
@@ -68,7 +74,9 @@ body {
 .star-crush {
   font-family: "Star-Crush";
 }
-
+.pixel-sans {
+  font-family: "Pixel-Sans";
+}
 .gr-viola {
   background: var(--gr-viola);
   background-clip: text;
@@ -91,7 +99,6 @@ body {
 .glowing {
   text-shadow: 0 0 10px var(--glowing-primary);
 }
-
 
 /* TEMA  TESTO*/
 .text {
