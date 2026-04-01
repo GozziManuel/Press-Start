@@ -41,6 +41,12 @@ export default function HomePage() {
 
             {/* DESTRA */}
             <div className="col-lg-6 d-none d-lg-block text-center position-relative hero-graphic-container">
+              {/* LA GIF ANIMATA (Sfondo del portale) */}
+              <img
+                src="/Pvzw9p.gif"
+                className="hero-gif-portal"
+                alt="Energy Portal"
+              />
               {/* Logo PlayStation */}
               <img
                 src="/playstation-dark-blue.png"
