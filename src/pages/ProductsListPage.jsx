@@ -5,25 +5,40 @@ import GameCard from "../components/GameCard";
 import options from "../data/data.js";
 
 import "../assets/css/searchBar.css";
+import { useSearchParams } from "react-router";
 
 export default function ProductsListPage() {
   const { products, fetchData, setSelect, select } = useMain();
   // States
-  const [search, setSearch] = useState("");
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("search") || "");
 
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
+    const value = e.target.value;
+    setSearch(value);
+    if (value.trim() === "") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ search: value });
+    }
   };
 
   const productList = products.filter((products) =>
     `${products.name}`.trim().toLowerCase().includes(search.toLowerCase()),
   );
 
-  useEffect(fetchData, [select]);
+  useEffect(() => {
+    fetchData();
+  }, [select]);
+
+  useEffect(() => {
+    setSearch(searchParams.get("search") || "");
+  }, [searchParams]);
 
   return (
     <div className="container-manual py-3 byte-bounce gr-viola">
@@ -49,7 +64,8 @@ export default function ProductsListPage() {
             className="form-select"
             aria-label="Default select example"
             style={{ width: "100px" }}
-            onChange={handleSelect}>
+            onChange={handleSelect}
+          >
             {options.map((el) => (
               <option value={el.value} key={el.value}>
                 {el.nome}
