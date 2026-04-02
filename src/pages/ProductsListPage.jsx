@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 import { useMain } from "../contexts/MainContext.jsx";
 import axios from "axios";
 import GameCard from "../components/GameCard";
-
+// CSS
 import "../assets/css/searchBar.css";
-import { useSearchParams } from "react-router";
 
 export default function ProductsListPage() {
   // Context
   const { products } = useMain();
 
   // States
-
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [listedProducts, setListedProducts] = useState(products);
-  const [search, setSearch] = useState("");
   const [select, setSelect] = useState("all");
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
   const [advancedFilters, setAdvancedFilters] = useState({
@@ -45,6 +43,7 @@ export default function ProductsListPage() {
     const { name, value } = e.target;
     setAdvancedFilters((prev) => ({ ...prev, [name]: value }));
   };
+  
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };
@@ -72,13 +71,6 @@ export default function ProductsListPage() {
           .includes(advancedFilters.genre.toLowerCase())
       : true;
 
-  useEffect(() => {
-    fetchData();
-  }, [select]);
-
-  useEffect(() => {
-    setSearch(searchParams.get("search") || "");
-  }, [searchParams]);
     const matchesPublisher = advancedFilters.publisher
       ? product.publisher
           ?.toLowerCase()
@@ -95,11 +87,13 @@ export default function ProductsListPage() {
   });
 
   // useEffects
+  useEffect(() => {
+    setSearch(searchParams.get("search") || "");
+  }, [searchParams]);
   // Sincronizza listedProducts quando products del context cambia
   useEffect(() => {
     setListedProducts(products);
   }, [products]);
-
   // Quando select cambia, chiama fetchSelectData
   useEffect(() => {
     fetchSelectData();
