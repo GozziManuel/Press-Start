@@ -1,10 +1,58 @@
 .card {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
   border-radius: 0 !important;
   background-color: var(--bg-card) !important;
   box-shadow: 5px 5px 10px var(--black);
   transition: transform 0.1s;
   color: var(--text-primary) !important;
+  border: none !important;
+  padding: 3px; /* Questo determina lo spessore del bordo RGB */
 }
+
+/* L'arcobaleno rotante */
+.card::before {
+  content: "";
+  position: absolute;
+  z-index: -2;
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(
+    #ff0000,
+    #ff7f00,
+    #ffff00,
+    #00ff00,
+    #0000ff,
+    #4b0082,
+    #8f00ff,
+    #ff0000
+  );
+  animation: rotate-rgb 4s linear infinite;
+}
+
+/* Lo sfondo interno (copre il centro dell'arcobaleno) */
+.card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 3px; /* Spessore del bordo */
+  background: var(--bg-card);
+  border-radius: 0;
+}
+
+/* Animation rotate */
+@keyframes rotate-rgb {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 #card-title {
   font-size: 30px;
 }
