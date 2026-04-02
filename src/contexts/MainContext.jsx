@@ -4,17 +4,15 @@ import axios from "axios";
 const MainContext = createContext();
 
 export function MainProvider({ children }) {
-  const [select, setSelect] = useState("all");
-
   const [products, setProducts] = useState([]);
 
   const fetchData = () => {
-    axios.get(`http://localhost:3000/search/order?by=${select}`).then((res) => {
+    axios.get(`http://localhost:3000/products`).then((res) => {
       setProducts(res.data.result);
     });
   };
 
-  const values = { products, fetchData, setSelect, select };
+  const values = { products, fetchData };
 
   return <MainContext.Provider value={values}>{children}</MainContext.Provider>;
 }
