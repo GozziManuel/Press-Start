@@ -33,7 +33,8 @@ export default function ProductsListPage() {
         </div>
         <div
           className="d-flex align-items-center col-md-4 col-sm-12 mb-3 "
-          style={{ gap: "10px" }}>
+          style={{ gap: "10px" }}
+        >
           <p style={{ fontSize: "25px" }} className="mb-0">
             Search game:
           </p>
@@ -52,7 +53,8 @@ export default function ProductsListPage() {
             className="form-select"
             aria-label="Default select example"
             style={{ width: "100px" }}
-            onChange={handleSelect}>
+            onChange={handleSelect}
+          >
             {options.map((el, id) => (
               <option value={el.value} key={id}>
                 {el.nome}
@@ -62,7 +64,7 @@ export default function ProductsListPage() {
         </div>
       </div>
 
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-6 g-3">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-3 g-4 gx-5">
         {productList.map((data, id) => (
           <div className="col" key={id}>
             <GameCard data={data} />

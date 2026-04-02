@@ -24,18 +24,15 @@ export default function GameCard({ data }) {
     } else {
       return (
         <>
-          <p
-            style={{ fontSize: "30px" }}
-            className="text-decoration-line-through m-0">
-            {data.price} {""}
+          <div style={{ fontSize: "30px" }} className="m-0 d-flex">
+            <span className="text-decoration-line-through">{data.price} </span>
+            {""}
             <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
-          </p>
-          <p
-            style={{ fontSize: "30px" }}
-            className=" m-0 text-center discountPrice">
-            {discountedPrice.toFixed(2)}
-            <span style={{ fontFamily: "pixel-sans" }}>&euro;! </span>
-          </p>
+            <p style={{ fontSize: "30px" }} className=" m-0 discountPrice">
+              {discountedPrice.toFixed(2)}
+              <span style={{ fontFamily: "pixel-sans" }}>&euro;! </span>
+            </p>
+          </div>
         </>
       );
     }
@@ -43,11 +40,14 @@ export default function GameCard({ data }) {
   return (
     <Link to={"/products/" + data.slug}>
       <div className="card h-100" style={{}}>
-        <img
-          src={data.image}
-          className="card-img-top cardImage"
-          alt="img"
-          style={{ height: "35vh" }}></img>
+        <div className="">
+          <img
+            src={data.image}
+            className="card-img-top cardImage"
+            alt="img"
+            style={{ height: "60vh" }}
+          ></img>
+        </div>
         <div className="card-body">
           <h5 className="card-title" style={{ fontSize: "25px" }}>
             {data.name}
