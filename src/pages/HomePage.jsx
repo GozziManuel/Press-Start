@@ -8,10 +8,10 @@ export default function HomePage() {
   const [recentProducts, setRecentProducts] = useState([]);
 
   const fetchData = () => {
-    axios.get(`http://localhost:3000/products/famous`).then((res) => {
+    axios.get(`http://localhost:3000/products/u/famous`).then((res) => {
       setFamousProducts(res.data.result.slice(0, 6));
     });
-    axios.get(`http://localhost:3000/products/recent`).then((res) => {
+    axios.get(`http://localhost:3000/products/u/recent`).then((res) => {
       setRecentProducts(res.data.result.slice(0, 6));
     });
   };
