@@ -27,7 +27,7 @@ export default function HomePage() {
             {/* SINISTRA */}
             <div className="col-lg-6 hero-text-box">
               <h1 className="star-crush glowing gr-viola display-1 mb-3">
-                COMPRA E GIOCA <br /> GIOCHI RETRO.
+                COMPRA E GIOCA GIOCHI RETRO.
               </h1>
               <p className="byte-bounce text fs-2 mb-5">
                 La più grande collezione di classici 8-bit e 16-bit. <br />

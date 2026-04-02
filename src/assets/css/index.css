@@ -12,6 +12,7 @@
   --bg-viola: #111827;
   --viola: #8a2be2;
   --text-primary: #ffffff;
+  --separator-primary: #a634d3;
   --bg-card: #26365b;
 }
 :root[data-theme="light"] {
@@ -20,6 +21,7 @@
   --glowing-primary: #8a2be24d;
   --text-primary: #292929;
   --separator-primary: #999999;
+  --bg-card: #e4e4e4;
 }
 
 /* Fonts */
@@ -95,6 +97,7 @@ body {
 .separator {
   color: var(--separator-primary);
   opacity: 100%;
+  margin: 0;
 }
 .glowing {
   text-shadow: 0 0 10px var(--glowing-primary);

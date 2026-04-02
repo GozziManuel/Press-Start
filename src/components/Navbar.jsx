@@ -7,7 +7,7 @@ export default function Navbar() {
   return (
     <>
       <nav
-        className="navbar navbar-expand-lg bg-viola nav-separator pb-0 "
+        className="navbar navbar-expand-lg bg-viola nav-separator py-3"
         id="container-nav">
         <div className="container-fluid">
           <NavLink to={"/"} className=" nav-title star-crush gr-viola pb-0">
