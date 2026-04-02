@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { useMain } from "../contexts/MainContext.jsx";
 import axios from "axios";
 import GameCard from "../components/GameCard";
-import "../assets/css/searchBar.css";
 import options from "../data/data.js";
-import { useMain } from "../contexts/MainContext.jsx";
+import "../assets/css/searchBar.css";
+
 export default function ProductsListPage() {
   const { products, fetchData, setSelect, select } = useMain();
   // States

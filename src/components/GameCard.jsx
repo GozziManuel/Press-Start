@@ -26,16 +26,14 @@ export default function GameCard({ data }) {
         <>
           <p
             style={{ fontSize: "30px" }}
-            className="text-decoration-line-through m-0"
-          >
+            className="text-decoration-line-through m-0">
             {data.price} {""}
             <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
           </p>
           <p
             style={{ fontSize: "30px" }}
-            className=" m-0 text-center discountPrice"
-          >
-            {discountedPrice.toFixed(2)} {""}
+            className=" m-0 text-center discountPrice">
+            {discountedPrice.toFixed(2)}
             <span style={{ fontFamily: "pixel-sans" }}>&euro;! </span>
           </p>
         </>
@@ -43,14 +41,13 @@ export default function GameCard({ data }) {
     }
   };
   return (
-    <Link to={"/Products/" + data.slug}>
+    <Link to={"/products/" + data.slug}>
       <div className="card h-100" style={{}}>
         <img
           src={data.image}
           className="card-img-top cardImage"
           alt="img"
-          style={{ height: "35vh" }}
-        ></img>
+          style={{ height: "35vh" }}></img>
         <div className="card-body">
           <h5 className="card-title" style={{ fontSize: "25px" }}>
             {data.name}

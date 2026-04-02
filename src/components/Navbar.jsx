@@ -42,7 +42,7 @@ export default function Navbar() {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink
-                  to="/Products"
+                  to="/products"
                   className="nav-link star-crush"
                   aria-current="page"
                   id="nav-link">
@@ -51,7 +51,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <NavLink
-                  to="/About-us"
+                  to="/about-us"
                   className="nav-link star-crush "
                   id="nav-link">
                   About Us

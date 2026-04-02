@@ -21,7 +21,6 @@ export default function HomePage() {
   return (
     <>
       <div className="hero-full-width">
-        {" "}
         {/* contenitore per lo sfondo */}
         <div className="container-manual py-5">
           <div className="row align-items-center min-vh-75">
