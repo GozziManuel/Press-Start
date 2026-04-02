@@ -3,31 +3,19 @@ import axios from "axios";
 import GameCard from "../components/GameCard";
 import "../assets/css/searchBar.css";
 import options from "../data/data.js";
+import { useMain } from "../contexts/MainContext.jsx";
 export default function ProductsListPage() {
+  const { products, fetchData, setSelect, select } = useMain();
   // States
-  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
-  const [select, setSelect] = useState("");
-
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
+  fetchData();
 
-  const fetchData = () => {
-    if (select === "") {
-      axios.get("http://localhost:3000/search/order?by=all").then((res) => {
-        setProducts(res.data.result);
-      });
-    } else
-      axios
-        .get(`http://localhost:3000/search/order?by=${select}`)
-        .then((res) => {
-          setProducts(res.data.result);
-        });
-  };
   useEffect(fetchData, [select]);
   const productList = products.filter((products) =>
     `${products.name}`.trim().toLowerCase().includes(search.toLowerCase()),
