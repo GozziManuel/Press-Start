@@ -43,7 +43,7 @@ export default function ProductsListPage() {
     const { name, value } = e.target;
     setAdvancedFilters((prev) => ({ ...prev, [name]: value }));
   };
-  
+
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };
@@ -128,6 +128,7 @@ export default function ProductsListPage() {
             className="form-select"
             aria-label="Default select example"
             style={{ width: "100px" }}
+            value={select}
             onChange={handleSelect}>
             {selectOptions.map((option) => (
               <option value={option.value} key={option.value}>
@@ -190,8 +191,8 @@ export default function ProductsListPage() {
       )}
 
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-6 g-3">
-        {productList.map((data, id) => (
-          <div className="col" key={id}>
+        {productList.map((data) => (
+          <div className="col" key={data.id}>
             <GameCard data={data} />
           </div>
         ))}
