@@ -4,12 +4,16 @@ import axios from "axios";
 import GameCard from "../components/GameCard";
 
 import "../assets/css/searchBar.css";
+import { useSearchParams } from "react-router";
 
 export default function ProductsListPage() {
   // Context
   const { products } = useMain();
 
   // States
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [search, setSearch] = useState(searchParams.get("search") || "");
   const [listedProducts, setListedProducts] = useState(products);
   const [search, setSearch] = useState("");
   const [select, setSelect] = useState("all");
@@ -46,7 +50,13 @@ export default function ProductsListPage() {
   };
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
+    const value = e.target.value;
+    setSearch(value);
+    if (value.trim() === "") {
+      setSearchParams({});
+    } else {
+      setSearchParams({ search: value });
+    }
   };
 
   // Filter for Product List
@@ -62,6 +72,13 @@ export default function ProductsListPage() {
           .includes(advancedFilters.genre.toLowerCase())
       : true;
 
+  useEffect(() => {
+    fetchData();
+  }, [select]);
+
+  useEffect(() => {
+    setSearch(searchParams.get("search") || "");
+  }, [searchParams]);
     const matchesPublisher = advancedFilters.publisher
       ? product.publisher
           ?.toLowerCase()
