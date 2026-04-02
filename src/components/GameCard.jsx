@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import "../assets/css/gameCard.css";
 
-export default function GameCard({ data }) {
+export default function GameCard({ data, checked }) {
   const priceNumber = parseInt(data?.price);
   const discountNumber = parseInt(data?.discount_value);
   const discountedPrice = priceNumber - discountNumber;
@@ -39,14 +39,18 @@ export default function GameCard({ data }) {
   };
   return (
     <Link to={"/products/" + data.slug}>
-      <div className="card h-100" style={{}}>
-        <div className="">
+      <div
+        className={
+          checked === true ? "card h-100" : "card h-100 d-flex flex-row"
+        }
+      >
+        <div>
           <img
             src={data.image}
             className="card-img-top cardImage"
             alt="img"
             style={{ height: "55vh" }}
-          ></img>
+          />
         </div>
         <div className="card-body">
           <h5 className="card-title" style={{ fontSize: "25px" }}>

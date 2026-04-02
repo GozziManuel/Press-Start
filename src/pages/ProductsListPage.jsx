@@ -10,6 +10,11 @@ export default function ProductsListPage() {
   const { products, fetchData, setSelect, select } = useMain();
   // States
   const [search, setSearch] = useState("");
+  const [checked, setChecked] = useState(false);
+
+  const handleCheckValue = (e) => {
+    setChecked(e.target.checked);
+  };
 
   const handleSelect = (e) => {
     setSelect(e.target.value);
@@ -49,6 +54,7 @@ export default function ProductsListPage() {
           <p style={{ fontSize: "25px" }} className="mb-0">
             Filter By
           </p>
+
           <select
             className="form-select"
             aria-label="Default select example"
@@ -63,11 +69,34 @@ export default function ProductsListPage() {
           </select>
         </div>
       </div>
+      <div className="form-check form-switch">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="form-check"
+          //
+          checked={checked}
+          onChange={handleCheckValue}
+        />
+        <label
+          className="form-check-label"
+          style={{ color: "var(--light-blue)" }}
+        >
+          Grid mode
+        </label>
+      </div>
 
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-3 g-4 gx-5">
+      <div
+        className={`row g-4 gx-5 ${
+          checked
+            ? "row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-3"
+            : "row-cols-1"
+        }`}
+      >
         {productList.map((data, id) => (
           <div className="col" key={id}>
-            <GameCard data={data} />
+            <GameCard data={data} checked={checked} />
           </div>
         ))}
       </div>

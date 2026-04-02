@@ -92,11 +92,7 @@ body {
   border: 1px solid var(--viola);
 }
 
-.separator {
-  color: var(--bg-card);
-  border: solid 3px;
-  opacity: 100%;
-}
+
 .glowing {
   text-shadow: 0 0 10px var(--glowing-primary);
 }
