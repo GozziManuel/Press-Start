@@ -12,7 +12,7 @@
   --bg-viola: #111827;
   --viola: #8a2be2;
   --text-primary: #ffffff;
-  --bg-card: #26365b;
+  --bg-card: #2c374b;
 }
 :root[data-theme="light"] {
   --bg-primary: #e4e4e4;
@@ -93,7 +93,8 @@ body {
 }
 
 .separator {
-  color: var(--separator-primary);
+  color: var(--bg-card);
+  border: solid 3px;
   opacity: 100%;
 }
 .glowing {

@@ -85,7 +85,7 @@ export default function HomePage() {
         <p style={{ fontSize: "30px" }} className="star-crush">
           I Più Venduti:
         </p>
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-6 g-3">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-3 g-4 gx-5">
           {famoustProducts.map((data, id) => (
             <div className="col" key={id}>
               <GameCard data={data} />
@@ -100,7 +100,7 @@ export default function HomePage() {
         <p style={{ fontSize: "30px" }} className="star-crush">
           Ultimi Aggiunti:
         </p>
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-6 g-3">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-4 gx-5">
           {recentProducts.map((data, id) => (
             <div className="col" key={id}>
               <GameCard data={data} />
