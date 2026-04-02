@@ -3,24 +3,27 @@ import { useMain } from "../contexts/MainContext.jsx";
 import axios from "axios";
 import GameCard from "../components/GameCard";
 import options from "../data/data.js";
+
 import "../assets/css/searchBar.css";
 
 export default function ProductsListPage() {
   const { products, fetchData, setSelect, select } = useMain();
   // States
   const [search, setSearch] = useState("");
+
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };
+
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
-  fetchData();
 
-  useEffect(fetchData, [select]);
   const productList = products.filter((products) =>
     `${products.name}`.trim().toLowerCase().includes(search.toLowerCase()),
   );
+
+  useEffect(fetchData, [select]);
 
   return (
     <div className="container-manual py-3 byte-bounce gr-viola">
@@ -30,8 +33,7 @@ export default function ProductsListPage() {
         </div>
         <div
           className="d-flex align-items-center col-md-4 col-sm-12 mb-3 "
-          style={{ gap: "10px" }}
-        >
+          style={{ gap: "10px" }}>
           <p style={{ fontSize: "25px" }} className="mb-0">
             Search game:
           </p>
@@ -50,8 +52,7 @@ export default function ProductsListPage() {
             className="form-select"
             aria-label="Default select example"
             style={{ width: "100px" }}
-            onChange={handleSelect}
-          >
+            onChange={handleSelect}>
             {options.map((el, id) => (
               <option value={el.value} key={id}>
                 {el.nome}
