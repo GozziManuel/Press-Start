@@ -27,34 +27,31 @@ export default function ProductsListPage() {
 
   return (
     <div className="container-manual py-3 byte-bounce gr-viola">
-      <div className="d-flex align-items-center justify-content-between row">
-        <div className="col-md-4 col-sm-12">
+      <div className="align-items-center justify-content-between row row-cols-1 row-cols-md-3">
+        {/* Label */}
+        <div className="col">
           <p className="text fs-1 mb-3">Lista Giochi:</p>
         </div>
-        <div
-          className="d-flex align-items-center col-md-4 col-sm-12 mb-3 "
-          style={{ gap: "10px" }}>
-          <p style={{ fontSize: "25px" }} className="mb-0">
-            Search game:
-          </p>
+        {/* Search Bar */}
+        <div className="col">
           <input
             type="text"
-            className="search-bar"
+            className="search-bar w-100"
+            placeholder="Cerca gioco..."
             value={search}
             onChange={handleSearch}
           />
         </div>
-        <div className="col-md-3 col-sm-12 d-flex mb-3" style={{ gap: "10px" }}>
-          <p style={{ fontSize: "25px" }} className="mb-0">
-            Filter By
-          </p>
+        {/* Select */}
+        <div className="col d-flex align-items-center justify-content-end gap-3">
+          <p className="text fs-text mb-0">Filter By</p>
           <select
             className="form-select"
             aria-label="Default select example"
             style={{ width: "100px" }}
             onChange={handleSelect}>
-            {options.map((el, id) => (
-              <option value={el.value} key={id}>
+            {options.map((el) => (
+              <option value={el.value} key={el.value}>
                 {el.nome}
               </option>
             ))}
