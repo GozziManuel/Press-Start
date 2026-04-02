@@ -10,7 +10,7 @@ export default function ProductsListPage() {
   const { products, fetchData, setSelect, select } = useMain();
   // States
   const [search, setSearch] = useState("");
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
 
   const handleCheckValue = (e) => {
     setChecked(e.target.checked);
@@ -29,6 +29,7 @@ export default function ProductsListPage() {
   );
 
   useEffect(fetchData, [select]);
+  console.log(productList);
 
   return (
     <div className="container-manual py-3 byte-bounce gr-viola">

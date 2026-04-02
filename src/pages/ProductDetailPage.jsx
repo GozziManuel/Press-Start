@@ -1,68 +1,93 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router";
-import axios from "axios";
+import { useMain } from "../contexts/MainContext";
+import "../assets/css/gameCard.css";
 
 export default function ProductDetailPage() {
+  const { fetchDataDetailed, productDetailed } = useMain();
   const { slug } = useParams();
-  const [product, setProduct] = useState({});
 
-  console.log(slug);
+  useEffect(() => {
+    fetchDataDetailed(slug);
+  }, [slug]);
 
-  const fetchData = () => {
-    axios.get(`http://localhost:3000/products/` + slug).then((res) => {
-      console.log(res.data.result);
+  const priceNumber = parseInt(productDetailed?.price);
+  const discountNumber = parseInt(productDetailed?.discount_value);
+  const discountedPrice = priceNumber - discountNumber;
+  const hasDiscount = discountNumber > 0;
 
-      setProduct(res.data.result);
-    });
+  const discountProduct = () => {
+    if (!hasDiscount) {
+      return (
+        <>
+          <p className="text fs-title">
+            {productDetailed.price}{" "}
+            <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
+          </p>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div className="text fs-title d-flex">
+            <span className="text-decoration-line-through">
+              {productDetailed.price}{" "}
+            </span>
+            {""}
+            <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
+            <p className=" m-0 discountPrice ms-2">
+              {discountedPrice.toFixed(2)}
+              <span style={{ fontFamily: "pixel-sans" }}>&euro;! </span>
+            </p>
+          </div>
+        </>
+      );
+    }
   };
-  useEffect(fetchData, []);
 
   return (
     <div className="container-manual py-3 byte-bounce gr-viola">
       <div className="d-flex justify-content-between">
-        <h1 className="star-crush">{product.name}</h1>
+        <h1 className="star-crush">{productDetailed.name}</h1>
       </div>
       <div className="row row-cols-1 row-cols-md-2">
         <div>
           {/* Image */}
           <img
-            src={product.image}
-            alt={product.name}
+            src={productDetailed.image}
+            alt={productDetailed.name}
             style={{ maxHeight: "600px" }}
           />
           {/* Cost */}
-          <p className="text fs-title">
-            {product.price}{" "}
-            <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
-          </p>
+          {discountProduct()}
         </div>
         <div>
           {/* Descrizione */}
           <div id="description">
             <h3>Short Description</h3>
-            <p className="text fs-text">{product.description}</p>
+            <p className="text fs-text">{productDetailed.description}</p>
           </div>
           {/* Generi */}
           <div id="generes">
             <h3>Genres</h3>
-            <p className="text fs-text">{product.genres}</p>
+            <p className="text fs-text">{productDetailed.genres}</p>
           </div>
           {/* Piattaforme */}
           <div id="platforms">
             <h3>Platforms</h3>
-            {product?.platforms?.map((el) => (
+            {productDetailed?.platforms?.map((el) => (
               <p className="text fs-text">{el.name}</p>
             ))}
           </div>
           {/* Studio */}
           <div id="studio">
             <h3>Developer</h3>
-            <p className="text fs-text">{product.studio_name}</p>
+            <p className="text fs-text">{productDetailed.studio_name}</p>
           </div>
           {/* Compagnia */}
           <div id="company">
             <h3>Publisher</h3>
-            {product?.platforms?.map((el) => (
+            {productDetailed?.platforms?.map((el) => (
               <p className="text fs-text">{el.company}</p>
             ))}
           </div>
@@ -70,7 +95,7 @@ export default function ProductDetailPage() {
       </div>
       <div>
         <h2 className="mt-4">Reviews</h2>
-        {product?.reviews?.map((el) => (
+        {productDetailed?.reviews?.map((el) => (
           <></>
         ))}
       </div>

@@ -88,7 +88,7 @@ export default function HomePage() {
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-3 g-4 gx-5">
           {famoustProducts.map((data, id) => (
             <div className="col" key={id}>
-              <GameCard data={data} />
+              <GameCard data={data} checked={true} />
             </div>
           ))}
         </div>
@@ -103,7 +103,7 @@ export default function HomePage() {
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-4 gx-5">
           {recentProducts.map((data, id) => (
             <div className="col" key={id}>
-              <GameCard data={data} />
+              <GameCard data={data} checked={true} />
             </div>
           ))}
         </div>
