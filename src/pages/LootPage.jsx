@@ -184,7 +184,9 @@ export default function LootPage() {
             )}
             <div className="d-grid gap-2">
               <Link to={"/checkout"}>
-                <button className="btn btn-primary text">Vai alla cassa</button>
+                <button className="button primary transparent text">
+                  Vai alla cassa
+                </button>
               </Link>
             </div>
           </div>
