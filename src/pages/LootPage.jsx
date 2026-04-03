@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useMain } from "../contexts/MainContext";
+import axios from "axios";
 
 export default function LootPage() {
   const { loot, addItem, removeItem, setLoot } = useMain();
   const [finLoot, setFinLoot] = useState([]);
+  const [isCoupon, setIsCoupon] = useState(false);
   //null foto prodotto prezzo quantita totale
   const tmp = loot.reduce((ac, ce) => {
     const { name, image, price, discount_value, expedition_price, id } = ce;
@@ -48,6 +50,8 @@ export default function LootPage() {
     setFinLoot(Object.values(tmp));
   }, [loot]);
 
+  const handleCoupon = () => {};
+
   return (
     <div className="container py-5">
       <h2 className="fw-bold mb-4 text">My Loot</h2>
@@ -72,7 +76,8 @@ export default function LootPage() {
                 <button
                   className="btn btn-sm btn-outline-danger rounded-circle"
                   style={{ width: 30, height: 30, padding: 0, lineHeight: 1 }}
-                  onClick={(e) => handleRemove(e, el)}>
+                  onClick={(e) => handleRemove(e, el)}
+                >
                   ✕
                 </button>
               </div>
@@ -110,7 +115,10 @@ export default function LootPage() {
                 className="form-control"
                 placeholder="Inseriscilo qui"
               />
-              <button className="btn btn-outline-primary">
+              <button
+                onClick={handleCoupon}
+                className="btn btn-outline-primary"
+              >
                 Applica codice promozionale
               </button>
             </div>
