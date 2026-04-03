@@ -10,13 +10,14 @@ export default function Checkout() {
   return (
     <div className="checkout-wrapper">
       <div className="checkout-box">
-
         {/* Riepilogo */}
         <h2 className="star-crush gr-viola">Riepilogo</h2>
         <ul className="summary-list">
           {loot?.map((item) => (
             <li key={item.id}>
-              <span>{item.title} <small>x{item.qty}</small></span>
+              <span>
+                {item.title} <small>x{item.qty}</small>
+              </span>
               <span>€{(item.price * item.qty).toFixed(2)}</span>
             </li>
           ))}
@@ -56,7 +57,6 @@ export default function Checkout() {
         <p className="secure-note">
           <i className="bi bi-lock-fill" /> Pagamento sicuro
         </p>
-
       </div>
     </div>
   );
