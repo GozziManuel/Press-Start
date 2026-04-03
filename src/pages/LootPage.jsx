@@ -14,13 +14,15 @@ export default function LootPage() {
     ac[name] = ac[name] || {};
     ac[name].name = name;
     ac[name].quantity = (ac[name].quantity || 0) + 1;
-    ac[name].price = price;
+    ac[name].price = price - discount_value;
     ac[name].image = image;
-    ac[name].total = price * ac[name].quantity;
+    ac[name].total = ac[name].price * ac[name].quantity;
     ac[name].discount_value = discount_value;
     ac[name].expedition_price = expedition_price;
     ac[name].id = id;
-    console.log(price * ac[name].quantity);
+
+    console.log(discount_value);
+
     return ac;
   }, {});
 
@@ -112,7 +114,7 @@ export default function LootPage() {
                 />
               </div>
               <div className="col-3 fw-semibold text">{el.name}</div>
-              <div className="col-2 text">{el.price} &euro;</div>
+              <div className="col-2 text">{el.price.toFixed(2)} &euro;</div>
               <div className="col-2">
                 <input
                   type="number"
