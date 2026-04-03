@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useMain } from "../contexts/MainContext";
 import "../assets/css/gameCard.css";
+import "../assets/css/addToCart.css";
 import axios from "axios";
 
 export default function ProductDetailPage() {
@@ -85,7 +86,7 @@ export default function ProductDetailPage() {
 
           {/* Aggiungi al Carrello Button */}
           <button
-            className="button primary transparent fs-text mt-5"
+            className="buttonCart fs-text mt-5"
             onClick={handleCarrelloBtn}
           >
             Aggiungi al Carrello

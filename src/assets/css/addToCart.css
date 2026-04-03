@@ -1,0 +1,44 @@
+/* Add to cart animation */
+.buttonCart {
+  padding: 10px 20px;
+  text-decoration: none;
+  border: 2px solid var(--viola);
+  color: var(--white);
+  transition: all 0.2s ease-in-out;
+  background: transparent;
+}
+.buttonCart:hover {
+  transform: scale(1.05);
+  background: var(--viola);
+  color: var(--white);
+}
+
+/* Toast notification */
+.add-to-cart-toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--viola);
+  font-size: 14px;
+  font-weight: bold;
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+}
+
+.add-to-cart-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.add-to-cart-toast.hide {
+  opacity: 0;
+  transform: translateY(20px);
+}
