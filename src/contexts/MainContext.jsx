@@ -6,7 +6,9 @@ const MainContext = createContext();
 export function MainProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [productDetailed, setProductDetailed] = useState({});
-
+  const [isCoupon, setIsCoupon] = useState(false);
+  const [finLoot, setFinLoot] = useState([]);
+  const [totaleLoot, setTotaleLoot] = useState(null);
   const fetchData = () => {
     axios.get(`http://localhost:3000/products`).then((res) => {
       setProducts(res.data.result);
@@ -14,7 +16,6 @@ export function MainProvider({ children }) {
   };
   const fetchDataDetailed = (slug) => {
     axios.get(`http://localhost:3000/products/` + slug).then((res) => {
-      console.log(res.data.result);
       setProductDetailed(res.data.result);
     });
   };
@@ -37,6 +38,12 @@ export function MainProvider({ children }) {
   };
 
   const values = {
+    totaleLoot,
+    setTotaleLoot,
+    finLoot,
+    setFinLoot,
+    isCoupon,
+    setIsCoupon,
     products,
     fetchData,
     addItem,

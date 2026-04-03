@@ -4,9 +4,20 @@ import { useMain } from "../contexts/MainContext";
 import axios from "axios";
 
 export default function LootPage() {
-  const { loot, addItem, removeItem, setLoot } = useMain();
-  const [finLoot, setFinLoot] = useState([]);
-  const [isCoupon, setIsCoupon] = useState(false);
+  const {
+    loot,
+    addItem,
+    removeItem,
+    setLoot,
+    isCoupon,
+    setIsCoupon,
+    finLoot,
+    setFinLoot,
+    totaleLoot,
+    setTotaleLoot,
+  } = useMain();
+  // const [finLoot, setFinLoot] = useState([]);
+  // const [isCoupon, setIsCoupon] = useState(false);
   const [coupon, setCoupon] = useState("");
   //null foto prodotto prezzo quantita totale
   const tmp = loot.reduce((ac, ce) => {
@@ -23,9 +34,11 @@ export default function LootPage() {
     return ac;
   }, {});
 
-  const totaleLoot = Object.values(tmp).reduce((ac, ce) => {
-    return (ac += ce.total);
-  }, 0);
+  setTotaleLoot(
+    Object.values(tmp).reduce((ac, ce) => {
+      return (ac += ce.total);
+    }, 0),
+  );
 
   const handleQuantity = (e, elem) => {
     const { value } = e.target;
