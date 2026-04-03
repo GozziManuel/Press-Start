@@ -20,6 +20,7 @@ export default function LootPage() {
     ac[name].discount_value = discount_value;
     ac[name].expedition_price = expedition_price;
     ac[name].id = id;
+    console.log(price * ac[name].quantity);
     return ac;
   }, {});
 
@@ -111,7 +112,7 @@ export default function LootPage() {
                 />
               </div>
               <div className="col-3 fw-semibold text">{el.name}</div>
-              <div className="col-2 text">€{el.price}</div>
+              <div className="col-2 text">{el.price} &euro;</div>
               <div className="col-2">
                 <input
                   type="number"
@@ -123,7 +124,9 @@ export default function LootPage() {
                   value={el.quantity}
                 />
               </div>
-              <div className="col-2 fw-semibold text">€{el.total}</div>
+              <div className="col-2 fw-semibold text">
+                {el.total.toFixed(2)} &euro;
+              </div>
             </div>
           ))}
 
@@ -158,7 +161,9 @@ export default function LootPage() {
             {!isCoupon.valid && (
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <span className="text">Totale</span>
-                <span className="fs-5 fw-bold text">€{totaleLoot}</span>
+                <span className="fs-5 fw-bold text">
+                  {totaleLoot.toFixed(2)} &euro;
+                </span>
               </div>
             )}
             {isCoupon.valid && (
