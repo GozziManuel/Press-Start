@@ -1,14 +1,17 @@
 import { NavLink } from "react-router";
 import ThemeToggle from "./ThemeToggle";
+import { useMain } from "../contexts/MainContext";
 // import { useUser } from "../contexts/UserContext";
 import "../assets/css/navbar.css";
 export default function Navbar() {
   // const { userInfo, isLogged, setIsLogged, token } = useUser();
+  const { loot } = useMain();
   return (
     <>
       <nav
         className="navbar navbar-expand-lg bg-viola nav-separator py-3"
-        id="container-nav">
+        id="container-nav"
+      >
         <div className="container-fluid">
           <NavLink to={"/"} className=" nav-title star-crush gr-viola pb-0">
             Press Start
@@ -20,7 +23,8 @@ export default function Navbar() {
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-            aria-label="Toggle navigation"></button>
+            aria-label="Toggle navigation"
+          ></button>
           <div className="function">
             <button
               className="navbar-toggler"
@@ -30,7 +34,8 @@ export default function Navbar() {
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"
-              id="navbar-toggler">
+              id="navbar-toggler"
+            >
               <span className="navbar-toggler-icon" id="nav-toggler"></span>
             </button>
             <ThemeToggle />
@@ -38,14 +43,16 @@ export default function Navbar() {
 
           <div
             className="collapse navbar-collapse "
-            id="navbarSupportedContent">
+            id="navbarSupportedContent"
+          >
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink
                   to="/products"
                   className="nav-link star-crush"
                   aria-current="page"
-                  id="nav-link">
+                  id="nav-link"
+                >
                   I Nostri Giochi
                 </NavLink>
               </li>
@@ -53,8 +60,20 @@ export default function Navbar() {
                 <NavLink
                   to="/about-us"
                   className="nav-link star-crush "
-                  id="nav-link">
+                  id="nav-link"
+                >
                   About Us
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink
+                  to="/loot"
+                  className="nav-link star-crush "
+                  id="nav-link"
+                >
+                  <i class="bi bi-cart3">
+                    <span>({loot && loot.length})</span>
+                  </i>
                 </NavLink>
               </li>
               {/* {isLogged && userInfo.role_id != 1 && (

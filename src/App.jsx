@@ -12,6 +12,7 @@ import AuthRoute from "./components/AuthRoute";
 import AdminRoute from "./components/AdminRoute";
 import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
+import LootPage from "./pages/LootPage";
 
 // Fonts
 import "./assets/fonts/ByteBounce.ttf";
@@ -37,6 +38,7 @@ export default function App() {
               <Route path="/about-us" Component={AboutUs} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
+              <Route path="/loot" element={<LootPage />} />
 
               <Route
                 path="/user/:username"

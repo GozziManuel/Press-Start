@@ -307,6 +307,11 @@ body {
   animation: floating 6s ease-in-out infinite;
 }
 
+.loot-img {
+  width: 50px;
+  height: 100px;
+}
+
 /* Logo Sega */
 .sega-icon {
   bottom: 70%;
