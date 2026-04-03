@@ -29,8 +29,8 @@ export default function HomePage() {
               <h1 className="star-crush glowing gr-viola display-1 mb-3">
                 COMPRA E GIOCA GIOCHI RETRO.
               </h1>
-              <p className="byte-bounce text fs-2 mb-5">
-                La più grande collezione di classici 8-bit e 16-bit. <br />
+              <p className="byte-bounce fs-2 mb-5" style={{ color: "white" }}>
+                La piu' grande collezione di classici 8-bit e 16-bit. <br />
                 Recupera i titoli che hanno fatto la storia del gaming.
               </p>
               <NavLink to="/Products" className="btn-gaming star-crush">
