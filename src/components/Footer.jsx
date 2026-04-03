@@ -2,7 +2,12 @@ import "../assets/css/footer.css";
 
 export default function Footer() {
   return (
-    <>
+    <footer>
+      <img
+        src="/Mr-Pacman.png"
+        alt="Pac-Man"
+        style={{ height: "200px", translate: "50%" }}
+      />
       <hr className="separator" />
       <div className="footer row pb-0 me-0 container-manual">
         <div className="byte-bounce col-sm-12 col-md-5 mb-5">
@@ -24,11 +29,8 @@ export default function Footer() {
             support@pressstart.com
           </p>
         </div>
+        <p className="text-center text">Press Start &copy;</p>
       </div>
-      <hr className="separator" />
-      <p className=" text-center text">
-        <span className="gr-viola">Press Start &copy;</span>
-      </p>
-    </>
+    </footer>
   );
 }

@@ -1,14 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useMain } from "../contexts/MainContext";
 import "../assets/css/gameCard.css";
+import axios from "axios";
 
 export default function ProductDetailPage() {
-  const { fetchDataDetailed, productDetailed } = useMain();
+  const [product, setProduct] = useState({});
+
+  const { fetchDataDetailed, productDetailed, addItem } = useMain();
   const { slug } = useParams();
 
   useEffect(() => {
     fetchDataDetailed(slug);
+    window.scrollTo(0, 0);
   }, [slug]);
 
   const priceNumber = parseInt(productDetailed?.price);
@@ -45,11 +49,28 @@ export default function ProductDetailPage() {
     }
   };
 
+  // Fetch Data
+  const fetchSlugData = () => {
+    axios.get(`http://localhost:3000/products/` + slug).then((res) => {
+      setProduct(res.data.result);
+    });
+  };
+
+  // Handlers
+  const handleCarrelloBtn = () => {
+    addItem(product);
+  };
+
+  // useEffects
+  useEffect(fetchSlugData, []);
+
   return (
     <div className="container-manual py-3 byte-bounce gr-viola">
+      {/* Product Name */}
       <div className="d-flex justify-content-between">
         <h1 className="star-crush">{productDetailed.name}</h1>
       </div>
+      {/* Product Detail */}
       <div className="row row-cols-1 row-cols-md-2">
         <div>
           {/* Image */}
@@ -59,7 +80,16 @@ export default function ProductDetailPage() {
             style={{ maxHeight: "600px" }}
           />
           {/* Cost */}
+
           {discountProduct()}
+
+          {/* Aggiungi al Carrello Button */}
+          <button
+            className="btn btn-primary fs-text"
+            onClick={handleCarrelloBtn}
+          >
+            Aggiungi al Carrello
+          </button>
         </div>
         <div>
           {/* Descrizione */}
@@ -75,8 +105,10 @@ export default function ProductDetailPage() {
           {/* Piattaforme */}
           <div id="platforms">
             <h3>Platforms</h3>
-            {productDetailed?.platforms?.map((el) => (
-              <p className="text fs-text">{el.name}</p>
+            {product?.platforms?.map((el, id) => (
+              <p className="text fs-text" key={id}>
+                {el.name}
+              </p>
             ))}
           </div>
           {/* Studio */}
@@ -87,16 +119,19 @@ export default function ProductDetailPage() {
           {/* Compagnia */}
           <div id="company">
             <h3>Publisher</h3>
-            {productDetailed?.platforms?.map((el) => (
-              <p className="text fs-text">{el.company}</p>
+            {product?.platforms?.map((el, id) => (
+              <p className="text fs-text" key={id}>
+                {el.company}
+              </p>
             ))}
           </div>
         </div>
       </div>
+      {/* Reviews */}
       <div>
         <h2 className="mt-4">Reviews</h2>
-        {productDetailed?.reviews?.map((el) => (
-          <></>
+        {product?.reviews?.map((el, id) => (
+          <p key={id}>WIP</p>
         ))}
       </div>
     </div>

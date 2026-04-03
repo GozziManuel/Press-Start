@@ -13,6 +13,10 @@
   --viola: #8a2be2;
   --text-primary: #ffffff;
   --bg-card: #2c374b;
+  --separator-primary: #a634d3;
+  --bg-card: #26365b;
+  --bg-navbar: #090e1a;
+  --bg-footer: #090e1a;
 }
 :root[data-theme="light"] {
   --bg-primary: #e4e4e4;
@@ -20,6 +24,9 @@
   --glowing-primary: #8a2be24d;
   --text-primary: #292929;
   --separator-primary: #999999;
+  --bg-card: #e4e4e4;
+  --bg-navbar: #c9c3c3;
+  --bg-footer: #c9c3c3;
 }
 
 /* Fonts */
@@ -92,7 +99,11 @@ body {
   border: 1px solid var(--viola);
 }
 
-
+.separator {
+  color: var(--separator-primary);
+  opacity: 100%;
+  margin: 0;
+}
 .glowing {
   text-shadow: 0 0 10px var(--glowing-primary);
 }
@@ -297,6 +308,11 @@ body {
     brightness(100%) contrast(105%) drop-shadow(0 0 10px #ff8c00)
     drop-shadow(0 0 25px #ff4500);
   animation: floating 6s ease-in-out infinite;
+}
+
+.loot-img {
+  width: 50px;
+  height: 100px;
 }
 
 /* Logo Sega */

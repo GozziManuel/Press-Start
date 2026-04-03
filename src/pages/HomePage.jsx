@@ -8,10 +8,10 @@ export default function HomePage() {
   const [recentProducts, setRecentProducts] = useState([]);
 
   const fetchData = () => {
-    axios.get(`http://localhost:3000/products/famous`).then((res) => {
+    axios.get(`http://localhost:3000/products/u/famous`).then((res) => {
       setFamousProducts(res.data.result.slice(0, 6));
     });
-    axios.get(`http://localhost:3000/products/recent`).then((res) => {
+    axios.get(`http://localhost:3000/products/u/recent`).then((res) => {
       setRecentProducts(res.data.result.slice(0, 6));
     });
   };
@@ -27,7 +27,7 @@ export default function HomePage() {
             {/* SINISTRA */}
             <div className="col-lg-6 hero-text-box">
               <h1 className="star-crush glowing gr-viola display-1 mb-3">
-                COMPRA E GIOCA <br /> GIOCHI RETRO.
+                COMPRA E GIOCA GIOCHI RETRO.
               </h1>
               <p className="byte-bounce text fs-2 mb-5">
                 La più grande collezione di classici 8-bit e 16-bit. <br />
