@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useMain } from "../contexts/MainContext";
+import axios from "axios";
 
 export default function LootPage() {
   const { loot, addItem, removeItem, setLoot } = useMain();
   const [finLoot, setFinLoot] = useState([]);
+  const [isCoupon, setIsCoupon] = useState(false);
+  const [coupon, setCoupon] = useState("");
   //null foto prodotto prezzo quantita totale
   const tmp = loot.reduce((ac, ce) => {
     const { name, image, price, discount_value, expedition_price, id } = ce;
@@ -49,6 +52,19 @@ export default function LootPage() {
     setFinLoot(Object.values(tmp));
   }, [loot]);
 
+  const handleCoupon = (e) => {
+    setCoupon(e.target.value);
+  };
+
+  const handleIsCoupon = () => {
+    const forged = {
+      code: coupon,
+    };
+    axios.post("http://localhost:3000/coupon", forged).then((res) => {
+      setIsCoupon(res.data.result);
+    });
+  };
+
   return (
     <div className="container-manual py-5">
       <div className="d-flex">
@@ -81,7 +97,8 @@ export default function LootPage() {
                 <button
                   className="btn btn-sm btn-outline-danger rounded-circle"
                   style={{ width: 30, height: 30, padding: 0, lineHeight: 1 }}
-                  onClick={(e) => handleRemove(e, el)}>
+                  onClick={(e) => handleRemove(e, el)}
+                >
                   ✕
                 </button>
               </div>
@@ -118,8 +135,15 @@ export default function LootPage() {
                 type="text"
                 className="form-control"
                 placeholder="Inseriscilo qui"
+                name="coupon"
+                value={coupon}
+                onChange={handleCoupon}
               />
-              <button className="btn btn-outline-primary">
+              <button
+                onClick={handleIsCoupon}
+                className="btn btn-outline-primary"
+                disabled={coupon === ""}
+              >
                 Applica codice promozionale
               </button>
             </div>
@@ -131,10 +155,28 @@ export default function LootPage() {
           <div className="border rounded p-4">
             <h5 className="fw-bold text mb-3">Totale del tuo Loot</h5>
             <hr />
-            <div className="d-flex justify-content-between align-items-center mb-4">
-              <span className="text">Totale</span>
-              <span className="fs-5 fw-bold text">€{totaleLoot}</span>
-            </div>
+            {!isCoupon.valid && (
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <span className="text">Totale</span>
+                <span className="fs-5 fw-bold text">€{totaleLoot}</span>
+              </div>
+            )}
+            {isCoupon.valid && (
+              <div className="">
+                <div>
+                  <span className="text">Totale</span>
+                  <span className="fs-5 fw-bold text">{totaleLoot}</span>
+                </div>
+                <div>
+                  <span>Sconto</span>
+                  <span>{isCoupon.discount}</span>
+                </div>
+                <div>
+                  <span>Totale da pagare</span>
+                  <span>{totaleLoot - isCoupon.discount}</span>
+                </div>
+              </div>
+            )}
             <div className="d-grid gap-2">
               <Link to={"/checkout"}>
                 <button className="btn btn-primary text">Vai alla cassa</button>
