@@ -37,7 +37,6 @@ export function MainProvider({ children }) {
   };
 
   const values = {
-    products,
     fetchData,
     addItem,
     loot,
