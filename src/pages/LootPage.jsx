@@ -14,9 +14,10 @@ export default function LootPage() {
     ac[name] = ac[name] || {};
     ac[name].name = name;
     ac[name].quantity = (ac[name].quantity || 0) + 1;
-    ac[name].price = price - discount_value;
+    ac[name].price = parseFloat(price); // prezzo originale
+    ac[name].finalPrice = parseFloat(price) - (discount_value || 0);
+    ac[name].total = ac[name].finalPrice * ac[name].quantity;
     ac[name].image = image;
-    ac[name].total = ac[name].price * ac[name].quantity;
     ac[name].discount_value = discount_value;
     ac[name].expedition_price = expedition_price;
     ac[name].id = id;
@@ -114,7 +115,19 @@ export default function LootPage() {
                 />
               </div>
               <div className="col-3 fw-semibold text">{el.name}</div>
-              <div className="col-2 text">{el.price.toFixed(2)} &euro;</div>
+              <div className="col-2 text">
+                {el.discount_value > 0 && (
+                  <span
+                    style={{ textDecoration: "line-through", marginRight: 5 }}
+                  >
+                    {el.price.toFixed(2)} &euro;
+                  </span>
+                )}
+                <br />
+                <span className="discountCheckout">
+                  {el.finalPrice.toFixed(2)} &euro;
+                </span>
+              </div>
               <div className="col-2">
                 <input
                   type="number"

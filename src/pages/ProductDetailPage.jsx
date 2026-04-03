@@ -18,8 +18,8 @@ export default function ProductDetailPage() {
     window.scrollTo(0, 0);
   }, [slug]);
 
-  const priceNumber = parseInt(productDetailed?.price);
-  const discountNumber = parseInt(productDetailed?.discount_value);
+  const priceNumber = parseFloat(productDetailed?.price);
+  const discountNumber = parseFloat(productDetailed?.discount_value);
   const discountedPrice = priceNumber - discountNumber;
   const hasDiscount = discountNumber > 0;
 

@@ -2,8 +2,8 @@ import { Link } from "react-router";
 import "../assets/css/gameCard.css";
 
 export default function GameCard({ data, checked }) {
-  const priceNumber = parseInt(data?.price);
-  const discountNumber = parseInt(data?.discount_value);
+  const priceNumber = parseFloat(data?.price);
+  const discountNumber = parseFloat(data?.discount_value);
   const discountedPrice = priceNumber - discountNumber;
 
   if (isNaN(priceNumber)) {
