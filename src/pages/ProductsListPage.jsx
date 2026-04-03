@@ -9,9 +9,10 @@ import "../assets/css/searchBar.css";
 export default function ProductsListPage() {
   // Context
   const { products } = useMain();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // States
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [checked, setChecked] = useState(true);
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [listedProducts, setListedProducts] = useState(products);
   const [select, setSelect] = useState("all");
@@ -39,6 +40,10 @@ export default function ProductsListPage() {
   };
 
   // Handle Functions
+  const handleCheckValue = (e) => {
+    setChecked(e.target.checked);
+  };
+
   const handleAdvancedFilter = (e) => {
     const { name, value } = e.target;
     setAdvancedFilters((prev) => ({ ...prev, [name]: value }));
@@ -90,10 +95,12 @@ export default function ProductsListPage() {
   useEffect(() => {
     setSearch(searchParams.get("search") || "");
   }, [searchParams]);
+
   // Sincronizza listedProducts quando products del context cambia
   useEffect(() => {
     setListedProducts(products);
   }, [products]);
+
   // Quando select cambia, chiama fetchSelectData
   useEffect(() => {
     fetchSelectData();
@@ -117,7 +124,8 @@ export default function ProductsListPage() {
           />
           <a
             className="fs-5 mb-3 gr-viola"
-            onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}>
+            onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
+          >
             Ricerca Avanzata
           </a>
         </div>
@@ -129,7 +137,8 @@ export default function ProductsListPage() {
             aria-label="Default select example"
             style={{ width: "100px" }}
             value={select}
-            onChange={handleSelect}>
+            onChange={handleSelect}
+          >
             {selectOptions.map((option) => (
               <option value={option.value} key={option.value}>
                 {option.nome}
@@ -138,6 +147,23 @@ export default function ProductsListPage() {
           </select>
         </div>
       </div>
+      <div className="form-check form-switch">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="form-check"
+          checked={checked}
+          onChange={handleCheckValue}
+        />
+        <label
+          className="form-check-label"
+          style={{ color: "var(--light-blue)" }}
+        >
+          Grid mode
+        </label>
+      </div>
+
       {/* Advanced Search */}
       {showAdvancedSearch && (
         <div className="card p-4 mb-4">
@@ -184,16 +210,23 @@ export default function ProductsListPage() {
             className="btn btn-primary mt-2 fs-text"
             onClick={() =>
               setAdvancedFilters({ genre: "", publisher: "", platform: "" })
-            }>
+            }
+          >
             Reset Filtri
           </button>
         </div>
       )}
 
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-6 g-3">
+      <div
+        className={`row g-4 gx-5 ${
+          checked
+            ? "row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-3"
+            : "row-cols-1"
+        }`}
+      >
         {productList.map((data) => (
           <div className="col" key={data.id}>
-            <GameCard data={data} />
+            <GameCard data={data} checked={checked} />
           </div>
         ))}
       </div>
