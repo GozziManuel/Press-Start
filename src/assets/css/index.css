@@ -14,6 +14,7 @@
   --text-primary: #ffffff;
   --separator-primary: #a634d3;
   --bg-card: #26365b;
+  --bg-navbar: #090e1a;
   --bg-footer: #090e1a;
 }
 :root[data-theme="light"] {
@@ -23,6 +24,7 @@
   --text-primary: #292929;
   --separator-primary: #999999;
   --bg-card: #e4e4e4;
+  --bg-navbar: #c9c3c3;
   --bg-footer: #c9c3c3;
 }
 

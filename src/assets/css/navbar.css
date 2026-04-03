@@ -1,3 +1,7 @@
+.navbar {
+  background-color: var(--bg-navbar);
+}
+
 .nav-title {
   font-size: 30px;
   margin-right: 50px;
