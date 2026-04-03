@@ -7,6 +7,8 @@ import axios from "axios";
 
 export default function ProductDetailPage() {
   const [product, setProduct] = useState({});
+  const [added, setAdded] = useState(false);
+  const [button, setButton] = useState(false);
 
   const { fetchDataDetailed, productDetailed, addItem } = useMain();
   const { slug } = useParams();
@@ -60,6 +62,13 @@ export default function ProductDetailPage() {
   // Handlers
   const handleCarrelloBtn = () => {
     addItem(product);
+    setAdded(true);
+    setButton(true);
+
+    setTimeout(() => {
+      setAdded(false);
+      setButton(false);
+    }, 2000);
   };
 
   // useEffects
@@ -81,15 +90,14 @@ export default function ProductDetailPage() {
             style={{ maxHeight: "600px" }}
           />
           {/* Cost */}
-
           {discountProduct()}
-
           {/* Aggiungi al Carrello Button */}
           <button
-            className="buttonCart fs-text mt-5"
+            className={`buttonCart fs-text mt-5 ${added ? "added" : ""}`}
             onClick={handleCarrelloBtn}
+            disabled={button}
           >
-            Aggiungi al Carrello
+            {added ? "Aggiunto!" : "Aggiungi al carrello"}
           </button>
         </div>
         <div>

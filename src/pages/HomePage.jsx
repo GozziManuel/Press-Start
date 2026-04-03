@@ -9,10 +9,10 @@ export default function HomePage() {
 
   const fetchData = () => {
     axios.get(`http://localhost:3000/products/u/famous`).then((res) => {
-      setFamousProducts(res.data.result.slice(0, 4));
+      setFamousProducts(res.data.result.slice(0, 5));
     });
     axios.get(`http://localhost:3000/products/u/recent`).then((res) => {
-      setRecentProducts(res.data.result.slice(0, 4));
+      setRecentProducts(res.data.result.slice(0, 5));
     });
   };
 
