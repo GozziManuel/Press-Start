@@ -69,17 +69,13 @@ export default function Checkout() {
           <label htmlFor="email-checkout">Il tuo indirizzo email</label>
           <input type="email" id="email-checkout" />
           <label htmlFor="indirizzo-checkout">Via/Piazza e numero civico</label>
+          <label htmlFor="nazione-checkout">Nazione</label>
+          <input type="text" id="nazione-checkout" />
           <input type="text" id="indirizzo-checkout" />
-          <label htmlFor="cap-checkout">C.A.P</label>
-          <input type="text" id="cap-checkout" />
           <label htmlFor="citta-checkout">Citta</label>
           <input type="text" id="citta-checkout" />
-          <label htmlFor="provincia-checkout">Provincia</label>
-          <select id="provincia-checkout">
-            <option value="">TO DO</option>
-          </select>
-          <label htmlFor="numero-checkout">Numero di telefono</label>
-          <input type="text" id="numero-checkout" />
+          <label htmlFor="cap-checkout">C.A.P</label>
+          <input type="text" id="cap-checkout" />
         </div>
         {/* Il tuo ordine */}
         <div>
