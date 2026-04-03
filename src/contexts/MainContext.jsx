@@ -5,9 +5,17 @@ const MainContext = createContext();
 
 export function MainProvider({ children }) {
   const [products, setProducts] = useState([]);
+  const [productDetailed, setProductDetailed] = useState({});
+
   const fetchData = () => {
     axios.get(`http://localhost:3000/products`).then((res) => {
       setProducts(res.data.result);
+    });
+  };
+  const fetchDataDetailed = (slug) => {
+    axios.get(`http://localhost:3000/products/` + slug).then((res) => {
+      console.log(res.data.result);
+      setProductDetailed(res.data.result);
     });
   };
 
@@ -28,7 +36,18 @@ export function MainProvider({ children }) {
     setLoot([...loot.slice(0, index), ...loot.slice(index + 1)]);
   };
 
-  const values = { products, fetchData, addItem, loot, removeItem, setLoot };
+  const values = {
+    products,
+    fetchData,
+    addItem,
+    loot,
+    removeItem,
+    setLoot,
+    products,
+    fetchDataDetailed,
+    productDetailed,
+    setProductDetailed,
+  };
 
   return <MainContext.Provider value={values}>{children}</MainContext.Provider>;
 }
