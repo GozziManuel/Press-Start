@@ -76,18 +76,30 @@
 }
 
 /* List mode - immagine a sinistra */
+.card.h-100.d-flex.flex-row {
+  align-items: flex-start;
+}
+
 .card.h-100.d-flex.flex-row .cardImage {
-  width: 300px;
+  width: 260px;
   height: auto;
-  min-width: 300px;
-  padding: 0;
+  min-width: 180px;
+  padding: 10px;
   aspect-ratio: 3 / 4;
+  object-fit: cover;
+}
+
+.card.h-100.d-flex.flex-row .card-body {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding-left: 16px;
 }
 
 .card.h-100.d-flex.flex-row > div:first-child {
   flex-shrink: 0;
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
 .card-container {
@@ -96,6 +108,28 @@
   position: relative;
 }
 
+/* MEDIA FOR CARD LIST */
+@media (max-width: 768px) {
+  .card.h-100.d-flex.flex-row {
+    flex-wrap: nowrap;
+  }
+
+  .card.h-100.d-flex.flex-row .cardImage {
+    width: 24%;
+    min-width: 100px;
+    max-width: 140px;
+    aspect-ratio: 3 / 4;
+  }
+
+  .card.h-100.d-flex.flex-row .card-body {
+    width: 76%;
+    padding-left: 10px;
+    font-size: 0.9rem;
+  }
+  .card.h-100.d-flex.flex-row .cardImage {
+    padding: 0;
+  }
+}
 /* DIscount css */
 .discountPrice {
   rotate: 346deg;

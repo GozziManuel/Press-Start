@@ -9,10 +9,10 @@ export default function HomePage() {
 
   const fetchData = () => {
     axios.get(`http://localhost:3000/products/u/famous`).then((res) => {
-      setFamousProducts(res.data.result.slice(0, 6));
+      setFamousProducts(res.data.result.slice(0, 4));
     });
     axios.get(`http://localhost:3000/products/u/recent`).then((res) => {
-      setRecentProducts(res.data.result.slice(0, 6));
+      setRecentProducts(res.data.result.slice(0, 4));
     });
   };
 
@@ -85,7 +85,7 @@ export default function HomePage() {
         <p style={{ fontSize: "30px" }} className="star-crush">
           I Più Venduti:
         </p>
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-3 g-4 gx-5">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 gx-5">
           {famoustProducts.map((data, id) => (
             <div className="col" key={id}>
               <GameCard data={data} checked={true} />
@@ -100,7 +100,7 @@ export default function HomePage() {
         <p style={{ fontSize: "30px" }} className="star-crush">
           Ultimi Aggiunti:
         </p>
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-2 row-cols-xl-3 g-4 gx-5">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 gx-5">
           {recentProducts.map((data, id) => (
             <div className="col" key={id}>
               <GameCard data={data} checked={true} />
