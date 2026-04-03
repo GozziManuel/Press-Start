@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import axios from "axios";
+import { useMain } from "../contexts/MainContext";
 
 export default function ProductDetailPage() {
   // Stati
   const { slug } = useParams();
   const [product, setProduct] = useState({});
+  const { addItem } = useMain();
 
   // Fetch Data
   const fetchSlugData = () => {
@@ -16,6 +18,7 @@ export default function ProductDetailPage() {
 
   // Handlers
   const handleCarrelloBtn = () => {
+    addItem(product);
     console.log("WIP");
   };
 
@@ -45,7 +48,8 @@ export default function ProductDetailPage() {
           {/* Aggiungi al Carrello Button */}
           <button
             className="btn btn-primary fs-text"
-            onClick={handleCarrelloBtn}>
+            onClick={handleCarrelloBtn}
+          >
             Aggiungi al Carrello
           </button>
         </div>
