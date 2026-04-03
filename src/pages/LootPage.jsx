@@ -49,8 +49,11 @@ export default function LootPage() {
   }, [loot]);
 
   return (
-    <div className="container py-5">
+    <div className="container-manual py-5">
+      <div className="d-flex">
       <h2 className="fw-bold mb-4 text">My Loot</h2>
+      <img src="/mario-coin.gif" alt="coin" className="mx-4" style={{width:"50px"}} />
+      </div>
 
       <div className="row g-4 align-items-start">
         {/* Colonna sinistra: prodotti + coupon */}
