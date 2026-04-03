@@ -1,7 +1,10 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import { UserProvider } from "./contexts/UserContext";
 import { MainProvider } from "./contexts/MainContext";
+
+// Templates
 import DefaultTemplate from "./template/DefaultTemplate";
+// Pages
 import HomePage from "./pages/HomePage";
 import ProductsListPage from "./pages/ProductsListPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
@@ -13,6 +16,7 @@ import AdminRoute from "./components/AdminRoute";
 import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
 import LootPage from "./pages/LootPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 // Fonts
 import "./assets/fonts/ByteBounce.ttf";
@@ -21,7 +25,6 @@ import "./assets/fonts/star-crush.regular.ttf";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
-
 // CSS
 import "./assets/css/index.css";
 
@@ -36,9 +39,10 @@ export default function App() {
               <Route path="/products" Component={ProductsListPage} />
               <Route path="/products/:slug" Component={ProductDetailPage} />
               <Route path="/about-us" Component={AboutUs} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              <Route path="/loot" element={<LootPage />} />
+              <Route path="/login" Component={LoginPage} />
+              <Route path="/register" Component={RegisterPage} />
+              <Route path="/loot" Component={LootPage} />
+              <Route path="/checkout" Component={CheckoutPage} />
 
               <Route
                 path="/user/:username"

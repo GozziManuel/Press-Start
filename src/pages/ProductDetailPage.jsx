@@ -19,7 +19,6 @@ export default function ProductDetailPage() {
   // Handlers
   const handleCarrelloBtn = () => {
     addItem(product);
-    console.log("WIP");
   };
 
   // useEffects

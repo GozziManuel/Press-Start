@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 import { useMain } from "../contexts/MainContext";
 
 export default function LootPage() {
@@ -51,8 +52,13 @@ export default function LootPage() {
   return (
     <div className="container-manual py-5">
       <div className="d-flex">
-      <h2 className="fw-bold mb-4 text">My Loot</h2>
-      <img src="/mario-coin.gif" alt="coin" className="mx-4" style={{width:"50px"}} />
+        <h2 className="fw-bold mb-4 text">My Loot</h2>
+        <img
+          src="/mario-coin.gif"
+          alt="coin"
+          className="mx-4"
+          style={{ width: "50px" }}
+        />
       </div>
 
       <div className="row g-4 align-items-start">
@@ -130,7 +136,9 @@ export default function LootPage() {
               <span className="fs-5 fw-bold text">€{totaleLoot}</span>
             </div>
             <div className="d-grid gap-2">
-              <button className="btn btn-primary text">Vai alla cassa</button>
+              <Link to={"/checkout"}>
+                <button className="btn btn-primary text">Vai alla cassa</button>
+              </Link>
             </div>
           </div>
         </div>

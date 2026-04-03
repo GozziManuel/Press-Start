@@ -100,7 +100,7 @@ export default function ProductsListPage() {
   }, [select]);
 
   return (
-    <div className="container-manual py-3 byte-bounce gr-viola">
+    <div className="container-manual py-3 byte-bounce">
       <div className="align-items-center justify-content-between row row-cols-1 row-cols-md-3">
         {/* Label */}
         <div className="col">
@@ -116,7 +116,7 @@ export default function ProductsListPage() {
             onChange={handleSearch}
           />
           <a
-            className="fs-5 mb-3"
+            className="fs-5 mb-3 gr-viola"
             onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}>
             Ricerca Avanzata
           </a>
