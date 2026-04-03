@@ -114,7 +114,7 @@ export default function ProductsListPage() {
           <p className="text fs-1 mb-3">Lista Giochi:</p>
         </div>
         {/* Search Bar */}
-        <div className="col">
+        <div className="col text-center SearchContainer">
           <input
             type="text"
             className="search-bar w-100"
@@ -123,8 +123,9 @@ export default function ProductsListPage() {
             onChange={handleSearch}
           />
           <a
-            className="fs-5 mb-3 gr-viola"
+            className="fs-5 mb-3 gr-viola advancedResearch nav-link "
             onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
+            style={{ cursor: "pointer" }}
           >
             Ricerca Avanzata
           </a>
@@ -220,7 +221,7 @@ export default function ProductsListPage() {
       <div
         className={`row g-4 gx-5 ${
           checked
-            ? "row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-xl-3"
+            ? "row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5"
             : "row-cols-1"
         }`}
       >

@@ -58,7 +58,9 @@
 .nav-link.active::after {
   width: 100%;
 }
-
+.nav-link:hover {
+  color: transparent !important;
+}
 /* ── Cart ──────────────────────────────────────────────── */
 .cart-count {
   font-size: 14px;

@@ -85,7 +85,7 @@ export default function ProductDetailPage() {
 
           {/* Aggiungi al Carrello Button */}
           <button
-            className="btn btn-primary fs-text"
+            className="button primary transparent fs-text mt-5"
             onClick={handleCarrelloBtn}
           >
             Aggiungi al Carrello

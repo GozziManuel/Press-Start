@@ -1,3 +1,4 @@
+/* CARD CSS */
 .card {
   position: relative;
   overflow: hidden;
@@ -10,7 +11,7 @@
   border: none !important;
   padding: 3px; /* Questo determina lo spessore del bordo RGB */
 }
-
+/* CARD ANIMATION */
 /* L'arcobaleno rotante */
 .card::before {
   content: "";
@@ -52,7 +53,7 @@
     transform: rotate(360deg);
   }
 }
-
+/* ANOTHER CARD CSS */
 #card-title {
   font-size: 30px;
 }
@@ -61,23 +62,48 @@
 }
 .cardImage {
   min-width: 100%;
-  inset: 0;
   color: transparent;
   position: relative;
   padding: 10px;
+  object-fit: cover;
 }
-.discountPrice {
-  rotate: 346deg;
-  position: relative;
-  bottom: -14px;
-  left: -9px;
-  text-decoration: none !important;
-  animation: colorRotate 6s linear 0s infinite;
+
+/* Grid mode */
+.card.h-100:not(.d-flex) .cardImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2 / 3;
 }
+
+/* List mode - immagine a sinistra */
+.card.h-100.d-flex.flex-row .cardImage {
+  width: 300px;
+  height: auto;
+  min-width: 300px;
+  padding: 0;
+  aspect-ratio: 3 / 4;
+}
+
+.card.h-100.d-flex.flex-row > div:first-child {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
 .card-container {
   aspect-ratio: 16 / 9;
   width: 100%;
   position: relative;
+}
+
+/* DIscount css */
+.discountPrice {
+  rotate: 346deg;
+  position: relative;
+  bottom: -14px;
+  left: -30px;
+  text-decoration: none !important;
+  animation: colorRotate 6s linear 0s infinite;
 }
 #form-check {
   --bs-form-switch-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Crect x='-3' y='-3' width='6' height='6' fill='rgba(0,123,255,0.6)'/%3E%3C/svg%3E");
@@ -86,4 +112,15 @@
 }
 #form-check:checked[type="checkbox"] {
   --bs-form-switch-bg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3E%3Crect x='-3' y='-3' width='1.5' height='1.5' fill='white'/%3E%3Crect x='-0.75' y='-3' width='1.5' height='1.5' fill='white'/%3E%3Crect x='1.5' y='-3' width='1.5' height='1.5' fill='white'/%3E%3Crect x='-3' y='-0.75' width='1.5' height='1.5' fill='white'/%3E%3Crect x='-0.75' y='-0.75' width='1.5' height='1.5' fill='white'/%3E%3Crect x='1.5' y='-0.75' width='1.5' height='1.5' fill='white'/%3E%3Crect x='-3' y='1.5' width='1.5' height='1.5' fill='white'/%3E%3Crect x='-0.75' y='1.5' width='1.5' height='1.5' fill='white'/%3E%3Crect x='1.5' y='1.5' width='1.5' height='1.5' fill='white'/%3E%3C/svg%3E");
+}
+.transparent {
+  background: transparent;
+}
+.advancedResearch {
+  width: 150px;
+}
+.SearchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

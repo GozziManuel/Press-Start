@@ -45,12 +45,7 @@ export default function GameCard({ data, checked }) {
         }
       >
         <div>
-          <img
-            src={data.image}
-            className="card-img-top cardImage"
-            alt="img"
-            style={{ height: "55vh" }}
-          />
+          <img src={data.image} className="card-img-top cardImage" alt="img" />
         </div>
         <div className="card-body">
           <h5 className="card-title" style={{ fontSize: "25px" }}>
