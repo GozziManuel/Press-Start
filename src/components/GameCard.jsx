@@ -48,14 +48,35 @@ export default function GameCard({ data, checked }) {
           <img src={data.image} className="card-img-top cardImage" alt="img" />
         </div>
         <div className="card-body">
-          <h5 className="card-title" style={{ fontSize: "25px" }}>
+          <h5
+            className={!checked ? "card-title fs-1" : "card-title "}
+            style={{ fontSize: "25px" }}
+          >
             {data.name}
           </h5>
           <hr
             className="my-0 "
             style={{ border: "solid 2px var(--light-blue)" }}
           />
-          {discountProduct()}
+          {!checked && (
+            <div>
+              <div className="d-flex row ">
+                <p className="fs-3  col-12 col-sm-6">
+                  <span style={{ color: "var(--viola)" }}>Studio:</span>{" "}
+                  {data.studio_name}
+                </p>
+                <p className="fs-3 col-12 col-sm-6 text-end">
+                  <span style={{ color: "var(--light-blue)" }}>Company:</span>{" "}
+                  {data.companies}
+                </p>
+              </div>
+              <p className="fs-3">
+                <span style={{ color: "var(--light-blue)" }}>Genre:</span>{" "}
+                {data.genres}
+              </p>
+            </div>
+          )}
+          <div>{discountProduct()}</div>
         </div>
       </div>
     </Link>

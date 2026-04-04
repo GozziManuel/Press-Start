@@ -17,11 +17,7 @@ export default function ProductsListPage() {
   const [listedProducts, setListedProducts] = useState([]);
   const [select, setSelect] = useState("all");
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
-  const [advancedFilters, setAdvancedFilters] = useState({
-    genre: "",
-    publisher: "",
-    platform: "",
-  });
+
   // Stati per l'advanced search
   const [advancedConsoleSelect, setadvancedConsoleSelect] = useState("");
   const [advancedPublisherSelect, setadvancedPublisherSelect] = useState("");
@@ -95,6 +91,11 @@ export default function ProductsListPage() {
   };
   const handlePublisherSelect = (e) => {
     setadvancedPublisherSelect(e.target.value);
+  };
+  const handleResetFilters = () => {
+    setadvancedGenreSelect("");
+    setadvancedPublisherSelect("");
+    setadvancedConsoleSelect("");
   };
 
   // Search bar
@@ -194,22 +195,6 @@ export default function ProductsListPage() {
           </select>
         </div>
       </div>
-      <div className="form-check form-switch">
-        <input
-          className="form-check-input"
-          type="checkbox"
-          role="switch"
-          id="form-check"
-          checked={checked}
-          onChange={handleCheckValue}
-        />
-        <label
-          className="form-check-label"
-          style={{ color: "var(--light-blue)" }}
-        >
-          Grid mode
-        </label>
-      </div>
 
       {/* Advanced Search */}
       {showAdvancedSearch && (
@@ -227,7 +212,7 @@ export default function ProductsListPage() {
                 onChange={handleGenreSelect}
               >
                 {" "}
-                <option></option>
+                <option value={""}>Scegli un genere</option>
                 {AdvancedGenreOptions.map((option) => (
                   <option value={option.value} key={option.value}>
                     {option.nome}
@@ -245,7 +230,7 @@ export default function ProductsListPage() {
                 onChange={handlePublisherSelect}
               >
                 {" "}
-                <option></option>
+                <option value={""}>Scegli un publisher</option>
                 {AdvancedPublisherOptions.map((option) => (
                   <option value={option.value} key={option.value}>
                     {option.nome}
@@ -263,7 +248,7 @@ export default function ProductsListPage() {
                 onChange={handleConsoleSelect}
               >
                 {" "}
-                <option></option>
+                <option value={""}>Scegli una piattaforma</option>
                 {AdvancedConsoleOptions.map((option) => (
                   <option value={option.value} key={option.value}>
                     {option.nome}
@@ -274,14 +259,28 @@ export default function ProductsListPage() {
           </div>
           <button
             className="btn btn-primary mt-2 fs-text"
-            onClick={() =>
-              setAdvancedFilters({ genre: "", publisher: "", platform: "" })
-            }
+            onClick={handleResetFilters}
           >
             Reset Filtri
           </button>
         </div>
       )}
+      <div className="form-check form-switch">
+        <input
+          className="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="form-check"
+          checked={checked}
+          onChange={handleCheckValue}
+        />
+        <label
+          className="form-check-label"
+          style={{ color: "var(--light-blue)" }}
+        >
+          Grid mode
+        </label>
+      </div>
 
       <div
         className={`row g-4 gx-5 ${
