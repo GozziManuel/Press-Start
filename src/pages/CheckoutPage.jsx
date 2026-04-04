@@ -29,8 +29,8 @@ export default function Checkout() {
   } = useMain();
   const [dataSend, setDataSend] = useState(initData);
   const daPagare = isCoupon.result.valid
-    ? totaleLoot - isCoupon.result.discount
-    : totaleLoot;
+    ? (parseFloat(totaleLoot) - isCoupon.result.discount).toFixed(2)
+    : parseFloat(totaleLoot).toFixed(2);
 
   const handleDataSend = (e) => {
     const { name, value } = e.target;
@@ -61,7 +61,7 @@ export default function Checkout() {
       ...dataSend,
       coupon: isCoupon.result.valid,
       coupon_id: isCoupon.result.coupon_id,
-      total_price: daPagare,
+      total_price: parseFloat(daPagare),
       loot: finLoot,
     });
   }, []);
@@ -70,65 +70,59 @@ export default function Checkout() {
     <div className="container-manual mt-4">
       <form onSubmit={handleDataSubmit}>
         {/* I tuoi dati */}
-        <h2 className="star-crush gr-viola" style={{ width: "100%" }}>
-          I tuoi dati
-        </h2>
-        <div className="card-form">
-          <div className="field ">
-            <label htmlFor="nome-checkout">Nome</label>
-            <input
-              name="user_name"
-              onChange={handleDataSend}
-              type="text"
-              id="username-checkout"
-              value={dataSend.user_name}
-            />
-          </div>
-          <div className="field ">
-            <label htmlFor="cognome-checkout">Cognome</label>
-            <input
-              name="user_surname"
-              onChange={handleDataSend}
-              type="text"
-              id="cognome-checkout"
-              value={dataSend.user_surname}
-            />
-          </div>
-          <div className="field full">
-            <label htmlFor="email-checkout">Il tuo indirizzo email</label>
-            <input
-              name="user_email"
-              onChange={handleDataSend}
-              type="email"
-              id="email-checkout"
-              value={dataSend.user_email}
-            />
-          </div>
-          <div className="field">
-            <label htmlFor="nazione-checkout">Nazione</label>
-            <input
-              name="shipping_country"
-              onChange={handleDataSend}
-              type="text"
-              id="nazione-checkout"
-              value={dataSend.shipping_country}
-            />
-          </div>
-          <div className="field">
-            <label htmlFor="citta-checkout">Citta</label>
-            <input
-              name="shipping_city"
-              onChange={handleDataSend}
-              type="text"
-              id="citta-checkout"
-              value={dataSend.shipping_city}
-            />
-          </div>
+        <div>
+          <h2>I tuoi dati</h2>
+          <label htmlFor="nome-checkout">Nome</label>
+          <input
+            name="user_name"
+            onChange={handleDataSend}
+            type="text"
+            id="username-checkout"
+            value={dataSend.user_name}
+            required
+          />
+          <label htmlFor="cognome-checkout">Cognome</label>
+          <input
+            name="user_surname"
+            onChange={handleDataSend}
+            type="text"
+            required
+            id="cognome-checkout"
+            value={dataSend.user_surname}
+          />
+          <label htmlFor="email-checkout">Il tuo indirizzo email</label>
+          <input
+            name="user_email"
+            onChange={handleDataSend}
+            type="email"
+            required
+            id="email-checkout"
+            value={dataSend.user_email}
+          />
+          <label htmlFor="nazione-checkout">Nazione</label>
+          <input
+            name="shipping_country"
+            onChange={handleDataSend}
+            type="text"
+            required
+            id="nazione-checkout"
+            value={dataSend.shipping_country}
+          />
+          <label htmlFor="citta-checkout">Citta</label>
+          <input
+            name="shipping_city"
+            onChange={handleDataSend}
+            type="text"
+            required
+            id="citta-checkout"
+            value={dataSend.shipping_city}
+          />
           <label htmlFor="indirizzo-checkout">Via/Piazza e numero civico</label>
           <input
             name="shipping_address"
             onChange={handleDataSend}
             type="text"
+            required
             id="indirizzo-checkout"
             value={dataSend.shipping_address}
           />
@@ -137,6 +131,7 @@ export default function Checkout() {
             name="shipping_postal_code"
             onChange={handleDataSend}
             type="text"
+            required
             id="cap-checkout"
             value={dataSend.shipping_postal_code}
           />
@@ -155,7 +150,7 @@ export default function Checkout() {
                   <span>
                     {el.name} x {el.quantity}
                   </span>
-                  <span>&euro;{el.total}</span>
+                  <span>&euro;{el.total.toFixed(2)}</span>
                 </div>
               );
             })}

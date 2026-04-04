@@ -68,6 +68,13 @@ export default function LootPage() {
     setFinLoot(Object.values(tmp));
   }, [loot]);
 
+  useEffect(() => {
+    if (finLoot.length === 0)
+      setIsCoupon({
+        result: { valid: false },
+      });
+  }, [finLoot]);
+
   const handleCoupon = (e) => {
     setCoupon(e.target.value);
   };
@@ -179,7 +186,7 @@ export default function LootPage() {
               <button
                 onClick={handleIsCoupon}
                 className="btn btn-outline-primary coupon-btn byte-bounce"
-                disabled={coupon === ""}
+                disabled={coupon === "" || finLoot.length === 0}
               >
                 Applica codice promozionale
               </button>
@@ -199,14 +206,19 @@ export default function LootPage() {
             {!isCoupon.result.valid && (
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <span className="text">Totale</span>
-                <span className="fs-5 fw-bold text"> {totaleLoot} &euro;</span>
+                <span className="fs-5 fw-bold text">
+                  {" "}
+                  {totaleLoot.toFixed(2)} &euro;
+                </span>
               </div>
             )}
             {isCoupon.result.valid && (
               <div className="">
                 <div className="d-flex justify-content-between align-items-center mb-2">
                   <span className="text">Totale</span>
-                  <span className="fs-5 fw-bold text">{totaleLoot} &euro;</span>
+                  <span className="fs-5 fw-bold text">
+                    {totaleLoot.toFixed(2)} &euro;
+                  </span>
                 </div>
                 <div>
                   <span
@@ -233,7 +245,7 @@ export default function LootPage() {
                     className="fs-3"
                     style={{ color: "var(--text-primary)" }}
                   >
-                    {totaleLoot - isCoupon.result.discount} &euro;
+                    {(totaleLoot - isCoupon.result.discount).toFixed(2)} &euro;
                   </span>
                 </div>
               </div>
