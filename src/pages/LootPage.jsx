@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useMain } from "../contexts/MainContext";
 import axios from "axios";
+import "../assets/css/lootpage.css";
 
 export default function LootPage() {
   const { loot, addItem, removeItem, setLoot } = useMain();
@@ -69,8 +70,8 @@ export default function LootPage() {
 
   return (
     <div className="container-manual py-5">
-      <div className="d-flex">
-        <h2 className="fw-bold mb-4 text">My Loot</h2>
+      <div className="d-flex mb-5 align-items-center">
+        <h2 className="fw-bold star-crush gr-viola">My Loot</h2>
         <img
           src="/mario-coin.gif"
           alt="coin"
@@ -83,18 +84,20 @@ export default function LootPage() {
         {/* Colonna sinistra: prodotti + coupon */}
         <div className="col-lg-8">
           {/* Header colonne */}
-          <div className="row text-muted fw-semibold border-bottom pb-2 mb-2 d-none d-md-flex">
+          <div className="row fs-4 text-muted  pb-2 mb-2 d-none d-md-flex byte-bounce bordercard">
             <div className="col-1"></div>
             <div className="col-2"></div>
-            <div className="col-3 text">Prodotto</div>
-            <div className="col-2 text">Prezzo</div>
-            <div className="col-2 text">Quantità</div>
-            <div className="col-2 text">Totale</div>
+            <div className="col-3 text ps-0">Prodotto</div>
+            <div className="col-2 text ps-0">Prezzo</div>
+            <div className="col-2 text ps-0">Quantita'</div>
+            <div className="col-2 text " style={{ color: "var(--viola)" }}>
+              Totale
+            </div>
           </div>
 
           {/* Righe prodotti */}
           {finLoot.map((el, i) => (
-            <div key={i} className="row align-items-center border-bottom py-3">
+            <div key={i} className="row align-items-center bordercard py-3">
               <div className="col-1">
                 <button
                   className="btn btn-sm btn-outline-danger rounded-circle"
@@ -112,27 +115,25 @@ export default function LootPage() {
                   style={{ width: 64, height: 64, objectFit: "cover" }}
                 />
               </div>
-              <div className="col-3 fw-semibold text">{el.name}</div>
+              <div className="col-3 fs-5 text byte-bounce px-0">{el.name}</div>
               <div className="col-2 text">
                 {el.discount_value > 0 && (
                   <span
                     style={{ textDecoration: "line-through", marginRight: 5 }}
                   >
-                    {el.price.toFixed(2)} &euro;
+                    {el.price.toFixed(2)} &euro; <br />
                   </span>
                 )}
-                <br />
                 <span className="discountCheckout">
                   {el.finalPrice.toFixed(2)} &euro;
                 </span>
               </div>
-              <div className="col-2">
+              <div className="col-2 p-0">
                 <input
                   type="number"
                   className="form-control"
-                  style={{ width: 80 }}
+                  style={{ maxWidth: 70 }}
                   name="totale"
-                  min="1"
                   onChange={(e) => handleQuantity(e, el)}
                   value={el.quantity}
                 />
@@ -144,12 +145,20 @@ export default function LootPage() {
           ))}
 
           {/* Coupon */}
-          <div className="border rounded p-3 mt-4">
-            <p className="mb-2 fw-semibold text">Hai un codice sconto?</p>
+          <div
+            className="  p-3 mt-4  fs-3"
+            style={{ border: "1px solid var(--text-primary)" }}
+          >
+            <p
+              className="mb-2 fw-semibold text star-crush"
+              style={{ color: "var(--light-blue" }}
+            >
+              Hai un codice sconto?
+            </p>
             <div className="input-group" style={{ maxWidth: 420 }}>
               <input
                 type="text"
-                className="form-control"
+                className="form-control coupon-input"
                 placeholder="Inseriscilo qui"
                 name="coupon"
                 value={coupon}
@@ -157,7 +166,7 @@ export default function LootPage() {
               />
               <button
                 onClick={handleIsCoupon}
-                className="btn btn-outline-primary"
+                className="btn btn-outline-primary coupon-btn byte-bounce"
                 disabled={coupon === ""}
               >
                 Applica codice promozionale
@@ -168,12 +177,16 @@ export default function LootPage() {
 
         {/* Colonna destra: riepilogo */}
         <div className="col-lg-4">
-          <div className="border rounded p-4">
-            <h5 className="fw-bold text mb-3">Totale del tuo Loot</h5>
-            <hr />
+          <div
+            className="p-4"
+            style={{ border: "1px solid var(--text-primary)" }}
+          >
+            <h5 className="fw-bold  pb-3 star-crush gr-viola bordercard">
+              Totale del tuo Loot
+            </h5>
             {!isCoupon.valid && (
-              <div className="d-flex justify-content-between align-items-center mb-4">
-                <span className="text">Totale</span>
+              <div className="d-flex justify-content-between align-items-center mb-4 mt-2">
+                <span className="text byte-bounce fs-5">Totale</span>
                 <span className="fs-5 fw-bold text">
                   {totaleLoot.toFixed(2)} &euro;
                 </span>
@@ -197,7 +210,7 @@ export default function LootPage() {
             )}
             <div className="d-grid gap-2">
               <Link to={"/checkout"}>
-                <button className="button primary transparent text">
+                <button className="button primary transparent text byte-bounce fs-5">
                   Vai alla cassa
                 </button>
               </Link>
