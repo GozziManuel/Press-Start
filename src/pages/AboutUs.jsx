@@ -1,6 +1,12 @@
 import { NavLink } from "react-router";
 import "../assets/css/AboutUs.css";
 
+import { useState } from "react";
+import LetterGlitch from "../components/LetterGlitch";
+import Lanyard from "../components/Lanyard";
+import TargetAimBotCursor from "../components/TargetAimBotCursor";
+import ColorsSplashCursor from "../components/ColorsSplashCursor";
+
 const team = [
   {
     name: "Jasmin Hegic",
@@ -24,8 +30,56 @@ const team = [
   },
 ];
 export default function AboutUs() {
+  // "stato" che ci dice quale effetto è attivo. All'inizio è null
+  const [activeEffect, setActiveEffect] = useState(null);
+
+  // Funzione che decide che cosa attivare in base a cosa verrà cliccato
+  const handleMemberClick = (id) => {
+    if (id === 0) {
+      setActiveEffect("glitch");
+      // dopo 60 secondi resettiamo a null
+      setTimeout(() => setActiveEffect(null), 60000);
+    } else if (id === 1) {
+      setActiveEffect("lanyard");
+    }
+  };
+
   return (
     <>
+      {/* caso n^1 */}
+      {activeEffect === "glitch" && (
+        <div style={{ position: "fixed", inset: 0, zIndex: -1 }}>
+          <LetterGlitch />
+        </div>
+      )}
+
+      {/* caso n^2 */}
+      {activeEffect === "lanyard" && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 999,
+            background: "rgba(0,0,0,0.8)",
+          }}
+        >
+          <Lanyard />
+          {/* Bottone per chiudere l'effetto 3D */}
+          <button
+            onClick={() => setActiveEffect(null)}
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "20px",
+              zIndex: 1000,
+              padding: "10px 20px",
+              cursor: "pointer",
+            }}
+          >
+            CHIUDI X
+          </button>
+        </div>
+      )}
       <div className="py-3 byte-bounce gr-viola container-manual">
         <section className="hero pb-5">
           <h1 className="star-crush">
