@@ -12,7 +12,6 @@ export default function ProductsListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // States
-  const [advancedSelect, setAdvancedSelect] = useState("");
   const [checked, setChecked] = useState(true);
   const [search, setSearch] = useState(searchParams.get("search") || "");
   const [listedProducts, setListedProducts] = useState([]);
@@ -23,6 +22,10 @@ export default function ProductsListPage() {
     publisher: "",
     platform: "",
   });
+  // Stati per l'advanced search
+  const [advancedConsoleSelect, setadvancedConsoleSelect] = useState("");
+  const [advancedPublisherSelect, setadvancedPublisherSelect] = useState("");
+  const [advancedGenreSelect, setadvancedGenreSelect] = useState("");
 
   // Opzioni per il Select
   const selectOptions = [
@@ -63,7 +66,6 @@ export default function ProductsListPage() {
     if (select === "all") {
       axios.get(`http://localhost:3000/products`).then((res) => {
         setListedProducts(res.data.result.products);
-        setAdvancedSelect(res.data.result);
         console.log(res.data.result);
       });
     } else {
@@ -80,15 +82,22 @@ export default function ProductsListPage() {
     setChecked(e.target.checked);
   };
 
-  const handleAdvancedFilter = (e) => {
-    const { name, value } = e.target;
-    setAdvancedFilters((prev) => ({ ...prev, [name]: value }));
-  };
-
+  // Handle for select
   const handleSelect = (e) => {
     setSelect(e.target.value);
   };
+  // Handle for Advanced Select
+  const handleConsoleSelect = (e) => {
+    setadvancedConsoleSelect(e.target.value);
+  };
+  const handleGenreSelect = (e) => {
+    setadvancedGenreSelect(e.target.value);
+  };
+  const handlePublisherSelect = (e) => {
+    setadvancedPublisherSelect(e.target.value);
+  };
 
+  // Search bar
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearch(value);
@@ -107,26 +116,20 @@ export default function ProductsListPage() {
           .toLowerCase()
           .includes(search.toLowerCase());
 
-        const matchesGenre = advancedFilters.genre
-          ? product.genre
-              ?.toLowerCase()
-              .includes(advancedFilters.genre.toLowerCase())
+        const matchesGenre = advancedGenreSelect
+          ? product.genres?.includes(advancedGenreSelect)
           : true;
 
-        const matchesPublisher = advancedFilters.publisher
-          ? product.publisher
-              ?.toLowerCase()
-              .includes(advancedFilters.publisher.toLowerCase())
+        const matchesPlatform = advancedConsoleSelect
+          ? product.platforms?.includes(advancedConsoleSelect)
           : true;
 
-        const matchesPlatform = advancedFilters.platform
-          ? product.platform
-              ?.toLowerCase()
-              .includes(advancedFilters.platform.toLowerCase())
+        const matchesPublisher = advancedPublisherSelect
+          ? product.companies?.includes(advancedPublisherSelect)
           : true;
 
         return (
-          matchesSearch && matchesGenre && matchesPublisher && matchesPlatform
+          matchesSearch && matchesGenre && matchesPlatform && matchesPublisher
         );
       })
     : [];
@@ -220,9 +223,11 @@ export default function ProductsListPage() {
               <select
                 className="form-select"
                 aria-label="Default select example"
-                value={select}
-                onChange={""}
+                value={advancedGenreSelect}
+                onChange={handleGenreSelect}
               >
+                {" "}
+                <option></option>
                 {AdvancedGenreOptions.map((option) => (
                   <option value={option.value} key={option.value}>
                     {option.nome}
@@ -236,9 +241,11 @@ export default function ProductsListPage() {
               <select
                 className="form-select"
                 aria-label="Default select example"
-                value={select}
-                onChange={""}
+                value={advancedPublisherSelect}
+                onChange={handlePublisherSelect}
               >
+                {" "}
+                <option></option>
                 {AdvancedPublisherOptions.map((option) => (
                   <option value={option.value} key={option.value}>
                     {option.nome}
@@ -252,9 +259,11 @@ export default function ProductsListPage() {
               <select
                 className="form-select"
                 aria-label="Default select example"
-                value={select}
-                onChange={""}
+                value={advancedConsoleSelect}
+                onChange={handleConsoleSelect}
               >
+                {" "}
+                <option></option>
                 {AdvancedConsoleOptions.map((option) => (
                   <option value={option.value} key={option.value}>
                     {option.nome}
