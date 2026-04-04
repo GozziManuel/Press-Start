@@ -5,9 +5,20 @@ import axios from "axios";
 import "../assets/css/lootpage.css";
 
 export default function LootPage() {
-  const { loot, addItem, removeItem, setLoot } = useMain();
-  const [finLoot, setFinLoot] = useState([]);
-  const [isCoupon, setIsCoupon] = useState(false);
+  const {
+    loot,
+    addItem,
+    removeItem,
+    setLoot,
+    isCoupon,
+    setIsCoupon,
+    finLoot,
+    setFinLoot,
+    totaleLoot,
+    setTotaleLoot,
+  } = useMain();
+  // const [finLoot, setFinLoot] = useState([]);
+  // const [isCoupon, setIsCoupon] = useState(false);
   const [coupon, setCoupon] = useState("");
   //null foto prodotto prezzo quantita totale
   const tmp = loot.reduce((ac, ce) => {
@@ -26,9 +37,11 @@ export default function LootPage() {
     return ac;
   }, {});
 
-  const totaleLoot = Object.values(tmp).reduce((ac, ce) => {
-    return (ac += ce.total);
-  }, 0);
+  setTotaleLoot(
+    Object.values(tmp).reduce((ac, ce) => {
+      return (ac += ce.total);
+    }, 0),
+  );
 
   const handleQuantity = (e, elem) => {
     const { value } = e.target;
@@ -64,10 +77,9 @@ export default function LootPage() {
       code: coupon,
     };
     axios.post("http://localhost:3000/coupon", forged).then((res) => {
-      setIsCoupon(res.data.result);
+      setIsCoupon(res.data);
     });
   };
-
   return (
     <div className="container-manual py-5">
       <div className="d-flex mb-5 align-items-center">
@@ -177,22 +189,16 @@ export default function LootPage() {
 
         {/* Colonna destra: riepilogo */}
         <div className="col-lg-4">
-          <div
-            className="p-4"
-            style={{ border: "1px solid var(--text-primary)" }}
-          >
-            <h5 className="fw-bold  pb-3 star-crush gr-viola bordercard">
-              Totale del tuo Loot
-            </h5>
-            {!isCoupon.valid && (
-              <div className="d-flex justify-content-between align-items-center mb-4 mt-2">
-                <span className="text byte-bounce fs-5">Totale</span>
-                <span className="fs-5 fw-bold text">
-                  {totaleLoot.toFixed(2)} &euro;
-                </span>
+          <div className="border rounded p-4">
+            <h5 className="fw-bold text mb-3">Totale del tuo Loot</h5>
+            <hr />
+            {!isCoupon.result.valid && (
+              <div className="d-flex justify-content-between align-items-center mb-4">
+                <span className="text">Totale</span>
+                <span className="fs-5 fw-bold text">€{totaleLoot}</span>
               </div>
             )}
-            {isCoupon.valid && (
+            {isCoupon.result.valid && (
               <div className="">
                 <div>
                   <span className="text">Totale</span>
@@ -200,11 +206,11 @@ export default function LootPage() {
                 </div>
                 <div>
                   <span>Sconto</span>
-                  <span>{isCoupon.discount}</span>
+                  <span>{isCoupon.result.discount}</span>
                 </div>
                 <div>
                   <span>Totale da pagare</span>
-                  <span>{totaleLoot - isCoupon.discount}</span>
+                  <span>{totaleLoot - isCoupon.result.discount}</span>
                 </div>
               </div>
             )}
