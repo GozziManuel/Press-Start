@@ -1,0 +1,18 @@
+.coupon-input {
+  border-radius: 0 !important;
+}
+.coupon-btn {
+  border-radius: 0 !important;
+  transition: all 0.2s ease-in-out;
+  margin-left: 10px !important;
+}
+.coupon-btn:not(:disabled) {
+  background-image: var(--gr-viola);
+  color: var(--text-primary);
+}
+.coupon-btn:hover {
+  transform: scale(1.1);
+}
+.bordercard {
+  border-bottom: 1px solid var(--text-primary);
+}

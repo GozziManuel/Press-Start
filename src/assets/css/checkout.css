@@ -95,7 +95,9 @@
   color: #fff;
   font-size: 15px;
   cursor: pointer;
-  transition: opacity 0.2s ease, transform 0.15s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.15s ease;
 }
 
 .btn-pay:hover {
@@ -109,4 +111,9 @@
   margin-top: 1rem;
   font-size: 12px;
   color: var(--text-muted, #888);
+}
+
+/* Animation */
+.discountCheckout {
+  animation: colorRotate 6s linear 0s infinite;
 }

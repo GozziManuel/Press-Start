@@ -1,0 +1,20 @@
+/* Add to cart animation */
+.buttonCart {
+  padding: 10px 20px;
+  text-decoration: none;
+  border: 2px solid var(--viola);
+  color: var(--text-primary);
+  transition: all 0.6s ease-in-out;
+  background: transparent;
+  width: 250px;
+}
+.buttonCart:hover {
+  background: var(--viola);
+  color: var(--white);
+}
+
+.buttonCart.added {
+  transform: scale(1.1);
+  background: var(--viola);
+  color: var(--white);
+}

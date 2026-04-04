@@ -1,6 +1,28 @@
-const names = ["Jasmin", "Manuel Gozzi", "Sirio", "Michele Brignola"];
 import { NavLink } from "react-router";
 import "../assets/css/AboutUs.css";
+
+const team = [
+  {
+    name: "Jasmin Hegic",
+    img: "/kirby2.png",
+    gif: "/kirby.gif",
+  },
+  {
+    name: "Manuel Gozzi",
+    img: "/donkeyKong.png",
+    gif: "/donkey-kong.gif",
+  },
+  {
+    name: "Sirio Ghiringhelli",
+    img: "/crashBandicoot.png",
+    gif: "/crash-bandicoot.gif",
+  },
+  {
+    name: "Michele Brignola",
+    img: "/frog.png",
+    gif: "/frog-chrono.gif",
+  },
+];
 export default function AboutUs() {
   return (
     <>
@@ -25,24 +47,37 @@ export default function AboutUs() {
         </section>
       </div>
       <hr className="separator mt-0 mb-5" />
-      <div className="text-center container-manual about">
-        <h3 className="star-crush gr-viola">Perche' siamo qui</h3>
-        <p className="fs-5 text byte-bounce">
-          “Nato dalla nostra passione per i videogiochi degli anni ’80 e ’90, il
-          progetto vuole riportare il fascino dei pixel e delle esperienze
-          autentiche in un mondo sempre piu' moderno.”
-        </p>
-      </div>
+      <div className="container-manual team-wrapper mb-5">
+        {/* Titolo */}
+        <h3 className="star-crush gr-viola title-left">Sito realizzato da:</h3>
 
-      <hr className="separator my-5" />
-      <div className="container-manual team text-center mb-5">
-        <h3 style={{ fontSize: "30px" }} className="star-crush gr-viola">
-          Sito fatto da:
-        </h3>
-        <ul style={{ fontSize: "30px" }}>
-          {names.map((name, id) => (
-            <li key={id} className="byte-bounce text">
-              - {name}
+        <ul className="team-list-vertical">
+          {team.map((member, id) => (
+            <li key={id} className="team-row byte-bounce">
+              <div className="member-info-container">
+                <span className="arrow-purple">{">"}</span>
+                <span
+                  className="member-name"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {member.name}
+                </span>
+
+                <div className="avatar-small">
+                  <img src={member.img} alt={member.name} />
+                </div>
+
+                {/* GIF a destra */}
+                {member.gif && (
+                  <div className="gif-preview-container d-sm-none d-md-block">
+                    <img
+                      src={member.gif}
+                      alt="anim"
+                      className="size-gif d-sm-none d-md-block"
+                    />
+                  </div>
+                )}
+              </div>
             </li>
           ))}
         </ul>
