@@ -69,8 +69,12 @@ export default function AboutUs() {
 
                 {/* GIF a destra */}
                 {member.gif && (
-                  <div className="gif-preview-container">
-                    <img src={member.gif} alt="anim" className="size-gif" />
+                  <div className="gif-preview-container d-sm-none d-md-block">
+                    <img
+                      src={member.gif}
+                      alt="anim"
+                      className="size-gif d-sm-none d-md-block"
+                    />
                   </div>
                 )}
               </div>

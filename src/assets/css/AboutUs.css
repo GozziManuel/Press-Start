@@ -87,7 +87,7 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  width: 352px;
+  max-width: 352px;
   cursor: pointer;
 }
 
@@ -100,7 +100,7 @@
 .member-name {
   font-size: 28px;
   color: white;
-  min-width: 250px;
+  min-width: 200px;
 }
 
 .avatar-small {
