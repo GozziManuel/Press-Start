@@ -12,9 +12,10 @@ export default function ProductsListPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // States
+  const [advancedSelect, setAdvancedSelect] = useState("");
   const [checked, setChecked] = useState(true);
   const [search, setSearch] = useState(searchParams.get("search") || "");
-  const [listedProducts, setListedProducts] = useState(products);
+  const [listedProducts, setListedProducts] = useState([]);
   const [select, setSelect] = useState("all");
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
   const [advancedFilters, setAdvancedFilters] = useState({
@@ -31,12 +32,47 @@ export default function ProductsListPage() {
     { value: "discount_value", nome: "Discounted" },
     { value: "created_at", nome: "Last" },
   ];
+  const AdvancedConsoleOptions = [
+    { value: "NES", nome: "NES" },
+    { value: "SNES", nome: "SNES" },
+    { value: "Nintendo 64", nome: "Nintendo 64" },
+    { value: "Sega Mega Drive", nome: "Sega Mega Drive" },
+    { value: "PlayStation 1", nome: "PlayStation 1" },
+    { value: "Sega Saturn", nome: "Sega Saturn" },
+    { value: "Arcade", nome: "Arcade" },
+  ];
+  const AdvancedPublisherOptions = [
+    { value: "Nintendo", nome: "Nintendo" },
+    { value: "Sega", nome: "Sega" },
+    { value: "Sony", nome: "Sony" },
+    { value: "Vari", nome: "Vari" },
+  ];
+  const AdvancedGenreOptions = [
+    { value: "Shooter", nome: "Shooter" },
+    { value: "Survival Horror", nome: "Survival Horror" },
+    { value: "Racing", nome: "Racing" },
+    { value: "Puzzle", nome: "Puzzle" },
+    { value: "Fighting", nome: "Fighting" },
+    { value: "Action-Adventure", nome: "Action-Adventure" },
+    { value: "RPG", nome: "RPG" },
+    { value: "Platform", nome: "Platform" },
+  ];
 
   // Fetch Selected Data
   const fetchSelectData = () => {
-    axios.get(`http://localhost:3000/search/order?by=${select}`).then((res) => {
-      setListedProducts(res.data.result);
-    });
+    if (select === "all") {
+      axios.get(`http://localhost:3000/products`).then((res) => {
+        setListedProducts(res.data.result.products);
+        setAdvancedSelect(res.data.result);
+        console.log(res.data.result);
+      });
+    } else {
+      axios
+        .get(`http://localhost:3000/search/order?by=${select}`)
+        .then((res) => {
+          setListedProducts(res.data.result);
+        });
+    }
   };
 
   // Handle Functions
@@ -64,32 +100,36 @@ export default function ProductsListPage() {
   };
 
   // Filter for Product List
-  const productList = listedProducts.filter((product) => {
-    const matchesSearch = product.name
-      .trim()
-      .toLowerCase()
-      .includes(search.toLowerCase());
+  const productList = Array.isArray(listedProducts)
+    ? listedProducts.filter((product) => {
+        const matchesSearch = product.name
+          .trim()
+          .toLowerCase()
+          .includes(search.toLowerCase());
 
-    const matchesGenre = advancedFilters.genre
-      ? product.genre
-          ?.toLowerCase()
-          .includes(advancedFilters.genre.toLowerCase())
-      : true;
+        const matchesGenre = advancedFilters.genre
+          ? product.genre
+              ?.toLowerCase()
+              .includes(advancedFilters.genre.toLowerCase())
+          : true;
 
-    const matchesPublisher = advancedFilters.publisher
-      ? product.publisher
-          ?.toLowerCase()
-          .includes(advancedFilters.publisher.toLowerCase())
-      : true;
+        const matchesPublisher = advancedFilters.publisher
+          ? product.publisher
+              ?.toLowerCase()
+              .includes(advancedFilters.publisher.toLowerCase())
+          : true;
 
-    const matchesPlatform = advancedFilters.platform
-      ? product.platform
-          ?.toLowerCase()
-          .includes(advancedFilters.platform.toLowerCase())
-      : true;
+        const matchesPlatform = advancedFilters.platform
+          ? product.platform
+              ?.toLowerCase()
+              .includes(advancedFilters.platform.toLowerCase())
+          : true;
 
-    return matchesSearch && matchesGenre && matchesPublisher && matchesPlatform;
-  });
+        return (
+          matchesSearch && matchesGenre && matchesPublisher && matchesPlatform
+        );
+      })
+    : [];
 
   // useEffects
   useEffect(() => {
@@ -98,7 +138,9 @@ export default function ProductsListPage() {
 
   // Sincronizza listedProducts quando products del context cambia
   useEffect(() => {
-    setListedProducts(products);
+    if (products?.products) {
+      setListedProducts(products.products);
+    }
   }, [products]);
 
   // Quando select cambia, chiama fetchSelectData
@@ -106,7 +148,6 @@ export default function ProductsListPage() {
     fetchSelectData();
   }, [select]);
   console.log(listedProducts);
-  console.log(products);
 
   return (
     <div className="container-manual py-3 byte-bounce">
@@ -175,38 +216,51 @@ export default function ProductsListPage() {
             {/* Genere */}
             <div>
               <label className="text fs-text">Genere</label>
-              <input
-                name="genre"
-                value={advancedFilters.genre}
-                type="text"
-                placeholder="Inserire Genere"
-                className="mb-3 w-100"
-                onChange={handleAdvancedFilter}
-              />
+
+              <select
+                className="form-select"
+                aria-label="Default select example"
+                value={select}
+                onChange={""}
+              >
+                {AdvancedGenreOptions.map((option) => (
+                  <option value={option.value} key={option.value}>
+                    {option.nome}
+                  </option>
+                ))}
+              </select>
             </div>
             {/* Publisher */}
             <div>
               <label className="text fs-text">Publisher</label>
-              <input
-                name="publisher"
-                value={advancedFilters.publisher}
-                type="text"
-                placeholder="Inserire Publisher"
-                className="mb-3 w-100"
-                onChange={handleAdvancedFilter}
-              />
+              <select
+                className="form-select"
+                aria-label="Default select example"
+                value={select}
+                onChange={""}
+              >
+                {AdvancedPublisherOptions.map((option) => (
+                  <option value={option.value} key={option.value}>
+                    {option.nome}
+                  </option>
+                ))}
+              </select>
             </div>
             {/* Platform */}
             <div>
               <label className="text fs-text">Platform</label>
-              <input
-                name="platform"
-                value={advancedFilters.platform}
-                type="text"
-                placeholder="Inserire Platform"
-                className="mb-3 w-100"
-                onChange={handleAdvancedFilter}
-              />
+              <select
+                className="form-select"
+                aria-label="Default select example"
+                value={select}
+                onChange={""}
+              >
+                {AdvancedConsoleOptions.map((option) => (
+                  <option value={option.value} key={option.value}>
+                    {option.nome}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <button
