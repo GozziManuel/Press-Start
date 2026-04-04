@@ -48,7 +48,6 @@ export function MainProvider({ children }) {
     setFinLoot,
     isCoupon,
     setIsCoupon,
-    products,
     fetchData,
     addItem,
     loot,
