@@ -189,28 +189,52 @@ export default function LootPage() {
 
         {/* Colonna destra: riepilogo */}
         <div className="col-lg-4">
-          <div className="border rounded p-4">
-            <h5 className="fw-bold text mb-3">Totale del tuo Loot</h5>
-            <hr />
+          <div
+            className=" p-4"
+            style={{ border: "1px solid var(--text-primary)" }}
+          >
+            <h5 className="fw-bold text pb-3 bordercard">
+              Totale del tuo Loot
+            </h5>
             {!isCoupon.result.valid && (
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <span className="text">Totale</span>
-                <span className="fs-5 fw-bold text">€{totaleLoot}</span>
+                <span className="fs-5 fw-bold text"> {totaleLoot} &euro;</span>
               </div>
             )}
             {isCoupon.result.valid && (
               <div className="">
-                <div>
+                <div className="d-flex justify-content-between align-items-center mb-2">
                   <span className="text">Totale</span>
-                  <span className="fs-5 fw-bold text">{totaleLoot}</span>
+                  <span className="fs-5 fw-bold text">{totaleLoot} &euro;</span>
                 </div>
                 <div>
-                  <span>Sconto</span>
-                  <span>{isCoupon.result.discount}</span>
+                  <span
+                    className="byte-bounce fs-3 "
+                    style={{ color: "var(--viola)" }}
+                  >
+                    Sconto:{" "}
+                  </span>
+                  <span
+                    className="fs-3"
+                    style={{ color: "var(--text-primary)" }}
+                  >
+                    {isCoupon.result.discount} &euro;
+                  </span>
                 </div>
-                <div>
-                  <span>Totale da pagare</span>
-                  <span>{totaleLoot - isCoupon.result.discount}</span>
+                <div className="mb-4">
+                  <span
+                    className="byte-bounce fs-3 "
+                    style={{ color: "var(--light-blue)" }}
+                  >
+                    Totale da pagare:{" "}
+                  </span>
+                  <span
+                    className="fs-3"
+                    style={{ color: "var(--text-primary)" }}
+                  >
+                    {totaleLoot - isCoupon.result.discount} &euro;
+                  </span>
                 </div>
               </div>
             )}
