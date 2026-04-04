@@ -22,8 +22,6 @@ export default function LootPage() {
     ac[name].expedition_price = expedition_price;
     ac[name].id = id;
 
-    console.log(discount_value);
-
     return ac;
   }, {});
 

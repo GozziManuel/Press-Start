@@ -105,6 +105,8 @@ export default function ProductsListPage() {
   useEffect(() => {
     fetchSelectData();
   }, [select]);
+  console.log(listedProducts);
+  console.log(products);
 
   return (
     <div className="container-manual py-3 byte-bounce">
