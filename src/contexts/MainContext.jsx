@@ -6,7 +6,11 @@ const MainContext = createContext();
 export function MainProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [productDetailed, setProductDetailed] = useState({});
-  const [isCoupon, setIsCoupon] = useState(false);
+  const [isCoupon, setIsCoupon] = useState({
+    result: {
+      valid: false,
+    },
+  });
   const [finLoot, setFinLoot] = useState([]);
   const [totaleLoot, setTotaleLoot] = useState(null);
   const fetchData = () => {

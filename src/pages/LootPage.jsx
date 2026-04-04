@@ -167,13 +167,13 @@ export default function LootPage() {
           <div className="border rounded p-4">
             <h5 className="fw-bold text mb-3">Totale del tuo Loot</h5>
             <hr />
-            {!isCoupon.valid && (
+            {!isCoupon.result.valid && (
               <div className="d-flex justify-content-between align-items-center mb-4">
                 <span className="text">Totale</span>
                 <span className="fs-5 fw-bold text">€{totaleLoot}</span>
               </div>
             )}
-            {isCoupon.valid && (
+            {isCoupon.result.valid && (
               <div className="">
                 <div>
                   <span className="text">Totale</span>

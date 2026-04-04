@@ -18,10 +18,19 @@ const initData = {
 };
 
 export default function Checkout() {
-  const { loot, finLoot, isCoupon, totaleLoot } = useMain();
+  const {
+    finLoot,
+    isCoupon,
+    totaleLoot,
+    setIsCoupon,
+    setFinLoot,
+    setTotaleLoot,
+    setLoot,
+  } = useMain();
   const [dataSend, setDataSend] = useState(initData);
-  const totale = loot?.reduce((acc, i) => acc + i.price * i.qty, 0) ?? 0;
-  const daPagare = isCoupon.valid ? totaleLoot - isCoupon.discount : totaleLoot;
+  const daPagare = isCoupon.result.valid
+    ? totaleLoot - isCoupon.discount
+    : totaleLoot;
 
   const handleDataSend = (e) => {
     const { name, value } = e.target;
@@ -30,82 +39,35 @@ export default function Checkout() {
 
   const handleDataSubmit = (e) => {
     e.preventDefault();
+    console.log(dataSend);
     axios.post("http://localhost:3000/checkout", dataSend).then((res) => {
-      console.log(res.data);
+      localStorage.removeItem("loot");
+      setLoot(() => {
+        return JSON.parse(localStorage.getItem("loot")) || [];
+      });
     });
+    setIsCoupon({
+      result: {
+        valid: false,
+      },
+    });
+    setDataSend(initData);
+    setFinLoot([]);
+    setTotaleLoot(null);
   };
 
   useEffect(() => {
     setDataSend({
       ...dataSend,
-      coupon: isCoupon.valid,
+      coupon: isCoupon.result.valid,
       coupon_id: isCoupon.coupon_id,
       total_price: daPagare,
       loot: finLoot,
     });
   }, []);
 
-  //     user_name,
-  //     user_surname,
-  //     user_email,
-  //     shipping_city,
-  //     shipping_address,
-  //     shipping_postal_code,
-  //     shipping_country,
-  //     total_price,
-  //     coupon,
-  //     coupon_id,
-  //     loot,
-
   return (
     <div className="checkout-wrapper">
-      {/* <div className="checkout-box">
-        <h2 className="star-crush gr-viola">Riepilogo</h2>
-        <ul className="summary-list">
-          {loot?.map((item) => (
-            <li key={item.id}>
-              <span>
-                {item.title} <small>x{item.qty}</small>
-              </span>
-              <span>€{(item.price * item.qty).toFixed(2)}</span>
-            </li>
-          ))}
-        </ul>
-        <div className="summary-total">
-          <span className="star-crush">Totale</span>
-          <span className="star-crush gr-viola">€{totale.toFixed(2)}</span>
-        </div>
-
-        <hr className="separator" />
-
-        <h2 className="star-crush gr-viola">Pagamento</h2>
-        <div className="card-form">
-          <div className="field full">
-            <label>Intestatario</label>
-            <input placeholder="Mario Rossi" />
-          </div>
-          <div className="field full">
-            <label>Numero carta</label>
-            <input placeholder="1234 5678 9012 3456" maxLength={19} />
-          </div>
-          <div className="field">
-            <label>Scadenza</label>
-            <input placeholder="MM/AA" maxLength={5} />
-          </div>
-          <div className="field">
-            <label>CVV</label>
-            <input placeholder="•••" maxLength={3} type="password" />
-          </div>
-        </div>
-
-        <button className="btn-pay star-crush">
-          Paga €{totale.toFixed(2)}
-        </button>
-
-        <p className="secure-note">
-          <i className="bi bi-lock-fill" /> Pagamento sicuro
-        </p>
-      </div> */}
       <form onSubmit={handleDataSubmit}>
         {/* I tuoi dati */}
         <div>
@@ -116,6 +78,7 @@ export default function Checkout() {
             onChange={handleDataSend}
             type="text"
             id="username-checkout"
+            value={dataSend.user_name}
           />
           <label htmlFor="cognome-checkout">Cognome</label>
           <input
@@ -123,6 +86,7 @@ export default function Checkout() {
             onChange={handleDataSend}
             type="text"
             id="cognome-checkout"
+            value={dataSend.user_surname}
           />
           <label htmlFor="email-checkout">Il tuo indirizzo email</label>
           <input
@@ -130,6 +94,7 @@ export default function Checkout() {
             onChange={handleDataSend}
             type="email"
             id="email-checkout"
+            value={dataSend.user_email}
           />
           <label htmlFor="nazione-checkout">Nazione</label>
           <input
@@ -137,6 +102,7 @@ export default function Checkout() {
             onChange={handleDataSend}
             type="text"
             id="nazione-checkout"
+            value={dataSend.shipping_country}
           />
           <label htmlFor="citta-checkout">Citta</label>
           <input
@@ -144,6 +110,7 @@ export default function Checkout() {
             onChange={handleDataSend}
             type="text"
             id="citta-checkout"
+            value={dataSend.shipping_city}
           />
           <label htmlFor="indirizzo-checkout">Via/Piazza e numero civico</label>
           <input
@@ -151,6 +118,7 @@ export default function Checkout() {
             onChange={handleDataSend}
             type="text"
             id="indirizzo-checkout"
+            value={dataSend.shipping_address}
           />
           <label htmlFor="cap-checkout">C.A.P</label>
           <input
@@ -158,6 +126,7 @@ export default function Checkout() {
             onChange={handleDataSend}
             type="text"
             id="cap-checkout"
+            value={dataSend.shipping_postal_code}
           />
         </div>
         {/* Il tuo ordine */}
@@ -178,7 +147,7 @@ export default function Checkout() {
                 </div>
               );
             })}
-            {isCoupon.valid && (
+            {isCoupon.result.valid && (
               <div>
                 <span>Sconto</span>
                 <span>&euro;{isCoupon.discount}</span>
