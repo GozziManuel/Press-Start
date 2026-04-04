@@ -77,7 +77,7 @@ export default function LootPage() {
       code: coupon,
     };
     axios.post("http://localhost:3000/coupon", forged).then((res) => {
-      setIsCoupon(res.data.result);
+      setIsCoupon(res.data);
     });
   };
   return (
@@ -206,11 +206,11 @@ export default function LootPage() {
                 </div>
                 <div>
                   <span>Sconto</span>
-                  <span>{isCoupon.discount}</span>
+                  <span>{isCoupon.result.discount}</span>
                 </div>
                 <div>
                   <span>Totale da pagare</span>
-                  <span>{totaleLoot - isCoupon.discount}</span>
+                  <span>{totaleLoot - isCoupon.result.discount}</span>
                 </div>
               </div>
             )}
