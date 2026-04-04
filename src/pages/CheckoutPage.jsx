@@ -1,13 +1,61 @@
 import { Link } from "react-router";
 import { useMain } from "../contexts/MainContext";
 import "../assets/css/checkout.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
+const initData = {
+  user_name: "",
+  user_surname: "",
+  user_email: "",
+  shipping_city: "",
+  shipping_address: "",
+  shipping_postal_code: "",
+  shipping_country: "",
+  total_price: "",
+  coupon: false,
+  coupon_id: null,
+  loot: {},
+};
 
 export default function Checkout() {
   const { loot, finLoot, isCoupon, totaleLoot } = useMain();
-
+  const [dataSend, setDataSend] = useState(initData);
   const totale = loot?.reduce((acc, i) => acc + i.price * i.qty, 0) ?? 0;
-
   const daPagare = isCoupon.valid ? totaleLoot - isCoupon.discount : totaleLoot;
+
+  const handleDataSend = (e) => {
+    const { name, value } = e.target;
+    setDataSend({ ...dataSend, [name]: value });
+  };
+
+  const handleDataSubmit = (e) => {
+    e.preventDefault();
+    axios.post("http://localhost:3000/checkout", dataSend).then((res) => {
+      console.log(res.data);
+    });
+  };
+
+  useEffect(() => {
+    setDataSend({
+      ...dataSend,
+      coupon: isCoupon.valid,
+      coupon_id: isCoupon.coupon_id,
+      total_price: daPagare,
+      loot: finLoot,
+    });
+  }, []);
+
+  //     user_name,
+  //     user_surname,
+  //     user_email,
+  //     shipping_city,
+  //     shipping_address,
+  //     shipping_postal_code,
+  //     shipping_country,
+  //     total_price,
+  //     coupon,
+  //     coupon_id,
+  //     loot,
 
   return (
     <div className="checkout-wrapper">
@@ -58,24 +106,59 @@ export default function Checkout() {
           <i className="bi bi-lock-fill" /> Pagamento sicuro
         </p>
       </div> */}
-      <form>
+      <form onSubmit={handleDataSubmit}>
         {/* I tuoi dati */}
         <div>
           <h2>I tuoi dati</h2>
           <label htmlFor="nome-checkout">Nome</label>
-          <input type="text" id="username-checkout" />
+          <input
+            name="user_name"
+            onChange={handleDataSend}
+            type="text"
+            id="username-checkout"
+          />
           <label htmlFor="cognome-checkout">Cognome</label>
-          <input type="text" id="cognome-checkout" />
+          <input
+            name="user_surname"
+            onChange={handleDataSend}
+            type="text"
+            id="cognome-checkout"
+          />
           <label htmlFor="email-checkout">Il tuo indirizzo email</label>
-          <input type="email" id="email-checkout" />
-          <label htmlFor="indirizzo-checkout">Via/Piazza e numero civico</label>
+          <input
+            name="user_email"
+            onChange={handleDataSend}
+            type="email"
+            id="email-checkout"
+          />
           <label htmlFor="nazione-checkout">Nazione</label>
-          <input type="text" id="nazione-checkout" />
-          <input type="text" id="indirizzo-checkout" />
+          <input
+            name="shipping_country"
+            onChange={handleDataSend}
+            type="text"
+            id="nazione-checkout"
+          />
           <label htmlFor="citta-checkout">Citta</label>
-          <input type="text" id="citta-checkout" />
+          <input
+            name="shipping_city"
+            onChange={handleDataSend}
+            type="text"
+            id="citta-checkout"
+          />
+          <label htmlFor="indirizzo-checkout">Via/Piazza e numero civico</label>
+          <input
+            name="shipping_address"
+            onChange={handleDataSend}
+            type="text"
+            id="indirizzo-checkout"
+          />
           <label htmlFor="cap-checkout">C.A.P</label>
-          <input type="text" id="cap-checkout" />
+          <input
+            name="shipping_postal_code"
+            onChange={handleDataSend}
+            type="text"
+            id="cap-checkout"
+          />
         </div>
         {/* Il tuo ordine */}
         <div>

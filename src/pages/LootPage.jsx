@@ -77,7 +77,6 @@ export default function LootPage() {
       setIsCoupon(res.data.result);
     });
   };
-
   return (
     <div className="container-manual py-5">
       <div className="d-flex">
