@@ -56,7 +56,12 @@ export default function AboutUs() {
             <li key={id} className="team-row byte-bounce">
               <div className="member-info-container">
                 <span className="arrow-purple">{">"}</span>
-                <span className="member-name">{member.name}</span>
+                <span
+                  className="member-name"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {member.name}
+                </span>
 
                 <div className="avatar-small">
                   <img src={member.img} alt={member.name} />
