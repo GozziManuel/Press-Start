@@ -35,12 +35,19 @@ export default function AboutUs() {
 
   // Funzione che decide che cosa attivare in base a cosa verrà cliccato
   const handleMemberClick = (id) => {
+    console.log("Stai cliccando o no:", id);
+    // reset del cursore per sicurezza
+    document.body.style.cursor = "auto";
+
     if (id === 0) {
       setActiveEffect("glitch");
-      // dopo 60 secondi resettiamo a null
       setTimeout(() => setActiveEffect(null), 60000);
     } else if (id === 1) {
       setActiveEffect("lanyard");
+    } else if (id === 2) {
+      setActiveEffect("target");
+    } else if (id === 3) {
+      setActiveEffect("splash");
     }
   };
 
@@ -55,31 +62,38 @@ export default function AboutUs() {
 
       {/* caso n^2 */}
       {activeEffect === "lanyard" && (
-        <div
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 999,
-            background: "rgba(0,0,0,0.8)",
-          }}
-        >
+        <div className="lanyard-overlay">
           <Lanyard />
           {/* Bottone per chiudere l'effetto 3D */}
           <button
             onClick={() => setActiveEffect(null)}
-            style={{
-              position: "absolute",
-              top: "20px",
-              right: "20px",
-              zIndex: 1000,
-              padding: "10px 20px",
-              cursor: "pointer",
-            }}
+            className="btn-close-effect"
           >
-            CHIUDI X
+            CHIUDI EFFETTO 3D
           </button>
         </div>
       )}
+      {/* Caso 3 */}
+      {activeEffect === "target" && (
+        <TargetAimBotCursor targetSelector=".cursor-target" />
+      )}
+
+      {/* Caso 4 */}
+      {activeEffect === "splash" && <ColorsSplashCursor />}
+
+      {/* Bottone di emergenza --> per togliere i cursori speciali */}
+      {(activeEffect === "target" || activeEffect === "splash") && (
+        <button
+          onClick={() => {
+            setActiveEffect(null);
+            document.body.style.cursor = "auto"; // sicurezza--> non rimanere senza mouse
+          }}
+          className="btn-reset-cursor"
+        >
+          Resetta Cursore
+        </button>
+      )}
+
       <div className="py-3 byte-bounce gr-viola container-manual">
         <section className="hero pb-5">
           <h1 className="star-crush">
@@ -107,7 +121,11 @@ export default function AboutUs() {
 
         <ul className="team-list-vertical">
           {team.map((member, id) => (
-            <li key={id} className="team-row byte-bounce">
+            <li
+              key={id}
+              className={`team-row byte-bounce ${activeEffect === "target" ? "cursor-target" : ""}`} // Classe per il mirino
+              onClick={() => handleMemberClick(id)}
+            >
               <div className="member-info-container">
                 <span className="arrow-purple">{">"}</span>
                 <span className="member-name">{member.name}</span>

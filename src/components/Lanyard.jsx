@@ -22,7 +22,7 @@ import cardGLB from "../assets/lanyardStaff/card.glb";
 import lanyard from "../assets/lanyardStaff/lanyard.png";
 
 import * as THREE from "three";
-import "../assets/css/lanyard.css";
+import "../assets/lanyardStaff/lanyard.css";
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
