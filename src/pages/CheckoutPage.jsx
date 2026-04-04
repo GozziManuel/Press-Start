@@ -29,7 +29,7 @@ export default function Checkout() {
   } = useMain();
   const [dataSend, setDataSend] = useState(initData);
   const daPagare = isCoupon.result.valid
-    ? totaleLoot - isCoupon.discount
+    ? totaleLoot - isCoupon.result.discount
     : totaleLoot;
 
   const handleDataSend = (e) => {
@@ -60,7 +60,7 @@ export default function Checkout() {
     setDataSend({
       ...dataSend,
       coupon: isCoupon.result.valid,
-      coupon_id: isCoupon.coupon_id,
+      coupon_id: isCoupon.result.coupon_id,
       total_price: daPagare,
       loot: finLoot,
     });
@@ -150,7 +150,7 @@ export default function Checkout() {
             {isCoupon.result.valid && (
               <div>
                 <span>Sconto</span>
-                <span>&euro;{isCoupon.discount}</span>
+                <span>&euro;{isCoupon.result.discount}</span>
               </div>
             )}
             <div>
