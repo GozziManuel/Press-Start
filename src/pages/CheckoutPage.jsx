@@ -29,8 +29,8 @@ export default function Checkout() {
   } = useMain();
   const [dataSend, setDataSend] = useState(initData);
   const daPagare = isCoupon.result.valid
-    ? totaleLoot - isCoupon.result.discount
-    : totaleLoot;
+    ? (parseFloat(totaleLoot) - isCoupon.result.discount).toFixed(2)
+    : parseFloat(totaleLoot).toFixed(2);
 
   const handleDataSend = (e) => {
     const { name, value } = e.target;
@@ -61,7 +61,7 @@ export default function Checkout() {
       ...dataSend,
       coupon: isCoupon.result.valid,
       coupon_id: isCoupon.result.coupon_id,
-      total_price: daPagare,
+      total_price: parseFloat(daPagare),
       loot: finLoot,
     });
   }, []);
@@ -79,12 +79,14 @@ export default function Checkout() {
             type="text"
             id="username-checkout"
             value={dataSend.user_name}
+            required
           />
           <label htmlFor="cognome-checkout">Cognome</label>
           <input
             name="user_surname"
             onChange={handleDataSend}
             type="text"
+            required
             id="cognome-checkout"
             value={dataSend.user_surname}
           />
@@ -93,6 +95,7 @@ export default function Checkout() {
             name="user_email"
             onChange={handleDataSend}
             type="email"
+            required
             id="email-checkout"
             value={dataSend.user_email}
           />
@@ -101,6 +104,7 @@ export default function Checkout() {
             name="shipping_country"
             onChange={handleDataSend}
             type="text"
+            required
             id="nazione-checkout"
             value={dataSend.shipping_country}
           />
@@ -109,6 +113,7 @@ export default function Checkout() {
             name="shipping_city"
             onChange={handleDataSend}
             type="text"
+            required
             id="citta-checkout"
             value={dataSend.shipping_city}
           />
@@ -117,6 +122,7 @@ export default function Checkout() {
             name="shipping_address"
             onChange={handleDataSend}
             type="text"
+            required
             id="indirizzo-checkout"
             value={dataSend.shipping_address}
           />
@@ -125,6 +131,7 @@ export default function Checkout() {
             name="shipping_postal_code"
             onChange={handleDataSend}
             type="text"
+            required
             id="cap-checkout"
             value={dataSend.shipping_postal_code}
           />
@@ -143,7 +150,7 @@ export default function Checkout() {
                   <span>
                     {el.name} x {el.quantity}
                   </span>
-                  <span>&euro;{el.total}</span>
+                  <span>&euro;{el.total.toFixed(2)}</span>
                 </div>
               );
             })}
