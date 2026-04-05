@@ -209,7 +209,6 @@
   z-index: 2;
   pointer-events: none; /* Impedisce che la GIF blocchi i click */
 }
-/* Selezioniamo il paragrafo con la classe star-crush dentro la sezione */
 .container-manual:nth-of-type(1) .big-title {
   display: inline-block;
   opacity: 0;
