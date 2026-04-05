@@ -5,7 +5,10 @@
   --gray: #cccccc;
   --black: #000000;
   --danger: hsl(0, 89%, 70%);
+  --danger-border: rgb(207, 64, 64);
+  --danger-border: rgb(163, 26, 26);
   --disabled-viola: #491779;
+  --text-placeholder: #888888;
 }
 :root[data-theme="dark"] {
   --bg-primary: #111827;
@@ -23,6 +26,7 @@
   --gr-viola: linear-gradient(90deg, #6e00d4, #0694c4);
   --glowing-primary: #8a2be24d;
   --text-primary: #292929;
+
   --separator-primary: #999999;
   --bg-card: #e4e4e4;
   --bg-navbar: #c9c3c3;

@@ -48,10 +48,9 @@ export default function Checkout() {
 
       if (lastChar !== "" && !allowed.includes(lastChar)) {
         setInputValidation(true);
-        setTimeout(() => {
-          setInputValidation(false);
-        }, 3000);
         return;
+      } else if (allowed.includes(lastChar)) {
+        setInputValidation(false);
       }
     }
     setDataSend({ ...dataSend, [name]: value });
@@ -92,7 +91,7 @@ export default function Checkout() {
   }, [finLoot]);
 
   return (
-    <div className="container-manual mt-4">
+    <div className="container-manual mt-4 labelfinder">
       <form onSubmit={handleDataSubmit}>
         {/* I tuoi dati */}
         <h2 className="star-crush gr-viola">I tuoi dati</h2>
@@ -177,19 +176,27 @@ export default function Checkout() {
             />
           </div>
         </div>
+
+        {/* INPUT VALIDATION */}
         {inputValidation && (
-          <>
+          <div className="d-flex justify-content-center">
             <div
-              className="card text-bg-danger mb-3"
+              className="validationContainer mb-3 py-3"
               style={{ maxWidth: "18rem;" }}
             >
-              <div className="card-header">Placeholder</div>
-              <div className="card-body"></div>
+              <div
+                className="card-header  byte-bounce fs-5 px-3 text-center"
+                style={{ color: "var(--danger-text)" }}
+              >
+                E' necessario mettere caratteri adeguati nel campo: solo
+                caratteri alfabetici
+              </div>
             </div>
-          </>
+          </div>
         )}
+
         {/* Il tuo ordine */}
-        <div>
+        <div className="smoothIn">
           <h2 className="star-crush gr-viola">Il tuo ordine</h2>
 
           <div>
