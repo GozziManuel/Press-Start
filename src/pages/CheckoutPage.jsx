@@ -2,7 +2,7 @@ import { Link, Navigate, useNavigate } from "react-router";
 import { useMain } from "../contexts/MainContext";
 import "../assets/css/checkout.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { all } from "axios";
 const initData = {
   user_name: "",
   user_surname: "",
@@ -28,6 +28,7 @@ export default function Checkout() {
     setTotaleLoot,
     setLoot,
   } = useMain();
+  const [inputValidation, setInputValidation] = useState(false);
   const [dataSend, setDataSend] = useState(initData);
   const daPagare = isCoupon.result.valid
     ? (parseFloat(totaleLoot) - isCoupon.result.discount).toFixed(2)
@@ -35,6 +36,24 @@ export default function Checkout() {
 
   const handleDataSend = (e) => {
     const { name, value } = e.target;
+    const textOnlyFields = [
+      "user_name",
+      "user_surname",
+      "shipping_city",
+      "shipping_country",
+    ];
+    if (textOnlyFields.includes(name)) {
+      const allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+      const lastChar = value.slice(-1);
+
+      if (lastChar !== "" && !allowed.includes(lastChar)) {
+        setInputValidation(true);
+        setTimeout(() => {
+          setInputValidation(false);
+        }, 3000);
+        return;
+      }
+    }
     setDataSend({ ...dataSend, [name]: value });
   };
 
@@ -158,6 +177,23 @@ export default function Checkout() {
             />
           </div>
         </div>
+        {inputValidation && (
+          <>
+            <div
+              className="card text-bg-danger mb-3"
+              style={{ maxWidth: "18rem;" }}
+            >
+              <div className="card-header">Header</div>
+              <div className="card-body">
+                <h5 className="card-title">Danger card title</h5>
+                <p className="card-text">
+                  Some quick example text to build on the card title and make up
+                  the bulk of the card’s content.
+                </p>
+              </div>
+            </div>
+          </>
+        )}
         {/* Il tuo ordine */}
         <div>
           <h2 className="star-crush gr-viola">Il tuo ordine</h2>
