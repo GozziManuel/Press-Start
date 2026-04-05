@@ -37,11 +37,13 @@ export default function LootPage() {
     return ac;
   }, {});
 
-  setTotaleLoot(
-    Object.values(tmp).reduce((ac, ce) => {
-      return (ac += ce.total);
-    }, 0),
-  );
+  useEffect(() => {
+    const total = Object.values(tmp).reduce((ac, ce) => {
+      return ac + ce.total;
+    }, 0);
+
+    setTotaleLoot(total);
+  }, [loot]);
 
   const handleQuantity = (e, elem) => {
     const { value } = e.target;
@@ -87,6 +89,8 @@ export default function LootPage() {
       setIsCoupon(res.data);
     });
   };
+  console.log(totaleLoot);
+
   return (
     <div className="container-manual py-5">
       <div className="d-flex mb-5 align-items-center">
@@ -208,7 +212,10 @@ export default function LootPage() {
                 <span className="text">Totale</span>
                 <span className="fs-5 fw-bold text">
                   {" "}
-                  {totaleLoot.toFixed(2)} &euro;
+                  {(
+                    (totaleLoot || 0) - (isCoupon?.result?.discount || 0)
+                  ).toFixed(2)}{" "}
+                  &euro;
                 </span>
               </div>
             )}
@@ -252,7 +259,10 @@ export default function LootPage() {
             )}
             <div className="d-grid gap-2">
               <Link to={"/checkout"}>
-                <button className="button primary transparent text byte-bounce fs-5">
+                <button
+                  className="button primary transparent text byte-bounce fs-5 checkoutbutton"
+                  disabled={totaleLoot === 0}
+                >
                   Vai alla cassa
                 </button>
               </Link>

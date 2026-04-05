@@ -4,7 +4,8 @@
   --white: #ffffff;
   --gray: #cccccc;
   --black: #000000;
-  --danger: #f77070;
+  --danger: hsl(0, 89%, 70%);
+  --disabled-viola: #491779;
 }
 :root[data-theme="dark"] {
   --bg-primary: #111827;

@@ -16,3 +16,16 @@
 .bordercard {
   border-bottom: 1px solid var(--text-primary);
 }
+.checkoutbutton:disabled {
+  color: gray;
+  border: 2px solid var(--disabled-viola);
+}
+.checkoutbutton:disabled:hover {
+  animation: none;
+  transform: none;
+  background-color: transparent;
+  color: gray;
+}
+.checkoutbutton {
+  width: 100%;
+}
