@@ -1,10 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../assets/doomModeStaff/doomMode.css";
 
 import armatoPronto from "../assets/doomModeStaff/armato-epronto.gif";
 
 import animazioneSparo2 from "../assets/doomModeStaff/animazione-sparo2.gif";
 import enemyImg from "../assets/doomModeStaff/enemy-doom.png";
+
+// Import Asset Audio
+import doomGateAudio from "../assets/doomModeStaff/doom-gate.mp3";
+import enemyPistol from "../assets/doomModeStaff/enemy-pistol-sound.wav";
+import playerShotgun from "../assets/doomModeStaff/doom-shotgun-audio.mp3";
+import enemyDeath from "../assets/doomModeStaff/enemy-death-sound.wav";
 
 export default function DoomMode() {
   const [gameStarted, setGameStarted] = useState(false);
@@ -13,18 +19,44 @@ export default function DoomMode() {
   const [isShooting, setIsShooting] = useState(false);
   const [holes, setHoles] = useState([]);
 
-  // GESTIONE INTRODUZIONE
+  //note --> il problema della perdita di precisione e sincronia non è dovuto al codice React, ma a come i browser gestiscono la cache delle GIF. Quando React smonta e rimonta le gif, il browser riconosce che l'URL è lo stesso. Invece di far ripartire la GIF dal frame 0, spesso cerca di ottimizzare le risorse riprendendo l'animazione da dove si era interrotta nel suo ciclo interno, oppure subisce dei micro-lag di decodifica che si accumulano a ogni click.
+  // utilizzo del Cache Busting --> inganna il browser facendogli credere che ogni sparo sia un'immagine completamente nuova, costringendolo a riprodurre la GIF dal primissimo frame ogni singola volta in perfetta sincronia con il setTimeout.
+  const [shootTimestamp, setShootTimestamp] = useState(Date.now());
+
+  // GESTIONE MUSICA DI SOTTOFONDO --> per poterla spegnere
+  const bgMusicRef = useRef(new Audio(doomGateAudio));
+
+  // Gestione suoni istantanei (spari, morti) che possono sovrapporsi
+  const playSfx = (path, volume = 0.5) => {
+    const sfx = new Audio(path);
+    sfx.volume = volume;
+    sfx.play();
+  };
+
+  // GESTIONE INTRODUZIONE E MUSICA
   useEffect(() => {
-    // Mostra il fucile che si arma --> regolata in base alla durata della gif
+    // Mostra il fucile che si arma --> regolata in base alla durata della gif --> fungerà da timer per l'intro
     const introTimer = setTimeout(() => {
       setIntroActive(false);
       setGameStarted(true);
+
+      // Finità l'intro, parte la musica di sottofondo in loop
+      bgMusicRef.current.loop = true;
+      bgMusicRef.current.volume = 0.3;
+      bgMusicRef.current
+        .play()
+        .catch((e) => console.log("Musica bloccata perchè!?:", e));
     }, 750);
 
-    return () => clearTimeout(introTimer);
+    // Cleanup quando il componente viene smontato
+    return () => {
+      clearTimeout(introTimer);
+      bgMusicRef.current.pause();
+      bgMusicRef.current.currentTime = 0;
+    };
   }, []);
 
-  // GENERAZIONE NEMICI --> solo dopo l'intro
+  // GENERAZIONE NEMICI E AUDIO SPARO--> solo dopo l'intro
   useEffect(() => {
     if (!gameStarted) return;
 
@@ -35,23 +67,36 @@ export default function DoomMode() {
         y: Math.random() * 70 + 5 + "%",
       };
       setEnemies((prev) => [...prev, newEnemy]);
+      // Suono sparo nemico (pistola)
+      playSfx(enemyPistol, 0.4);
     }, 3500);
 
     return () => clearInterval(interval);
   }, [gameStarted]);
 
-  // LOGICA DELLO SPARO
+  // LOGICA DELLO SPARO E AUDIO MORTE NEMICO
   const handleShoot = (id, x, y) => {
     if (isShooting) return;
 
+    // Aggiora il timestamp nel momento esatto del click
+    setShootTimestamp(Date.now());
     setIsShooting(true);
 
-    // Tempo animazione sparo
+    // audio sparo utente immediato
+    playSfx(playerShotgun, 0.6);
+
+    // timing morte nemico
     setTimeout(() => {
+      // Audio morte nemico appena prima che sparisca
+      playSfx(enemyDeath, 0.5);
       setEnemies((prev) => prev.filter((e) => e.id !== id));
       setHoles((prev) => [...prev, { x, y, id: Math.random() }]);
+    }, 550);
+
+    // 2. Il fucile finisce il rinculo e torna pronto (1800ms) --> prima per evitare incastri
+    setTimeout(() => {
       setIsShooting(false);
-    }, 1800);
+    }, 1750);
   };
 
   return (

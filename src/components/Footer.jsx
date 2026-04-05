@@ -1,8 +1,40 @@
 import "../assets/css/footer.css";
 import { useMain } from "../contexts/MainContext";
 
+// audio easter egg
+import easterEgg from "../assets/doomModeStaff/the-doom-slayer-surprise.mp3";
+import introFiga from "../assets/doomModeStaff/shotgun-metal-slug.mp3";
+import { useRef } from "react";
+
 export default function Footer() {
   const { setActiveEffect } = useMain();
+
+  const hoverAudioRef = useRef(null);
+
+  // Suono hover (The Doom Slayer Surprise)
+  const handleMouseEnter = () => {
+    // se l'audio esiste già ed è in riproduzione, non fare nulla
+    if (hoverAudioRef.current && !hoverAudioRef.current.paused) {
+      return;
+    }
+    // altrimenti crea l'audio e avvialo
+    const hoverSound = new Audio(easterEgg);
+    hoverSound.volume = 0.4;
+    hoverSound.play().catch(() => {}); // catch per evitare errori se l'utente non ha interagito
+  };
+
+  // Suono al click (Metal Slug Shotgun)
+  const handleStartGame = () => {
+    // se si clicca prima che l'audio easterEgg sia finito ferma l'audio
+    if (hoverAudioRef.current) {
+      hoverAudioRef.current.pause();
+    }
+
+    const startSound = new Audio(introFiga);
+    startSound.play();
+    setActiveEffect("doom-mode");
+  };
+
   return (
     <footer>
       <img
@@ -31,13 +63,25 @@ export default function Footer() {
             support@pressstart.com
           </p>
         </div>
-        <p
-          className="text-center text"
-          onClick={() => setActiveEffect("doom-mode")}
-          style={{ cursor: "pointer", userSelect: "none" }}
+        <div
+          className="footer-bottom-row"
+          style={{ textAlign: "center", marginTop: "20px" }}
         >
-          Press Start &copy;
-        </p>
+          <span
+            onMouseEnter={handleMouseEnter}
+            onClick={handleStartGame}
+            style={{
+              cursor: "default", // Nessun feedback visivo
+              userSelect: "none", // Impedisce la selezione blu
+              display: "inline-block", // Rende l'area grande quanto il testo
+              padding: "5px 10px", // Definisce l'area esatta di "trigger"
+              fontSize: "0.9rem", // Se vuoi renderlo ancora più discreto
+              color: "inherit", // Si mimetizza con il resto del testo
+            }}
+          >
+            Press Start &copy;
+          </span>
+        </div>
       </div>
     </footer>
   );

@@ -10,10 +10,25 @@ import TargetAimBotCursor from "../components/TargetAimBotCursor";
 import ColorsSplashCursor from "../components/ColorsSplashCursor";
 import DoomMode from "../components/DoomMode";
 
+//audio doom
+import closeGameAudio from "../assets/doomModeStaff/the-doom-slayer-ending.mp3";
+
 export default function DefaultTemplate() {
   const { activeEffect, setActiveEffect } = useMain();
   console.log("L'effetto attivo nel template è:", activeEffect);
 
+  const handleExitDoom = () => {
+    // blocca tutti gli audio
+    const allAudios = document.querySelectorAll("audio");
+    allAudios.forEach((a) => a.pause());
+
+    // The Doom Slayer Ending finally
+    const exitSound = new Audio(closeGameAudio);
+    exitSound.play();
+
+    // 3. Chiudiamo l'effetto
+    setActiveEffect(null);
+  };
   return (
     <div className="d-flex flex-column min-vh-100">
       {/* --- EASTER EGGS GLOBALI --- */}
@@ -62,10 +77,7 @@ export default function DefaultTemplate() {
       {activeEffect === "doom-mode" && (
         <div className="doom-main-container">
           <DoomMode />
-          <button
-            onClick={() => setActiveEffect(null)}
-            className="btn-doom-exit"
-          >
+          <button onClick={handleExitDoom} className="btn-doom-exit">
             ESCI DAL GIOCO
           </button>
         </div>
