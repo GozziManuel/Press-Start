@@ -12,7 +12,7 @@ export function MainProvider({ children }) {
     },
   });
   const [finLoot, setFinLoot] = useState([]);
-  const [totaleLoot, setTotaleLoot] = useState(null);
+  const [totaleLoot, setTotaleLoot] = useState(0.0);
   const fetchData = () => {
     axios.get(`http://localhost:3000/products`).then((res) => {
       setProducts(res.data.result);

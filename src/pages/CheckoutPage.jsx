@@ -29,8 +29,8 @@ export default function Checkout() {
   } = useMain();
   const [dataSend, setDataSend] = useState(initData);
   const daPagare = isCoupon.result.valid
-    ? (parseFloat(totaleLoot) - isCoupon.result.discount).toFixed(2)
-    : parseFloat(totaleLoot).toFixed(2);
+    ? parseFloat(totaleLoot) - isCoupon.result.discount
+    : parseFloat(totaleLoot);
 
   const handleDataSend = (e) => {
     const { name, value } = e.target;
@@ -53,7 +53,7 @@ export default function Checkout() {
     });
     setDataSend(initData);
     setFinLoot([]);
-    setTotaleLoot(null);
+    setTotaleLoot(0.0);
   };
 
   useEffect(() => {
