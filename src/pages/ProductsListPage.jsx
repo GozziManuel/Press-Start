@@ -290,7 +290,7 @@ export default function ProductsListPage() {
         }`}
       >
         {productList.map((data) => (
-          <div className="col" key={data.id}>
+          <div className="col card-animate" key={data.id}>
             <GameCard data={data} checked={checked} />
           </div>
         ))}

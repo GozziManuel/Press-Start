@@ -63,6 +63,44 @@
     transform: translate(-50%, -50%) rotate(360deg);
   }
 }
+/* ANIMATION ENTRANCE */
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Classe da applicare alla colonna della card */
+.card-animate {
+  animation: cardEntrance 0.5s ease-out forwards;
+}
+
+.card-animate:nth-child(*) {
+  animation-delay: 10s;
+}
+.row.g-4.gx-5 > .col {
+  animation: reveal linear both;
+  view-timeline-name: --item-reveal;
+  view-timeline-axis: block;
+  animation-timeline: --item-reveal;
+  animation-range: entry 0% cover 30%;
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(100px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 /* ANOTHER CARD CSS */
 #card-title {
   font-size: 30px;
