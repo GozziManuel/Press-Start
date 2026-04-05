@@ -1,8 +1,8 @@
-import { Link } from "react-router";
+import { Link, Navigate, useNavigate } from "react-router";
 import { useMain } from "../contexts/MainContext";
 import "../assets/css/checkout.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { all } from "axios";
 const initData = {
   user_name: "",
   user_surname: "",
@@ -18,6 +18,7 @@ const initData = {
 };
 
 export default function Checkout() {
+  const navigate = useNavigate();
   const {
     finLoot,
     isCoupon,
@@ -27,6 +28,7 @@ export default function Checkout() {
     setTotaleLoot,
     setLoot,
   } = useMain();
+  const [inputValidation, setInputValidation] = useState(false);
   const [dataSend, setDataSend] = useState(initData);
   const daPagare = isCoupon.result.valid
     ? parseFloat(totaleLoot) - isCoupon.result.discount
@@ -34,6 +36,23 @@ export default function Checkout() {
 
   const handleDataSend = (e) => {
     const { name, value } = e.target;
+    const textOnlyFields = [
+      "user_name",
+      "user_surname",
+      "shipping_city",
+      "shipping_country",
+    ];
+    if (textOnlyFields.includes(name)) {
+      const allowed = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+      const lastChar = value.slice(-1);
+
+      if (lastChar !== "" && !allowed.includes(lastChar)) {
+        setInputValidation(true);
+        return;
+      } else if (allowed.includes(lastChar)) {
+        setInputValidation(false);
+      }
+    }
     setDataSend({ ...dataSend, [name]: value });
   };
 
@@ -65,106 +84,145 @@ export default function Checkout() {
       loot: finLoot,
     });
   }, []);
+  useEffect(() => {
+    if (!finLoot || isNaN(daPagare)) {
+      navigate("/loot");
+    }
+  }, [finLoot]);
 
   return (
-    <div className="checkout-wrapper">
+    <div className="container-manual mt-4 labelfinder">
       <form onSubmit={handleDataSubmit}>
         {/* I tuoi dati */}
-        <div>
-          <h2>I tuoi dati</h2>
-          <label htmlFor="nome-checkout">Nome</label>
-          <input
-            name="user_name"
-            onChange={handleDataSend}
-            type="text"
-            id="username-checkout"
-            value={dataSend.user_name}
-            required
-          />
-          <label htmlFor="cognome-checkout">Cognome</label>
-          <input
-            name="user_surname"
-            onChange={handleDataSend}
-            type="text"
-            required
-            id="cognome-checkout"
-            value={dataSend.user_surname}
-          />
-          <label htmlFor="email-checkout">Il tuo indirizzo email</label>
-          <input
-            name="user_email"
-            onChange={handleDataSend}
-            type="email"
-            required
-            id="email-checkout"
-            value={dataSend.user_email}
-          />
-          <label htmlFor="nazione-checkout">Nazione</label>
-          <input
-            name="shipping_country"
-            onChange={handleDataSend}
-            type="text"
-            required
-            id="nazione-checkout"
-            value={dataSend.shipping_country}
-          />
-          <label htmlFor="citta-checkout">Citta</label>
-          <input
-            name="shipping_city"
-            onChange={handleDataSend}
-            type="text"
-            required
-            id="citta-checkout"
-            value={dataSend.shipping_city}
-          />
-          <label htmlFor="indirizzo-checkout">Via/Piazza e numero civico</label>
-          <input
-            name="shipping_address"
-            onChange={handleDataSend}
-            type="text"
-            required
-            id="indirizzo-checkout"
-            value={dataSend.shipping_address}
-          />
-          <label htmlFor="cap-checkout">C.A.P</label>
-          <input
-            name="shipping_postal_code"
-            onChange={handleDataSend}
-            type="text"
-            required
-            id="cap-checkout"
-            value={dataSend.shipping_postal_code}
-          />
-        </div>
-        {/* Il tuo ordine */}
-        <div>
-          <h2>Il tuo ordine</h2>
-          <div>
-            <span>Prodotto</span>
-            <span>Totale</span>
+        <h2 className="star-crush gr-viola">I tuoi dati</h2>
+        <div className="card-form">
+          <div className="field">
+            <label htmlFor="nome-checkout">Nome</label>
+            <input
+              name="user_name"
+              onChange={handleDataSend}
+              type="text"
+              id="username-checkout"
+              value={dataSend.user_name}
+              required
+            />
           </div>
+          <div className="field">
+            <label htmlFor="cognome-checkout">Cognome</label>
+            <input
+              name="user_surname"
+              onChange={handleDataSend}
+              type="text"
+              required
+              id="cognome-checkout"
+              value={dataSend.user_surname}
+            />
+          </div>
+          <div className="field full">
+            <label htmlFor="email-checkout">Il tuo indirizzo email</label>
+            <input
+              name="user_email"
+              onChange={handleDataSend}
+              type="email"
+              required
+              id="email-checkout"
+              value={dataSend.user_email}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="nazione-checkout">Nazione</label>
+            <input
+              name="shipping_country"
+              onChange={handleDataSend}
+              type="text"
+              required
+              id="nazione-checkout"
+              value={dataSend.shipping_country}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="citta-checkout">Citta</label>
+            <input
+              name="shipping_city"
+              onChange={handleDataSend}
+              type="text"
+              required
+              id="citta-checkout"
+              value={dataSend.shipping_city}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="indirizzo-checkout">
+              Via/Piazza e numero civico
+            </label>
+            <input
+              name="shipping_address"
+              onChange={handleDataSend}
+              type="text"
+              required
+              id="indirizzo-checkout"
+              value={dataSend.shipping_address}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="cap-checkout">C.A.P</label>
+            <input
+              name="shipping_postal_code"
+              onChange={handleDataSend}
+              type="text"
+              required
+              id="cap-checkout"
+              value={dataSend.shipping_postal_code}
+            />
+          </div>
+        </div>
+
+        {/* INPUT VALIDATION */}
+        {inputValidation && (
+          <div className="d-flex justify-content-center">
+            <div
+              className="validationContainer mb-3 py-3"
+              style={{ maxWidth: "18rem;" }}
+            >
+              <div
+                className="card-header  byte-bounce fs-5 px-3 text-center"
+                style={{ color: "var(--danger-text)" }}
+              >
+                E' necessario mettere caratteri adeguati nel campo: solo
+                caratteri alfabetici
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Il tuo ordine */}
+        <div className="smoothIn">
+          <h2 className="star-crush gr-viola">Il tuo ordine</h2>
+
           <div>
             {finLoot.map((el) => {
               return (
-                <div>
-                  <span>
-                    {el.name} x {el.quantity}
+                <div style={{ color: "var(--text-primary)" }} className="fs-4">
+                  <span className="byte-bounce ">
+                    {el.name} x {el.quantity}{" "}
                   </span>
-                  <span>&euro;{el.total.toFixed(2)}</span>
+                  <span>{el.total.toFixed(2)} &euro;</span>
                 </div>
               );
             })}
             {isCoupon.result.valid && (
               <div>
                 <span>Sconto</span>
-                <span>&euro;{isCoupon.result.discount}</span>
+                <span> {isCoupon.result.discount} &euro;</span>
               </div>
             )}
-            <div>
-              <span>Totale da pagare</span>
-              <span>&euro;{daPagare}</span>
+            <div style={{ color: "var(--text-primary)" }}>
+              <span className="byte-bounce fs-3 gr-viola">
+                Totale da pagare{" "}
+              </span>
+              <span className="fs-3">{daPagare} &euro; </span>
             </div>
-            <hr className="separator" />
+            <hr className="separator my-4" />
 
             <h2 className="star-crush gr-viola">Pagamento</h2>
             <div className="card-form">
