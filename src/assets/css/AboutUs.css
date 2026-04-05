@@ -155,7 +155,8 @@
   background: rgba(0, 0, 0, 0.8);
 }
 
-.btn-close-effect {
+.btn-close-effect,
+.btn-reset-cursor {
   position: fixed;
   bottom: 40px;
   right: 40px;
@@ -165,29 +166,16 @@
   background: #a855f7;
   color: white;
   border: 2px solid white;
-  borderradius: 12px;
+  border-radius: 12px;
   font-weight: bold;
   font-size: 18px;
   box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
-  transition: transform 0.2s ease;
+  transition: all 0.2s ease-in-out; /* Animazione fluida */
 }
 
-.btn-close-effect:hover {
+.btn-close-effect:hover,
+.btn-reset-cursor:hover {
   transform: scale(1.1);
   background: #9333ea;
-}
-
-/* Bottone per Target e Splash */
-.btn-reset-cursor {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 102;
-  padding: 10px 20px;
-  background: #a855f7;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
 }

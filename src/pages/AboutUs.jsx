@@ -1,11 +1,7 @@
 import { NavLink } from "react-router";
 import "../assets/css/AboutUs.css";
 
-import { useState } from "react";
-import LetterGlitch from "../components/LetterGlitch";
-import Lanyard from "../components/Lanyard";
-import TargetAimBotCursor from "../components/TargetAimBotCursor";
-import ColorsSplashCursor from "../components/ColorsSplashCursor";
+import { useMain } from "../contexts/MainContext";
 
 const team = [
   {
@@ -30,70 +26,17 @@ const team = [
   },
 ];
 export default function AboutUs() {
-  // "stato" che ci dice quale effetto è attivo. All'inizio è null
-  const [activeEffect, setActiveEffect] = useState(null);
+  const { triggerEffect, activeEffect, setActiveEffect } = useMain();
 
-  // Funzione che decide che cosa attivare in base a cosa verrà cliccato
   const handleMemberClick = (id) => {
-    console.log("Stai cliccando o no:", id);
-    // reset del cursore per sicurezza
-    document.body.style.cursor = "auto";
-
-    if (id === 0) {
-      setActiveEffect("glitch");
-      setTimeout(() => setActiveEffect(null), 60000);
-    } else if (id === 1) {
-      setActiveEffect("lanyard");
-    } else if (id === 2) {
-      setActiveEffect("target");
-    } else if (id === 3) {
-      setActiveEffect("splash");
-    }
+    if (id === 0) triggerEffect("glitch");
+    else if (id === 1) setActiveEffect("lanyard");
+    else if (id === 2) setActiveEffect("target");
+    else if (id === 3) setActiveEffect("splash");
   };
 
   return (
     <>
-      {/* caso n^1 */}
-      {activeEffect === "glitch" && (
-        <div style={{ position: "fixed", inset: 0, zIndex: -1 }}>
-          <LetterGlitch />
-        </div>
-      )}
-
-      {/* caso n^2 */}
-      {activeEffect === "lanyard" && (
-        <div className="lanyard-overlay">
-          <Lanyard />
-          {/* Bottone per chiudere l'effetto 3D */}
-          <button
-            onClick={() => setActiveEffect(null)}
-            className="btn-close-effect"
-          >
-            CHIUDI EFFETTO 3D
-          </button>
-        </div>
-      )}
-      {/* Caso 3 */}
-      {activeEffect === "target" && (
-        <TargetAimBotCursor targetSelector=".cursor-target" />
-      )}
-
-      {/* Caso 4 */}
-      {activeEffect === "splash" && <ColorsSplashCursor />}
-
-      {/* Bottone di emergenza --> per togliere i cursori speciali */}
-      {(activeEffect === "target" || activeEffect === "splash") && (
-        <button
-          onClick={() => {
-            setActiveEffect(null);
-            document.body.style.cursor = "auto"; // sicurezza--> non rimanere senza mouse
-          }}
-          className="btn-reset-cursor"
-        >
-          Resetta Cursore
-        </button>
-      )}
-
       <div className="py-3 byte-bounce gr-viola container-manual">
         <section className="hero pb-5">
           <h1 className="star-crush">
