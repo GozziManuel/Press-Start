@@ -8,6 +8,7 @@ import LetterGlitch from "../components/LetterGlitch";
 import Lanyard from "../components/Lanyard";
 import TargetAimBotCursor from "../components/TargetAimBotCursor";
 import ColorsSplashCursor from "../components/ColorsSplashCursor";
+import DoomMode from "../components/DoomMode";
 
 export default function DefaultTemplate() {
   const { activeEffect, setActiveEffect } = useMain();
@@ -56,6 +57,18 @@ export default function DefaultTemplate() {
         >
           RESETTA CURSORE
         </button>
+      )}
+      {/* Caso Speciale: Doom Mode */}
+      {activeEffect === "doom-mode" && (
+        <div className="doom-main-container">
+          <DoomMode />
+          <button
+            onClick={() => setActiveEffect(null)}
+            className="btn-doom-exit"
+          >
+            ESCI DAL GIOCO
+          </button>
+        </div>
       )}
 
       <Navbar />

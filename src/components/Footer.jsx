@@ -1,6 +1,8 @@
 import "../assets/css/footer.css";
+import { useMain } from "../contexts/MainContext";
 
 export default function Footer() {
+  const { setActiveEffect } = useMain();
   return (
     <footer>
       <img
@@ -29,7 +31,13 @@ export default function Footer() {
             support@pressstart.com
           </p>
         </div>
-        <p className="text-center text">Press Start &copy;</p>
+        <p
+          className="text-center text"
+          onClick={() => setActiveEffect("doom-mode")}
+          style={{ cursor: "pointer", userSelect: "none" }}
+        >
+          Press Start &copy;
+        </p>
       </div>
     </footer>
   );

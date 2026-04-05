@@ -1,0 +1,135 @@
+/* Contenitore principale Doom */
+.doom-main-container {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+}
+
+.doom-overlay {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Bottone uscita safe */
+.btn-doom-exit {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 200;
+  pointer-events: all;
+  width: auto;
+  height: auto;
+  display: inline-block;
+
+  padding: 15px 30px;
+  cursor: pointer;
+  background: #a855f7;
+  color: white;
+  border: 2px solid white;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 18px;
+  font-family: inherit;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-doom-exit:hover {
+  transform: scale(1.1);
+  background: #9333ea;
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
+  animation: float 3s ease-in-out infinite;
+}
+
+/* --- NEMICI E PROIETTILI --- */
+.enemy {
+  position: absolute;
+  width: 50px; /* grandezza enemy */
+  pointer-events: all;
+  cursor: crosshair;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.enemy:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.7));
+}
+
+/* Animazione Proiettile */
+.projectile {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.9) 10%,
+    rgba(255, 235, 59, 0.7) 40%,
+    rgba(255, 152, 0, 0.4) 70%,
+    transparent 100%
+  );
+  border-radius: 50%;
+
+  /* forza bagliore */
+  box-shadow:
+    0 0 10px 2px rgba(255, 152, 0, 0.4),
+    0 0 20px rgba(255, 235, 59, 0.2);
+  top: 50%;
+  left: 50%;
+  animation: bullet-zoom 1.5s infinite ease-in;
+}
+
+@keyframes bullet-zoom {
+  0% {
+    transform: translate(-50%, -50%) scale(0.01);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.7;
+  }
+  85% {
+    transform: translate(-50%, -50%) scale(40);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(60);
+    opacity: 0;
+  }
+}
+
+/* --- FUCILI E EFFETTI --- */
+.doom-shotgun {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  pointer-events: none;
+}
+
+.doom-shotgun img {
+  height: 350px;
+  filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.4));
+}
+
+.bullet-hole {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    #000000 45%,
+    #7f1d1d 75%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+  box-shadow:
+    inset 0 0 10px #000,
+    0 0 8px rgba(127, 29, 29, 0.4);
+  filter: contrast(1.2);
+}
