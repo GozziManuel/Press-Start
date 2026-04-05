@@ -1,5 +1,6 @@
+import miaImmagineCard from "../assets/lanyardStaff/123.png";
 /* eslint-disable react/no-unknown-property */
-"use client";
+("use client");
 import { useEffect, useRef, useState } from "react";
 import { Canvas, extend, useFrame } from "@react-three/fiber";
 import {
@@ -110,6 +111,8 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
   };
   const { nodes, materials } = useGLTF(cardGLB);
   const texture = useTexture(lanyard);
+  const cardTexture = useTexture(miaImmagineCard);
+  cardTexture.flipY = false; //  per allinearla correttamente al modello
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([
@@ -218,7 +221,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
           >
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
-                map={materials.base.map}
+                map={cardTexture}
                 map-anisotropy={16}
                 clearcoat={isMobile ? 0 : 1}
                 clearcoatRoughness={0.15}
