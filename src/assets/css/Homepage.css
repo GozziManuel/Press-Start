@@ -209,3 +209,44 @@
   z-index: 2;
   pointer-events: none; /* Impedisce che la GIF blocchi i click */
 }
+/* Selezioniamo il paragrafo con la classe star-crush dentro la sezione */
+.container-manual:nth-of-type(1) .big-title {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-20px);
+
+  /* Animazione di entrata */
+  animation:
+    titleSlideIn 0.8s ease-out forwards,
+    retroGlow 2s ease-in-out infinite alternate 1s;
+
+  /* Stile per farlo risaltare */
+  text-shadow: 2px 2px 0px var(--gr-viola);
+  position: relative;
+}
+
+/* --- KEYFRAMES --- */
+
+/* 1. Entrata da sinistra */
+@keyframes titleSlideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 2. Effetto bagliore continuo (stile Neon/Retro) */
+@keyframes retroGlow {
+  from {
+    text-shadow:
+      2px 2px 0px var(--gr-viola),
+      0 0 5px rgba(255, 255, 255, 0.2);
+  }
+  to {
+    text-shadow:
+      2px 2px 0px var(--gr-viola),
+      0 0 20px var(--gr-viola),
+      0 0 30px white;
+    transform: scale(1.02);
+  }
+}
