@@ -8,19 +8,26 @@
   box-shadow: 5px 5px 10px var(--black);
   transition: transform 0.1s;
   color: var(--text-primary) !important;
-  border: none !important;
-  padding: 3px; /* Questo determina lo spessore del bordo RGB */
+  min-height: 100px;
+
+  /* Variabile per lo spessore del bordo */
+  --border-size: 3px;
+  padding: var(--border-size);
 }
-/* CARD ANIMATION */
+
 /* L'arcobaleno rotante */
 .card::before {
   content: "";
   position: absolute;
   z-index: -2;
-  left: -50%;
-  top: -50%;
-  width: 200%;
-  height: 200%;
+
+  /* Centratura assoluta */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150vmax;
+  height: 150vmax;
+
   background: conic-gradient(
     #ff0000,
     #ff7f00,
@@ -31,26 +38,29 @@
     #8f00ff,
     #ff0000
   );
+
+  /* L'animazione deve includere il translate per restare centrata */
   animation: rotate-rgb 4s linear infinite;
 }
 
-/* Lo sfondo interno (copre il centro dell'arcobaleno) */
+/* Lo sfondo interno */
 .card::after {
   content: "";
   position: absolute;
   z-index: -1;
-  inset: 3px; /* Spessore del bordo */
+  inset: var(--border-size);
   background: var(--bg-card);
   border-radius: 0;
 }
 
-/* Animation rotate */
+/* Animation rotate corretta */
 @keyframes rotate-rgb {
   from {
-    transform: rotate(0deg);
+    /* Mantieni la centratura mentre ruoti */
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 /* ANOTHER CARD CSS */

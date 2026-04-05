@@ -67,7 +67,7 @@ export default function Checkout() {
     });
   }, []);
   useEffect(() => {
-    if (!finLoot) {
+    if (!finLoot || isNaN(daPagare)) {
       navigate("/loot");
     }
   }, [finLoot]);
