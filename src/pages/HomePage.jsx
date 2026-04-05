@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import axios from "axios";
 import GameCard from "../components/GameCard";
+import "../assets/css/Homepage.css";
 
 export default function HomePage() {
   const [famoustProducts, setFamousProducts] = useState([]);
