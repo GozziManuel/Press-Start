@@ -9,17 +9,21 @@ import { useRef } from "react";
 export default function Footer() {
   const { setActiveEffect } = useMain();
 
+  // conterrà l'istanza dell'audio in corso
   const hoverAudioRef = useRef(null);
 
   // Suono hover (The Doom Slayer Surprise)
   const handleMouseEnter = () => {
-    // se l'audio esiste già ed è in riproduzione, non fare nulla
+    // se l'audio esiste già ed è in riproduzione, non fare nulla --> non l'ho capita e non funziona credo
     if (hoverAudioRef.current && !hoverAudioRef.current.paused) {
       return;
     }
     // altrimenti crea l'audio e avvialo
     const hoverSound = new Audio(easterEgg);
     hoverSound.volume = 0.4;
+    // IMPORTANTE: l'istanza  va salvata nel REF prima di fare play
+    hoverAudioRef.current = hoverSound;
+
     hoverSound.play().catch(() => {}); // catch per evitare errori se l'utente non ha interagito
   };
 
@@ -28,6 +32,7 @@ export default function Footer() {
     // se si clicca prima che l'audio easterEgg sia finito ferma l'audio
     if (hoverAudioRef.current) {
       hoverAudioRef.current.pause();
+      hoverAudioRef.current.currentTime = 0; // reset della traccia --> con questo risolto bug di 💩
     }
 
     const startSound = new Audio(introFiga);
