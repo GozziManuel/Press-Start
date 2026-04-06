@@ -17,6 +17,9 @@ export default function LootPage() {
     totaleLoot,
     setTotaleLoot,
   } = useMain();
+
+  const [couponMessage, setCouponMessage] = useState({ text: "", type: "" }); // forse aveva già iniziato qualcuno con "isCoupon"
+
   // const [finLoot, setFinLoot] = useState([]);
   // const [isCoupon, setIsCoupon] = useState(false);
   const [coupon, setCoupon] = useState("");
@@ -85,10 +88,33 @@ export default function LootPage() {
     const forged = {
       code: coupon,
     };
-    axios.post("http://localhost:3000/coupon", forged).then((res) => {
-      setIsCoupon(res.data);
-    });
+    axios
+      .post("http://localhost:3000/coupon", forged)
+      .then((res) => {
+        console.log("Dati ricevuti dal server:", res.data);
+        setIsCoupon(res.data);
+
+        if (res.data && res.data.result && res.data.result.valid === true) {
+          console.log("3. Esito: VALIDO");
+          setCouponMessage({
+            text: "Codice valido ed inserito!",
+            type: "success",
+          });
+        } else {
+          setCouponMessage({
+            text: "Codice sconto invalido o scaduto",
+            type: "error",
+          });
+        }
+      })
+      .catch(() => {
+        setCouponMessage({
+          text: "Errore durante la validazione",
+          type: "error",
+        });
+      });
   };
+
   console.log(totaleLoot);
 
   return (
@@ -182,19 +208,56 @@ export default function LootPage() {
               <input
                 type="text"
                 className="form-control coupon-input"
-                placeholder="Inseriscilo qui"
+                placeholder={
+                  isCoupon.result.valid ? "Codice applicato" : "Inseriscilo qui"
+                }
                 name="coupon"
                 value={coupon}
                 onChange={handleCoupon}
+                // se è già stato inserito un codice valido --> lo disabilità
+                disabled={isCoupon.result.valid}
               />
-              <button
-                onClick={handleIsCoupon}
-                className="btn btn-outline-primary coupon-btn byte-bounce"
-                disabled={coupon === "" || finLoot.length === 0}
-              >
-                Applica codice promozionale
-              </button>
+              {!isCoupon.result.valid ? (
+                <button
+                  onClick={handleIsCoupon}
+                  className="btn btn-outline-primary coupon-btn byte-bounce"
+                  disabled={coupon === "" || finLoot.length === 0}
+                >
+                  Applica codice promozionale
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    // Funzione per rimuovere il coupon
+                    setIsCoupon({ result: { valid: false } });
+                    setCoupon("");
+                    setCouponMessage({ text: "", type: "" });
+                  }}
+                  className="btn btn-outline-danger byte-bounce"
+                >
+                  Rimuovi sconto
+                </button>
+              )}
             </div>
+            {couponMessage.text && (
+              <div
+                className="mt-3 p-2 rounded text-center byte-bounce shadow-sm"
+                style={{
+                  maxWidth: "420px",
+                  fontSize: "1rem",
+                  backgroundColor:
+                    couponMessage.type === "error" ? "#dc3545" : "transparent",
+                  color: couponMessage.type === "error" ? "white" : "#28a745",
+                  fontWeight: "bold",
+                  border:
+                    couponMessage.type === "success"
+                      ? "1px solid #28a745"
+                      : "none",
+                }}
+              >
+                {couponMessage.text}
+              </div>
+            )}
           </div>
         </div>
 
