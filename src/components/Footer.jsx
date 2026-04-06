@@ -5,10 +5,17 @@ import { useMain } from "../contexts/MainContext";
 import easterEgg from "../assets/doomModeStaff/the-doom-slayer-surprise.mp3";
 import introFiga from "../assets/doomModeStaff/shotgun-metal-slug.mp3";
 import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 export default function Footer() {
   const { setActiveEffect } = useMain();
+  // ANimated pacman IMG
+  const pacmanRef = useRef(null);
 
+  // 2. Monitoriamo se è visibile (once: true lo fa scattare solo la prima volta)
+  const isInView = useInView(pacmanRef, { once: true, amount: 0.5 });
+
+  // DOom easter egg
   // conterrà l'istanza dell'audio in corso
   const hoverAudioRef = useRef(null);
 
@@ -42,11 +49,17 @@ export default function Footer() {
 
   return (
     <footer>
-      <img
-        src="/Mr-Pacman.png"
-        alt="Pac-Man"
-        style={{ height: "200px", translate: "50%" }}
-      />
+      <div>
+        <motion.img
+          ref={pacmanRef}
+          src="/Mr-Pacman.png"
+          alt="Pac-Man"
+          style={{ height: "200px", translate: "50%" }}
+          initial={{ x: "-100%", opacity: 0 }} // Parte da fuori sinistra
+          animate={isInView ? { x: "50%", opacity: 1 } : {}} // Se è visibile, corre verso il centro
+          transition={{ duration: 1.2, ease: "easeOut" }}
+        />
+      </div>
       <hr className="separator" />
       <div className="footer row pb-0 me-0 container-manual">
         <div className="byte-bounce col-sm-12 col-md-5 mb-5">
