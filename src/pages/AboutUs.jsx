@@ -1,6 +1,8 @@
 import { NavLink } from "react-router";
 import "../assets/css/AboutUs.css";
 
+import { useMain } from "../contexts/MainContext";
+
 const team = [
   {
     name: "Jasmin Hegic",
@@ -24,6 +26,15 @@ const team = [
   },
 ];
 export default function AboutUs() {
+  const { triggerEffect, activeEffect, setActiveEffect } = useMain();
+
+  const handleMemberClick = (id) => {
+    if (id === 0) triggerEffect("glitch");
+    else if (id === 1) setActiveEffect("lanyard");
+    else if (id === 2) setActiveEffect("target");
+    else if (id === 3) setActiveEffect("splash");
+  };
+
   return (
     <>
       <div className="py-3 byte-bounce container-manual">
@@ -53,7 +64,11 @@ export default function AboutUs() {
 
         <ul className="team-list-vertical">
           {team.map((member, id) => (
-            <li key={id} className="team-row byte-bounce">
+            <li
+              key={id}
+              className={`team-row byte-bounce ${activeEffect === "target" ? "cursor-target" : ""}`} // Classe per il mirino
+              onClick={() => handleMemberClick(id)}
+            >
               <div className="member-info-container">
                 <span className="arrow-purple">{">"}</span>
                 <span

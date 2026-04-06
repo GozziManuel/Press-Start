@@ -5,6 +5,8 @@ import "../assets/css/gameCard.css";
 import "../assets/css/detailed.css";
 import axios from "axios";
 
+import { getGameGif } from "../utils/gameUtilities";
+
 export default function ProductDetailPage() {
   const [product, setProduct] = useState({});
   const [added, setAdded] = useState(false);
@@ -86,7 +88,7 @@ export default function ProductDetailPage() {
         </h1>
       </div>
       {/* Product Detail */}
-      <div className="row row-cols-1 row-cols-md-2">
+      <div className="row row-cols-1 row-cols-md-3">
         <div>
           {/* Image */}
           <img
@@ -106,7 +108,17 @@ export default function ProductDetailPage() {
             {added ? "Aggiunto!" : "Aggiungi al carrello"}
           </button>
         </div>
-        <div className="descriptionProduct">
+        {/* --- GIF --- */}
+        <div className="d-flex flex-column descriptionProduct align-items-center">
+          <h3>Gameplay Preview</h3>
+          <img
+            src={getGameGif(slug)}
+            alt="gameplay-gif"
+            className="img-fluid border border-white"
+            style={{ borderRadius: "8px", boxShadow: "0 0 15px var(--viola)" }}
+          />
+        </div>
+        <div>
           {/* Descrizione */}
           <div id="description">
             <h3>Short Description</h3>

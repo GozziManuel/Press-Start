@@ -138,7 +138,46 @@
 /* la gif si attiva quando si passa sopra ad ogni membro */
 .member-info-container:hover .size-gif {
   opacity: 1;
-  /* Se vuoi un effetto più fluido puoi aggiungere un leggero spostamento */
+}
+
+/* --- Stili easter eggs --> effetti Speciali --- */
+
+.glitch-container {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+
+.lanyard-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.btn-close-effect,
+.btn-reset-cursor {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  z-index: 101;
+  padding: 15px 30px;
+  cursor: pointer;
+  background: #a855f7;
+  color: white;
+  border: 2px solid white;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+  transition: all 0.2s ease-in-out; /* Animazione fluida */
+}
+
+.btn-close-effect:hover,
+.btn-reset-cursor:hover {
+  transform: scale(1.1);
+  background: #9333ea;
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
 }
 
 /* ANIMATION HERO */

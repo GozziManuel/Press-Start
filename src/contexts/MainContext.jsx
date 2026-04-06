@@ -13,6 +13,23 @@ export function MainProvider({ children }) {
   });
   const [finLoot, setFinLoot] = useState([]);
   const [totaleLoot, setTotaleLoot] = useState(0.0);
+  const [activeEffect, setActiveEffect] = useState(null);
+
+  // --- FUNZIONE PER GESTIRE I TRIGGERS ---
+  const triggerEffect = (effect) => {
+    // ogni volta che cambia effetto, resetta il cursore standard
+    document.body.style.cursor = "auto";
+
+    setActiveEffect(effect);
+
+    // il glitch si spegne da solo dopo 60 secondi
+    if (effect === "glitch") {
+      setTimeout(() => {
+        setActiveEffect(null);
+      }, 60000);
+    }
+  };
+
   const fetchData = () => {
     axios.get(`http://localhost:3000/products`).then((res) => {
       setProducts(res.data.result);
@@ -57,6 +74,9 @@ export function MainProvider({ children }) {
     fetchDataDetailed,
     productDetailed,
     setProductDetailed,
+    activeEffect,
+    triggerEffect,
+    setActiveEffect,
   };
 
   return <MainContext.Provider value={values}>{children}</MainContext.Provider>;
