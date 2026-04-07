@@ -85,7 +85,7 @@ export default function Checkout() {
     });
   }, []);
   useEffect(() => {
-    if (!finLoot || isNaN(daPagare)) {
+    if (!finLoot || isNaN(daPagare) || daPagare === 0) {
       navigate("/loot");
     }
   }, [finLoot]);
