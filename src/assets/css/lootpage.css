@@ -29,3 +29,95 @@
 .checkoutbutton {
   width: 100%;
 }
+
+/* ANIMATION AND BUTTONS */
+.buttonYES {
+  background-color: #ff4757 !important; /* Rosso vivace */
+  color: white !important;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 0 #b33939; /* Effetto 3D stile arcade */
+}
+
+.buttonYES:hover {
+  background-color: #ff6b81 !important;
+  transform: translateY(2px); /* Si schiaccia leggermente */
+  box-shadow: 0 2px 0 #b33939;
+  /* Animazione caratteristica: vibrazione */
+  animation: shakeWarning 0.3s ease-in-out infinite;
+}
+
+/* --- IL BOTTONE NO: Feedback di sicurezza --- */
+.buttonNO {
+  background-color: transparent !important;
+  color: var(--light-blue) !important;
+  border: 2px solid var(--light-blue) !important;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Effetto molla */
+}
+
+.buttonNO:hover {
+  background-color: var(--light-blue) !important;
+  color: white !important;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+}
+
+/* L'animazione di vibrazione per il SI */
+@keyframes shakeWarning {
+  0% {
+    transform: translateX(0) translateY(2px);
+  }
+  25% {
+    transform: translateX(-2px) translateY(2px);
+  }
+  50% {
+    transform: translateX(2px) translateY(2px);
+  }
+  75% {
+    transform: translateX(-2px) translateY(2px);
+  }
+  100% {
+    transform: translateX(0) translateY(2px);
+  }
+}
+/* ANIMATION MARIO COIN */
+/* Contenitore per allineare la moneta all'input */
+.counter-wrapper {
+  position: relative;
+  width: 100px;
+  display: inline-block;
+}
+
+/* La moneta animata */
+.mario-coin {
+  position: absolute;
+  left: 10%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 30px;
+  background-image: url("/mario-coin.gif");
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 10;
+  animation: coin-jump 0.6s ease-out forwards;
+}
+
+@keyframes coin-jump {
+  0% {
+    bottom: 20px;
+    opacity: 0;
+  }
+  30% {
+    bottom: 70px; /* Salto verso l'alto */
+    opacity: 1;
+  }
+  100% {
+    bottom: 50px; /* Ricade leggermente e sparisce */
+    opacity: 0;
+  }
+}

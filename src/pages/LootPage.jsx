@@ -18,11 +18,39 @@ export default function LootPage() {
     setTotaleLoot,
   } = useMain();
 
+  // MARIO COIN ANIMATION
+
+  // 1. Aggiungi lo stato in cima al componente
+  const [animatingId, setAnimatingId] = useState(null);
+
+  // 2. Modifica la tua funzione handleQuantity
+  const handleQuantity = (e, elem) => {
+    const { value } = e.target;
+    const newValue = Number(value);
+
+    finLoot.forEach((el) => {
+      if (elem.name === el.name) {
+        if (newValue > el.quantity) {
+          addItem(elem);
+
+          // ATTIVA MONETA:
+          setAnimatingId(elem.id);
+          // Reset dopo l'animazione (600ms)
+          setTimeout(() => setAnimatingId(null), 600);
+        }
+        if (newValue < el.quantity) {
+          removeItem(elem);
+        }
+      }
+    });
+  };
+
   const [couponMessage, setCouponMessage] = useState({ text: "", type: "" }); // forse aveva già iniziato qualcuno con "isCoupon"
 
   // const [finLoot, setFinLoot] = useState([]);
   // const [isCoupon, setIsCoupon] = useState(false);
   const [coupon, setCoupon] = useState("");
+  const [sureRemove, setSureRomove] = useState(null);
   //null foto prodotto prezzo quantita totale
   const tmp = loot.reduce((ac, ce) => {
     const { name, image, price, discount_value, expedition_price, id } = ce;
@@ -47,20 +75,6 @@ export default function LootPage() {
 
     setTotaleLoot(total);
   }, [loot]);
-
-  const handleQuantity = (e, elem) => {
-    const { value } = e.target;
-    finLoot.forEach((el) => {
-      if (elem.name === el.name) {
-        if (value > el.quantity) {
-          addItem(elem);
-        }
-        if (value < el.quantity) {
-          removeItem(elem);
-        }
-      }
-    });
-  };
 
   const handleRemove = (e, elem) => {
     const tmp = loot.filter((el) => {
@@ -145,53 +159,114 @@ export default function LootPage() {
           </div>
 
           {/* Righe prodotti */}
-          {finLoot.map((el, i) => (
-            <div key={i} className="row align-items-center bordercard py-3">
-              <div className="col-1">
-                <button
-                  className="btn btn-sm btn-outline-danger rounded-circle"
-                  style={{ width: 30, height: 30, padding: 0, lineHeight: 1 }}
-                  onClick={(e) => handleRemove(e, el)}
-                >
-                  ✕
-                </button>
+          {finLoot.map((el, i) =>
+            sureRemove === el.id ? (
+              <div
+                key={i}
+                className="row align-items-center bordercard  fixcard py-4 mb-2"
+              >
+                <div className="col-12 d-flex justify-content-between align-items-center px-4">
+                  <div className="byte-bounce fs-4">
+                    <span className="text fs-3">Rimuovere</span>{" "}
+                    <span className="gr-viola fw-bold fs-3">{el.name}</span>
+                    <span className="text fs-3">?</span>
+                  </div>
+                  <div className="d-flex gap-3">
+                    <button
+                      className="buttonYES byte-bounce px-4"
+                      onClick={() => {
+                        handleRemove(null, el);
+                        setSureRomove(null);
+                      }}
+                    >
+                      Si' sono sicurissimo!
+                    </button>
+                    <button
+                      className="buttonNO byte-bounce px-4 text-white"
+                      onClick={() => setSureRomove(null)}
+                    >
+                      No! torna indietro
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="col-2">
-                <img
-                  className="loot-img rounded"
-                  src={el.image}
-                  alt={el.name}
-                  style={{ width: 64, height: 64, objectFit: "cover" }}
-                />
-              </div>
-              <div className="col-3 fs-5 text byte-bounce px-0">{el.name}</div>
-              <div className="col-2 text">
-                {el.discount_value > 0 && (
-                  <span
-                    style={{ textDecoration: "line-through", marginRight: 5 }}
+            ) : (
+              /* --- VISTA NORMALE PRODOTTO --- */
+              <div
+                key={i}
+                className="row align-items-center bordercard py-3 mb-2"
+              >
+                <div className="col-1">
+                  <button
+                    className="btn btn-sm btn-outline-danger buttonYES"
+                    style={{
+                      width: 30,
+                      height: 30,
+                      padding: 0,
+                      lineHeight: 1,
+                    }}
+                    onClick={() => setSureRomove(el.id)}
                   >
-                    {el.price.toFixed(2)} &euro; <br />
+                    ✕
+                  </button>
+                </div>
+                <div className="col-2">
+                  <img
+                    className="loot-img rounded"
+                    src={el.image}
+                    alt={el.name}
+                    style={{ width: 64, height: 64, objectFit: "cover" }}
+                  />
+                </div>
+                <div className="col-3 fs-5 text byte-bounce px-0">
+                  {el.name}
+                </div>
+                <div className="col-2 text">
+                  {el.discount_value > 0 && (
+                    <span
+                      style={{
+                        textDecoration: "line-through",
+                        marginRight: 5,
+                      }}
+                    >
+                      {el.price.toFixed(2)} &euro; <br />
+                    </span>
+                  )}
+                  <span className="discountCheckout">
+                    {el.finalPrice.toFixed(2)} &euro;
                   </span>
-                )}
-                <span className="discountCheckout">
-                  {el.finalPrice.toFixed(2)} &euro;
-                </span>
+                </div>
+                <div className="col-2 p-0">
+                  <div className="col-2 p-0">
+                    {/* Wrapper necessario per il posizionamento della moneta */}
+                    <div className="counter-wrapper">
+                      {/* Se l'ID di questo elemento è in animazione, mostra la moneta */}
+                      {animatingId === el.id && (
+                        <div className="mario-coin"></div>
+                      )}
+
+                      <input
+                        type="number"
+                        className="form-control px-1"
+                        style={{
+                          maxWidth: "60px",
+
+                          fontWeight: "bold",
+                        }}
+                        name="totale"
+                        onChange={(e) => handleQuantity(e, el)}
+                        value={el.quantity}
+                        min="1"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-2 fw-semibold text">
+                  {el.total.toFixed(2)} &euro;
+                </div>
               </div>
-              <div className="col-2 p-0">
-                <input
-                  type="number"
-                  className="form-control"
-                  style={{ maxWidth: 70 }}
-                  name="totale"
-                  onChange={(e) => handleQuantity(e, el)}
-                  value={el.quantity}
-                />
-              </div>
-              <div className="col-2 fw-semibold text">
-                {el.total.toFixed(2)} &euro;
-              </div>
-            </div>
-          ))}
+            ),
+          )}
 
           {/* Coupon */}
           <div
@@ -246,7 +321,7 @@ export default function LootPage() {
                   maxWidth: "420px",
                   fontSize: "1rem",
                   backgroundColor:
-                    couponMessage.type === "error" ? "#dc3545" : "transparent",
+                    couponMessage.type === "error" ? "#dc3545" : "trans ent",
                   color: couponMessage.type === "error" ? "white" : "#28a745",
                   fontWeight: "bold",
                   border:
