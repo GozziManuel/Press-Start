@@ -212,8 +212,11 @@ export default function Checkout() {
             })}
             {isCoupon.result.valid && (
               <div>
-                <span>Sconto</span>
-                <span> {isCoupon.result.discount} &euro;</span>
+                <span className="byte-bounce text fs-4">Sconto</span>
+                <span className="text  fs-4">
+                  {" "}
+                  {isCoupon.result.discount} &euro;
+                </span>
               </div>
             )}
             <div style={{ color: "var(--text-primary)" }}>
