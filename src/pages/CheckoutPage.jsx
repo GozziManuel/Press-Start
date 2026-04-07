@@ -86,7 +86,7 @@ export default function Checkout() {
   }, []);
   useEffect(() => {
     if (!finLoot || isNaN(daPagare) || daPagare === 0) {
-      navigate("/loot");
+      navigate("/greetings");
     }
   }, [finLoot]);
 

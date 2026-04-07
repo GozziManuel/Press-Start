@@ -27,6 +27,7 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 // CSS
 import "./assets/css/index.css";
+import ThankYouPage from "./pages/ThankYouPage";
 
 export default function App() {
   return (
@@ -60,6 +61,7 @@ export default function App() {
                   // {/* </AdminRoute> */}
                 }
               />
+              <Route path="/greetings" Component={ThankYouPage} />
             </Route>
           </Routes>
         </BrowserRouter>
