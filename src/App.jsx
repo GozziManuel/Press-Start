@@ -17,6 +17,7 @@ import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
 import LootPage from "./pages/LootPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import NotFoundPage from "./pages/NotFoundPage"
 
 // Fonts
 import "./assets/fonts/ByteBounce.ttf";
@@ -36,6 +37,7 @@ export default function App() {
           <Routes>
             <Route Component={DefaultTemplate}>
               <Route index Component={HomePage} />
+              <Route path="*" Component={NotFoundPage} />
               <Route path="/products" Component={ProductsListPage} />
               <Route path="/products/:slug" Component={ProductDetailPage} />
               <Route path="/about-us" Component={AboutUs} />
