@@ -1,4 +1,14 @@
+import { useEffect } from "react";
+
 export default function ThankYouPage() {
+  useEffect(() => {
+    // Funziona così:
+    // Al caricamento: non fa nulla (lascia il token vivo per la Guardia)
+
+    return () => {
+      localStorage.removeItem("order_access");
+    };
+  }, []);
   return (
     <div className="container-manual">
       <div className="d-flex justify-content-center">

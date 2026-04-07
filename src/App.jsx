@@ -17,7 +17,7 @@ import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
 import LootPage from "./pages/LootPage";
 import CheckoutPage from "./pages/CheckoutPage";
-import NotFoundPage from "./pages/NotFoundPage"
+import NotFoundPage from "./pages/NotFoundPage";
 
 // Fonts
 import "./assets/fonts/ByteBounce.ttf";
@@ -29,6 +29,7 @@ import "bootstrap-icons/font/bootstrap-icons.min.css";
 // CSS
 import "./assets/css/index.css";
 import ThankYouPage from "./pages/ThankYouPage";
+import AuthRouteGreetings from "./components/AuthRouteGreetings";
 
 export default function App() {
   return (
@@ -38,7 +39,6 @@ export default function App() {
           <Routes>
             <Route Component={DefaultTemplate}>
               <Route index Component={HomePage} />
-              <Route path="*" Component={NotFoundPage} />
               <Route path="/products" Component={ProductsListPage} />
               <Route path="/products/:slug" Component={ProductDetailPage} />
               <Route path="/about-us" Component={AboutUs} />
@@ -46,6 +46,14 @@ export default function App() {
               <Route path="/register" Component={RegisterPage} />
               <Route path="/loot" Component={LootPage} />
               <Route path="/checkout" Component={CheckoutPage} />
+              <Route
+                path="/greetings"
+                element={
+                  <AuthRouteGreetings>
+                    <ThankYouPage />
+                  </AuthRouteGreetings>
+                }
+              />
 
               <Route
                 path="/user/:username"
@@ -63,7 +71,7 @@ export default function App() {
                   // {/* </AdminRoute> */}
                 }
               />
-              <Route path="/greetings" Component={ThankYouPage} />
+              <Route path="*" Component={NotFoundPage} />
             </Route>
           </Routes>
         </BrowserRouter>
