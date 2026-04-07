@@ -289,11 +289,18 @@ export default function ProductsListPage() {
             : "row-cols-1"
         }`}
       >
-        {productList.map((data) => (
-          <div className="col card-animate" key={data.id}>
-            <GameCard data={data} checked={checked} />
-          </div>
-        ))}
+        {productList.length === 0 ? (
+          <h1 className="text-center  gr-viola" style={{ width: "100%" }}>
+            Nessun risultato! Magari lo aggiungeremo presto{" "}
+            <i class="bi bi-emoji-smile-fill"></i>
+          </h1>
+        ) : (
+          productList.map((data) => (
+            <div className="col card-animate" key={data.id}>
+              <GameCard data={data} checked={checked} />
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
