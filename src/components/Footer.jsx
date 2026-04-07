@@ -49,15 +49,15 @@ export default function Footer() {
 
   return (
     <footer>
-      <div>
+      <div style={{ overflowX: "hidden" }}>
         <motion.img
           ref={pacmanRef}
           src="/Mr-Pacman.png"
           alt="Pac-Man"
           style={{ height: "200px", translate: "50%" }}
           initial={{ x: "-100%", opacity: 0 }} // Parte da fuori sinistra
-          animate={isInView ? { x: "50%", opacity: 1 } : {}} // Se è visibile, corre verso il centro
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          animate={isInView ? { x: "5vw", opacity: 1 } : {}} // Se è visibile, corre verso il centro
+          transition={{ duration: 2.5, ease: "easeOut", delay: 0.2 }}
         />
       </div>
       <hr className="separator" />

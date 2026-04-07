@@ -40,7 +40,7 @@ export default function HomePage() {
             </div>
 
             {/* DESTRA */}
-            <div className="col-lg-6 d-none d-lg-block text-center position-relative hero-graphic-container">
+            <div className="col-lg-6 text-center position-relative hero-graphic-container">
               {/* LA GIF ANIMATA (Sfondo del portale) */}
               <img
                 src="/Pvzw9p.gif"
