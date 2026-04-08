@@ -1,0 +1,172 @@
+import { useState, useRef, useEffect } from "react";
+import axios from "axios";
+import "../assets/css/AiChatDrawer.css";
+
+const QUICK_QUESTIONS = [
+  "È adatto ai bambini?",
+  "Quanto dura il gioco?",
+  "Vale il prezzo?",
+  "È simile ad altri giochi?",
+  "È multiplayer?",
+];
+
+export default function AiChatDrawer({ product }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showQuick, setShowQuick] = useState(true);
+
+  const messagesEndRef = useRef(null);
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    if (product?.name) {
+      setMessages([
+        {
+          role: "bot",
+          text: `Ciao! Sono l'assistente per ${product.name}. Chiedimi qualsiasi cosa su questo gioco! 🎮`,
+        },
+      ]);
+      setShowQuick(true);
+    }
+  }, [product?.name]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
+  }, [messages, isLoading]);
+
+  // Focus automatico all'apertura del drawer
+  useEffect(() => {
+    if (isOpen) textareaRef.current?.focus();
+  }, [isOpen]);
+
+  const buildSystemPrompt = () => {
+    return `Sei un assistente esperto di videogiochi.
+
+    Nome: ${product?.name || "N/D"}
+    Descrizione: ${product?.description || "N/D"}
+    Prezzo: ${product?.price || "N/D"}€
+    Generi: ${product?.genres || "N/D"}
+    Piattaforme: ${
+      product?.platforms?.length
+        ? product.platforms.map((p) => p.name).join(", ")
+        : "N/D"
+    }
+
+    Rispondi in italiano, massimo 3-4 frasi.`;
+  };
+
+  const sendMessage = async (text) => {
+    const userText = (text || input).trim();
+    if (!userText || isLoading) return;
+
+    // Reset altezza textarea
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+    }
+
+    const newMessages = [...messages, { role: "user", text: userText }];
+
+    setMessages(newMessages);
+    setInput("");
+    setShowQuick(false);
+    setIsLoading(true);
+
+    // messaggio utente
+    const history = newMessages.slice(1, -1).map((m) => ({
+      role: m.role === "user" ? "user" : "assistant",
+      content: m.text,
+    }));
+
+    try {
+      const { data } = await axios.post(
+        `http://localhost:3000/chat`,
+        {
+          system: buildSystemPrompt(),
+          messages: [...history, { role: "user", content: userText }],
+        }
+      );
+
+      setMessages((prev) => [...prev, { role: "bot", text: data.reply }]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { role: "bot", text: "Errore di connessione." },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKey = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  return (
+    <>
+      {isOpen && (
+        <div className="chat-overlay" onClick={() => setIsOpen(false)} />
+      )}
+
+      <button className="chat-toggle" onClick={() => setIsOpen(!isOpen)}>
+        🤖 AI CHAT
+      </button>
+
+      <div className={`chat-drawer ${isOpen ? "open" : ""}`}>
+        <div className="chat-header">
+          <div>
+            <p className="chat-title">GAME ASSISTANT</p>
+            <p className="chat-sub">{product?.name}</p>
+          </div>
+          <button onClick={() => setIsOpen(false)}>✕</button>
+        </div>
+
+        <div className="chat-messages">
+          {messages.map((msg, i) => (
+            <div key={i} className={`msg ${msg.role}`}>
+              {msg.role === "bot" && <span className="bot-label">AI</span>}
+              {msg.text}
+            </div>
+          ))}
+
+          {isLoading && <div className="typing">...</div>}
+
+          <div ref={messagesEndRef} />
+        </div>
+
+        {showQuick && (
+          <div className="quick">
+            {QUICK_QUESTIONS.map((q) => (
+              <button key={q} onClick={() => sendMessage(q)}>
+                {q}
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="chat-input">
+          <textarea
+            ref={textareaRef}
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+              e.target.style.height = "auto";
+              e.target.style.height = e.target.scrollHeight + "px";
+            }}
+            onKeyDown={handleKey}
+            placeholder="Scrivi..."
+          />
+          <button onClick={() => sendMessage()} disabled={!input.trim()}>
+            ➤
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
