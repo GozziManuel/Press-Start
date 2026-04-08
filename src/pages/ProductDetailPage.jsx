@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useMain } from "../contexts/MainContext";
 import "../assets/css/gameCard.css";
 import "../assets/css/detailed.css";
 import axios from "axios";
-
 import { getGameGif } from "../utils/gameUtilities";
 
 export default function ProductDetailPage() {
+  const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [added, setAdded] = useState(false);
   const [button, setButton] = useState(false);
@@ -56,9 +56,14 @@ export default function ProductDetailPage() {
 
   // Fetch Data
   const fetchSlugData = () => {
-    axios.get(`http://localhost:3000/products/` + slug).then((res) => {
-      setProduct(res.data.result);
-    });
+    axios
+      .get(`http://localhost:3000/products/` + slug)
+      .then((res) => {
+        setProduct(res.data.result);
+      })
+      .catch((err) => {
+        if (!err.response.data.success) navigate("/notfoundslug");
+      });
   };
 
   // Handlers
