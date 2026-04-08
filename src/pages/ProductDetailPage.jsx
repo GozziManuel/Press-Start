@@ -5,6 +5,8 @@ import "../assets/css/gameCard.css";
 import "../assets/css/addToCart.css";
 import axios from "axios";
 
+import NotFoundPage from "./NotFoundPage";
+
 import { getGameGif } from "../utils/gameUtilities";
 
 export default function ProductDetailPage() {
@@ -12,13 +14,56 @@ export default function ProductDetailPage() {
   const [added, setAdded] = useState(false);
   const [button, setButton] = useState(false);
 
+  // GESTIONE ERRORI url---
+  const [notFound, setNotFound] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const { fetchDataDetailed, productDetailed, addItem } = useMain();
   const { slug } = useParams();
 
+  // Fetch dati globali --> context
   useEffect(() => {
     fetchDataDetailed(slug);
     window.scrollTo(0, 0);
   }, [slug]);
+
+  // Funzione Fetch Locale --> per piattaforme e reviews e validazione
+  const fetchSlugData = () => {
+    setLoading(true);
+    axios
+      .get(`http://localhost:3000/products/` + slug)
+      .then((res) => {
+        if (res.data.result) {
+          setProduct(res.data.result);
+          setNotFound(false);
+        } else {
+          // se la risposta è 200 ma il result è null/vuoto
+          setNotFound(true);
+        }
+      })
+      .catch((err) => {
+        // se il server risponde 404 o altro
+        console.error("Errore nel recupero prodotto:", err);
+        setNotFound(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  // per caricare i dati al cambio slug
+  useEffect(fetchSlugData, [slug]);
+
+  // RENDERING CON CONDIZIONE
+  if (notFound) {
+    return <NotFoundPage />;
+  }
+
+  if (loading) {
+    return (
+      <div className="text-white text-center py-5">Caricamento in corso...</div>
+    );
+  }
 
   const priceNumber = parseInt(productDetailed?.price);
   const discountNumber = parseInt(productDetailed?.discount_value);
@@ -54,14 +99,6 @@ export default function ProductDetailPage() {
     }
   };
 
-  // Fetch Data
-  const fetchSlugData = () => {
-    axios.get(`http://localhost:3000/products/` + slug).then((res) => {
-      setProduct(res.data.result);
-    });
-  };
-
-  // Handlers
   const handleCarrelloBtn = () => {
     addItem(product);
     setAdded(true);
@@ -72,9 +109,6 @@ export default function ProductDetailPage() {
       setButton(false);
     }, 2000);
   };
-
-  // useEffects
-  useEffect(fetchSlugData, []);
 
   return (
     <div className="container-manual py-3 byte-bounce gr-viola">

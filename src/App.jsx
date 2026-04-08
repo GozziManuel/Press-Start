@@ -17,6 +17,7 @@ import UserPage from "./pages/UserPage";
 import AdminPage from "./pages/AdminPage";
 import LootPage from "./pages/LootPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 // Fonts
 import "./assets/fonts/ByteBounce.ttf";
@@ -61,6 +62,7 @@ export default function App() {
                 }
               />
             </Route>
+            <Route path="*" Component={NotFoundPage} />
           </Routes>
         </BrowserRouter>
       </UserProvider>
