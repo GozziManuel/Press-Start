@@ -62,7 +62,7 @@ export default function ProductDetailPage() {
         setProduct(res.data.result);
       })
       .catch((err) => {
-        if (!err.response.data.success) navigate("/*");
+        if (!err.response.data.success) navigate("/notfoundslug");
       });
   };
 
