@@ -14,10 +14,11 @@ export default function ProductsListPage() {
   // States
   const [checked, setChecked] = useState(true);
   const [search, setSearch] = useState(searchParams.get("search") || "");
-  const [listedProducts, setListedProducts] = useState([]);
+  // const [listedProducts, setListedProducts] = useState([]);
   const [select, setSelect] = useState("all");
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
-
+  const [productList, setProductList] = useState([]);
+  const [cloneProductList, setCloneProductList] = useState([]);
   // Stati per l'advanced search
   const [advancedConsoleSelect, setadvancedConsoleSelect] = useState("");
   const [advancedPublisherSelect, setadvancedPublisherSelect] = useState("");
@@ -61,14 +62,15 @@ export default function ProductsListPage() {
   const fetchSelectData = () => {
     if (select === "all") {
       axios.get(`http://localhost:3000/products`).then((res) => {
-        setListedProducts(res.data.result.products);
-        console.log(res.data.result);
+        setCloneProductList(res.data.result.products);
+        setProductList(res.data.result.products);
       });
     } else {
       axios
         .get(`http://localhost:3000/search/order?by=${select}`)
         .then((res) => {
-          setListedProducts(res.data.result);
+          setCloneProductList(res.data.result);
+          setProductList(res.data.result);
         });
     }
   };
@@ -98,60 +100,117 @@ export default function ProductsListPage() {
     setadvancedConsoleSelect("");
   };
 
+  const fetchAdvanced = () => {
+    const obj = {
+      order: select,
+      genre: advancedGenreSelect,
+      publisher: advancedPublisherSelect,
+      consolle: advancedConsoleSelect,
+    };
+
+    axios.post("http://localhost:3000/products/advanced", obj).then((res) => {
+      setProductList(res.data.products);
+      setCloneProductList(res.data.products);
+    });
+  };
+
+  useEffect(fetchAdvanced, [
+    advancedConsoleSelect,
+    advancedPublisherSelect,
+    advancedGenreSelect,
+    select,
+  ]);
+
   // Search bar
+  // const handleSearch = (e) => {
+  //   const value = e.target.value;
+  //   setSearch(value);
+  //   if (value.trim() === "") {
+  //     setSearchParams({});
+  //   } else {
+  //     setSearchParams({ search: value });
+  //   }
+  // };
+
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearch(value);
+
     if (value.trim() === "") {
+      setCloneProductList(productList); // reset
       setSearchParams({});
     } else {
+      const filtered = productList.filter((product) =>
+        product.name.toLowerCase().includes(value.toLowerCase()),
+      );
+
+      setCloneProductList(filtered);
       setSearchParams({ search: value });
     }
   };
 
   // Filter for Product List
-  const productList = Array.isArray(listedProducts)
-    ? listedProducts.filter((product) => {
-        const matchesSearch = product.name
-          .trim()
-          .toLowerCase()
-          .includes(search.toLowerCase());
+  // const productList = Array.isArray(listedProducts)
+  //   ? listedProducts.filter((product) => {
+  //       const matchesSearch = product.name
+  //         .trim()
+  //         .toLowerCase()
+  //         .includes(search.toLowerCase());
 
-        const matchesGenre = advancedGenreSelect
-          ? product.genres?.includes(advancedGenreSelect)
-          : true;
+  //       const matchesGenre = advancedGenreSelect
+  //         ? product.genres?.includes(advancedGenreSelect)
+  //         : true;
 
-        const matchesPlatform = advancedConsoleSelect
-          ? product.platforms?.includes(advancedConsoleSelect)
-          : true;
+  //       const matchesPlatform = advancedConsoleSelect
+  //         ? product.platforms?.includes(advancedConsoleSelect)
+  //         : true;
 
-        const matchesPublisher = advancedPublisherSelect
-          ? product.companies?.includes(advancedPublisherSelect)
-          : true;
+  //       const matchesPublisher = advancedPublisherSelect
+  //         ? product.companies?.includes(advancedPublisherSelect)
+  //         : true;
 
-        return (
-          matchesSearch && matchesGenre && matchesPlatform && matchesPublisher
-        );
-      })
-    : [];
+  //       return (
+  //         matchesSearch && matchesGenre && matchesPlatform && matchesPublisher
+  //       );
+  //     })
+  //   : [];
+  // Sincronizza listedProducts quando products del context cambia
+
+  // useEffect(() => {
+  //   if (products?.products) {
+  //     setProductList(products.products);
+  //     setListedProducts(products.products);
+  //   }
+  // }, [products]);
 
   // useEffects
   useEffect(() => {
     setSearch(searchParams.get("search") || "");
   }, [searchParams]);
 
-  // Sincronizza listedProducts quando products del context cambia
-  useEffect(() => {
-    if (products?.products) {
-      setListedProducts(products.products);
-    }
-  }, [products]);
-
   // Quando select cambia, chiama fetchSelectData
   useEffect(() => {
-    fetchSelectData();
+    if (
+      !advancedConsoleSelect &&
+      !advancedPublisherSelect &&
+      !advancedGenreSelect
+    )
+      fetchSelectData();
   }, [select]);
-  console.log(listedProducts);
+
+  useEffect(() => {
+    const query = searchParams.get("search") || "";
+    setSearch(query);
+
+    if (query.trim() === "") {
+      setCloneProductList(productList);
+    } else {
+      const filtered = productList.filter((product) =>
+        product.name.toLowerCase().includes(query.toLowerCase()),
+      );
+      setCloneProductList(filtered);
+    }
+  }, [searchParams, productList]);
 
   return (
     <div className="container-manual py-3 byte-bounce">
@@ -289,7 +348,7 @@ export default function ProductsListPage() {
             : "row-cols-1"
         }`}
       >
-        {productList.map((data) => (
+        {cloneProductList.map((data) => (
           <div className="col card-animate" key={data.id}>
             <GameCard data={data} checked={checked} />
           </div>
