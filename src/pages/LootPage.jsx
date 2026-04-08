@@ -26,6 +26,7 @@ export default function LootPage() {
   // 2. Modifica la tua funzione handleQuantity
   const handleQuantity = (e, elem) => {
     const { value } = e.target;
+    if (value === "" || value === "0") return;
     const newValue = Number(value);
 
     finLoot.forEach((el) => {
@@ -37,8 +38,7 @@ export default function LootPage() {
           setAnimatingId(elem.id);
           // Reset dopo l'animazione (600ms)
           setTimeout(() => setAnimatingId(null), 600);
-        }
-        if (newValue < el.quantity) {
+        } else if (newValue < el.quantity) {
           removeItem(elem);
         }
       }
