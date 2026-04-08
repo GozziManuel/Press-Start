@@ -65,7 +65,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 500px;
+  max-height: 500px;
   z-index: 1;
 }
 
@@ -209,7 +209,6 @@
   z-index: 2;
   pointer-events: none; /* Impedisce che la GIF blocchi i click */
 }
-/* Selezioniamo il paragrafo con la classe star-crush dentro la sezione */
 .container-manual:nth-of-type(1) .big-title {
   display: inline-block;
   opacity: 0;
@@ -248,5 +247,16 @@
       0 0 20px var(--gr-viola),
       0 0 30px white;
     transform: scale(1.02);
+  }
+}
+
+@media only screen and (min-width: 1672px) {
+  .hero-graphic-container {
+    display: block !important;
+  }
+}
+@media only screen and (max-width: 1671px) {
+  .hero-graphic-container {
+    display: none !important;
   }
 }

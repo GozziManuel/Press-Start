@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useMain } from "../contexts/MainContext";
 import "../assets/css/gameCard.css";
-import "../assets/css/addToCart.css";
+import "../assets/css/detailed.css";
 import axios from "axios";
+
+import { getGameGif } from "../utils/gameUtilities";
 
 export default function ProductDetailPage() {
   const [product, setProduct] = useState({});
@@ -75,19 +77,25 @@ export default function ProductDetailPage() {
   useEffect(fetchSlugData, []);
 
   return (
-    <div className="container-manual py-3 byte-bounce gr-viola">
+    <div
+      className="container-manual py-3 byte-bounce"
+      style={{ color: "var(--light-blue)" }}
+    >
       {/* Product Name */}
-      <div className="d-flex justify-content-between">
-        <h1 className="star-crush">{productDetailed.name}</h1>
+      <div className="d-flex justify-content-between detailed-title">
+        <h1 style={{ color: "var(--viola)" }} className="star-crush">
+          {productDetailed.name}
+        </h1>
       </div>
       {/* Product Detail */}
-      <div className="row row-cols-1 row-cols-md-2">
+      <div className="row row-cols-1 row-cols-md-3">
         <div>
           {/* Image */}
           <img
             src={productDetailed.image}
             alt={productDetailed.name}
             style={{ maxHeight: "600px" }}
+            className="detailed-img"
           />
           {/* Cost */}
           {discountProduct()}
@@ -99,6 +107,16 @@ export default function ProductDetailPage() {
           >
             {added ? "Aggiunto!" : "Aggiungi al carrello"}
           </button>
+        </div>
+        {/* --- GIF --- */}
+        <div className="d-flex flex-column descriptionProduct align-items-center">
+          <h3>Gameplay Preview</h3>
+          <img
+            src={getGameGif(slug)}
+            alt="gameplay-gif"
+            className="img-fluid border border-white"
+            style={{ borderRadius: "8px", boxShadow: "0 0 15px var(--viola)" }}
+          />
         </div>
         <div>
           {/* Descrizione */}

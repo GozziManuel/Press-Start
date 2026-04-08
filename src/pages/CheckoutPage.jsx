@@ -60,19 +60,16 @@ export default function Checkout() {
     e.preventDefault();
     console.log(dataSend);
     axios.post("http://localhost:3000/checkout", dataSend).then((res) => {
+      // Generiamo un token finto nel front-end
+      localStorage.setItem("order_access", "true"); // Reset e navigazione
+      navigate("/greetings", { replace: true });
       localStorage.removeItem("loot");
-      setLoot(() => {
-        return JSON.parse(localStorage.getItem("loot")) || [];
-      });
+      setLoot([]);
+      setIsCoupon({ result: { valid: false } });
+      setFinLoot([]);
+      // setTotaleLoot(0.0);
+      setDataSend(initData);
     });
-    setIsCoupon({
-      result: {
-        valid: false,
-      },
-    });
-    setDataSend(initData);
-    setFinLoot([]);
-    setTotaleLoot(0.0);
   };
 
   useEffect(() => {
@@ -85,7 +82,7 @@ export default function Checkout() {
     });
   }, []);
   useEffect(() => {
-    if (!finLoot || isNaN(daPagare)) {
+    if (!finLoot || isNaN(daPagare) || daPagare === 0) {
       navigate("/loot");
     }
   }, [finLoot]);
@@ -212,8 +209,11 @@ export default function Checkout() {
             })}
             {isCoupon.result.valid && (
               <div>
-                <span>Sconto</span>
-                <span> {isCoupon.result.discount} &euro;</span>
+                <span className="byte-bounce text fs-4">Sconto</span>
+                <span className="text  fs-4">
+                  {" "}
+                  {isCoupon.result.discount} &euro;
+                </span>
               </div>
             )}
             <div style={{ color: "var(--text-primary)" }}>

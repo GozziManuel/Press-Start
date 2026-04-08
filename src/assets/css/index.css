@@ -9,6 +9,7 @@
   --danger-border: rgb(163, 26, 26);
   --disabled-viola: #491779;
   --text-placeholder: #888888;
+  --success: rgb(7, 201, 94);
 }
 :root[data-theme="dark"] {
   --bg-primary: #111827;

@@ -74,7 +74,7 @@
   height: 80px;
   position: fixed;
   bottom: 20px;
-  right: 50px;
+  left: 50px;
   background-image: var(--gr-viola);
   border-radius: 100px;
   transition: all 0.2s ease-in-out;

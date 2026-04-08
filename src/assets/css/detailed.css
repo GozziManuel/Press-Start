@@ -1,0 +1,94 @@
+/* Add to cart animation */
+.buttonCart {
+  padding: 10px 20px;
+  text-decoration: none;
+  border: 2px solid var(--viola);
+  color: var(--text-primary);
+  transition: all 0.6s ease-in-out;
+  background: transparent;
+  width: 250px;
+}
+.buttonCart:hover {
+  background: var(--viola);
+  color: var(--white);
+}
+
+.buttonCart.added {
+  transform: scale(1.1);
+  background: var(--viola);
+  color: var(--white);
+}
+.detailed-title {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-30px);
+  filter: blur(10px);
+  animation: detailTitleEntry 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes detailTitleEntry {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+/* Immagine del Prodotto */
+.detailed-img {
+  opacity: 0;
+  transform: perspective(1000px) rotateX(10deg) scale(0.9);
+  animation: cartdrigeIn 1s ease-out 0.4s forwards;
+  box-shadow: 0 0 0px var(--gr-viola);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.detailed-img:hover {
+  transform: scale(1.02);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.5),
+    0 0 15px var(--gr-viola);
+}
+
+@keyframes cartdrigeIn {
+  to {
+    opacity: 1;
+    transform: perspective(1000px) rotateX(0deg) scale(1);
+  }
+}
+/* Selettore per i blocchi di testo */
+.descriptionProduct {
+  opacity: 0;
+  transform: translateX(30px);
+  animation: slideDetailIn 0.5s ease-out forwards;
+}
+
+/* Delay per creare l'effetto caricamento lista */
+#description {
+  animation-delay: 0.6s;
+}
+#generes {
+  animation-delay: 0.7s;
+}
+#platforms {
+  animation-delay: 0.8s;
+}
+#studio {
+  animation-delay: 0.9s;
+}
+#company {
+  animation-delay: 1s;
+}
+
+@keyframes slideDetailIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
