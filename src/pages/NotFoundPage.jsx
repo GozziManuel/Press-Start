@@ -3,17 +3,13 @@ import { Link } from "react-router";
 import GhostCursor from "../components/GhostCursor";
 import "../assets/css/notFound.css";
 
-const rescue1Time = 11000;
-const rescue2Time = 5000;
-
 export default function NotFoundPage() {
   const containerRef = useRef(null);
 
-  // gestione animazioni
+  // gestione animazione
   const [isAnimating, setIsAnimating] = useState(false);
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
-  // mopuse mask
+  // mouse mask
   useEffect(() => {
     // se l'animazione è finita
     if (isAnimating) return;
@@ -42,30 +38,32 @@ export default function NotFoundPage() {
     if (!hasSeenIntro) {
       // se non ha mai visto l'intro
       setIsAnimating(true);
-      setCurrentVideoIndex(1); // la prima Video
-
-      // Timer 1 --> dopo la durata della Video 1, passa alla Video 2
-      const timer1 = setTimeout(() => {
-        setCurrentVideoIndex(2);
-      }, rescue1Time);
-
-      // Timer 2 --> dopo la durata di Video 1 + Video 2 --> finisce l'animazione
-      const timer2 = setTimeout(() => {
-        setIsAnimating(false);
-        setCurrentVideoIndex(0);
-        // salvataggio nel localStorage che l'intro è stata vista
-        localStorage.setItem("pressStart_404_intro_seen", "true");
-      }, rescue1Time + rescue2Time);
-
-      // pulizia dei timer se l'utente cambia pagina prima della fine
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-      };
-    } else {
-      // l'utente ha già visto l'intro --> non fare nulla
     }
   }, []);
+
+  // Funzione chiamata quando finisce il video intro
+  const finishIntro = () => {
+    setIsAnimating(false);
+    localStorage.setItem("pressStart_404_intro_seen", "true");
+  };
+
+  // Funzione che in caso di link diretto alla 404 previene l'incartamento del video e lo esegue in modalità muted
+  const handleVideoReady = (e) => {
+    const videoElement = e.target;
+    const playPromise = videoElement.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch((error) => {
+        // se entra qui, significa che il browser ha bloccato l'autoplay unmuted.
+        console.warn(
+          "Autoplay con audio bloccato. Forzato il mute per eseguire lo stesso il video.",
+          error,
+        );
+        videoElement.muted = true;
+        videoElement.play();
+      });
+    }
+  };
 
   return (
     <div
@@ -73,24 +71,16 @@ export default function NotFoundPage() {
       className="not-found-container position-relative d-flex align-items-center justify-content-center overflow-hidden"
     >
       {isAnimating ? (
-        /* SCENA A: Video Intro a tutto schermo */
-        <div className="intro-gif-overlay">
-          {currentVideoIndex === 1 && (
-            <video
-              src="/big-boss-rescue1.mp4"
-              autoPlay
-              playsInline
-              className="fullscreen-video"
-            />
-          )}
-          {currentVideoIndex === 2 && (
-            <video
-              src="/big-boss-rescue2.mp4"
-              autoPlay
-              playsInline
-              className="fullscreen-video"
-            />
-          )}
+        /* First time --> video intro */
+        <div className="intro-video-overlay">
+          <video
+            src="/real-boss.mp4"
+            autoPlay
+            playsInline
+            className="fullscreen-video"
+            onEnded={finishIntro} // per evitare desincronizzazioni dovute ad un pc lento se si utilizza setTimeout
+            onCanPlay={handleVideoReady}
+          />
         </div>
       ) : (
         /* SCENA B: La pagina 404 standard */
