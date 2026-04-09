@@ -22,7 +22,7 @@ export default function ThankYouPage() {
         <h1 className="thank-title text fs-1 star-crush">Grazie!</h1>
 
         <p className="thank-text  text fs-4 byte-bounce">
-          Grazie per aver acquistato un gioco su Press Start.
+          MISSIONE COMPLETATA <br /> Il tuo acquisto e' andato a buon fine.{" "}
         </p>
 
         <p className="thank-text text fs-5 byte-bounce mb-5">
