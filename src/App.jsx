@@ -28,6 +28,8 @@ import "bootstrap/dist/js/bootstrap.min.js";
 import "bootstrap-icons/font/bootstrap-icons.min.css";
 // CSS
 import "./assets/css/index.css";
+import ThankYouPage from "./pages/ThankYouPage";
+import AuthRouteGreetings from "./components/AuthRouteGreetings";
 
 export default function App() {
   return (
@@ -44,6 +46,14 @@ export default function App() {
               <Route path="/register" Component={RegisterPage} />
               <Route path="/loot" Component={LootPage} />
               <Route path="/checkout" Component={CheckoutPage} />
+              <Route
+                path="/greetings"
+                element={
+                  <AuthRouteGreetings>
+                    <ThankYouPage />
+                  </AuthRouteGreetings>
+                }
+              />
 
               <Route
                 path="/user/:username"
@@ -61,6 +71,7 @@ export default function App() {
                   // {/* </AdminRoute> */}
                 }
               />
+              <Route path="*" Component={NotFoundPage} />
             </Route>
             <Route path="*" Component={NotFoundPage} />
           </Routes>

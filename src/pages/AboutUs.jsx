@@ -37,9 +37,9 @@ export default function AboutUs() {
 
   return (
     <>
-      <div className="py-3 byte-bounce gr-viola container-manual">
+      <div className="py-3 byte-bounce container-manual">
         <section className="hero pb-5">
-          <h1 className="star-crush">
+          <h1 className="star-crush" style={{ color: "var(--viola)" }}>
             Press Start e torna nell'epoca d'oro del gaming
           </h1>
           <p className="fs-4 text">
@@ -71,7 +71,12 @@ export default function AboutUs() {
             >
               <div className="member-info-container">
                 <span className="arrow-purple">{">"}</span>
-                <span className="member-name">{member.name}</span>
+                <span
+                  className="member-name"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {member.name}
+                </span>
 
                 <div className="avatar-small">
                   <img src={member.img} alt={member.name} />
@@ -79,8 +84,12 @@ export default function AboutUs() {
 
                 {/* GIF a destra */}
                 {member.gif && (
-                  <div className="gif-preview-container">
-                    <img src={member.gif} alt="anim" className="size-gif" />
+                  <div className="gif-preview-container d-sm-none d-md-block">
+                    <img
+                      src={member.gif}
+                      alt="anim"
+                      className="size-gif d-sm-none d-md-block"
+                    />
                   </div>
                 )}
               </div>

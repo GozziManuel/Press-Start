@@ -1,15 +1,22 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useMain } from "../contexts/MainContext";
 import "../assets/css/gameCard.css";
-import "../assets/css/addToCart.css";
+import "../assets/css/detailed.css";
 import axios from "axios";
 
 import NotFoundPage from "./NotFoundPage";
 
 import { getGameGif } from "../utils/gameUtilities";
 
+// Components
+import AiChatDrawer from "../components/AiChatDrawer";
+// CSS
+import "../assets/css/gameCard.css";
+import "../assets/css/detailed.css";
+
 export default function ProductDetailPage() {
+  const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [added, setAdded] = useState(false);
   const [button, setButton] = useState(false);
@@ -111,10 +118,15 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <div className="container-manual py-3 byte-bounce gr-viola">
+    <div
+      className="container-manual py-3 byte-bounce"
+      style={{ color: "var(--light-blue)" }}
+    >
       {/* Product Name */}
-      <div className="d-flex justify-content-between">
-        <h1 className="star-crush">{productDetailed.name}</h1>
+      <div className="d-flex justify-content-between detailed-title">
+        <h1 style={{ color: "var(--viola)" }} className="star-crush">
+          {productDetailed.name}
+        </h1>
       </div>
       {/* Product Detail */}
       <div className="row row-cols-1 row-cols-md-3">
@@ -124,6 +136,7 @@ export default function ProductDetailPage() {
             src={productDetailed.image}
             alt={productDetailed.name}
             style={{ maxHeight: "600px" }}
+            className="detailed-img"
           />
           {/* Cost */}
           {discountProduct()}
@@ -137,7 +150,7 @@ export default function ProductDetailPage() {
           </button>
         </div>
         {/* --- GIF --- */}
-        <div className="d-flex flex-column align-items-center">
+        <div className="d-flex flex-column descriptionProduct align-items-center">
           <h3>Gameplay Preview</h3>
           <img
             src={getGameGif(slug)}
@@ -189,6 +202,9 @@ export default function ProductDetailPage() {
           <p key={id}>WIP</p>
         ))}
       </div>
+      <AiChatDrawer
+        product={{ ...productDetailed, platforms: product?.platforms }}
+      />
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import axios from "axios";
 import GameCard from "../components/GameCard";
+import "../assets/css/Homepage.css";
 
 export default function HomePage() {
   const [famoustProducts, setFamousProducts] = useState([]);
@@ -26,7 +27,7 @@ export default function HomePage() {
           <div className="row align-items-center min-vh-75">
             {/* SINISTRA */}
             <div className="col-lg-6 hero-text-box">
-              <h1 className="star-crush glowing gr-viola display-1 mb-3">
+              <h1 className="star-crush glowing gr-viola display-1 mb-3 big-title">
                 COMPRA E GIOCA GIOCHI RETRO.
               </h1>
               <p className="byte-bounce fs-2 mb-5" style={{ color: "white" }}>
@@ -39,7 +40,7 @@ export default function HomePage() {
             </div>
 
             {/* DESTRA */}
-            <div className="col-lg-6 d-none d-lg-block text-center position-relative hero-graphic-container">
+            <div className="col-lg-6 text-center position-relative hero-graphic-container">
               {/* LA GIF ANIMATA (Sfondo del portale) */}
               <img
                 src="/Pvzw9p.gif"
@@ -82,7 +83,7 @@ export default function HomePage() {
 
       <hr className="separator" />
       <div className="py-3 byte-bounce gr-viola container-manual">
-        <p style={{ fontSize: "30px" }} className="star-crush">
+        <p style={{ fontSize: "30px" }} className="star-crush ">
           I Più Venduti:
         </p>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 gx-5">

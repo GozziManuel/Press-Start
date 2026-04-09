@@ -6,6 +6,13 @@ const MainContext = createContext();
 export function MainProvider({ children }) {
   const [products, setProducts] = useState([]);
   const [productDetailed, setProductDetailed] = useState({});
+  const [isCoupon, setIsCoupon] = useState({
+    result: {
+      valid: false,
+    },
+  });
+  const [finLoot, setFinLoot] = useState([]);
+  const [totaleLoot, setTotaleLoot] = useState(0.0);
   const [activeEffect, setActiveEffect] = useState(null);
 
   // --- FUNZIONE PER GESTIRE I TRIGGERS ---
@@ -30,7 +37,6 @@ export function MainProvider({ children }) {
   };
   const fetchDataDetailed = (slug) => {
     axios.get(`http://localhost:3000/products/` + slug).then((res) => {
-      console.log(res.data.result);
       setProductDetailed(res.data.result);
     });
   };
@@ -53,6 +59,12 @@ export function MainProvider({ children }) {
   };
 
   const values = {
+    totaleLoot,
+    setTotaleLoot,
+    finLoot,
+    setFinLoot,
+    isCoupon,
+    setIsCoupon,
     fetchData,
     addItem,
     loot,

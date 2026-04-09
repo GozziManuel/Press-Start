@@ -61,6 +61,27 @@
 .nav-link:hover {
   color: transparent !important;
 }
+
+.cartButton {
+  color: var(--white);
+  font-size: 25px;
+}
+.cartbutton-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  position: fixed;
+  bottom: 20px;
+  left: 50px;
+  background-image: var(--gr-viola);
+  border-radius: 100px;
+  transition: all 0.2s ease-in-out;
+}
+.cartbutton-container:hover {
+  transform: scale(1.2);
+}
 /* ── Cart ──────────────────────────────────────────────── */
 .cart-count {
   font-size: 14px;
