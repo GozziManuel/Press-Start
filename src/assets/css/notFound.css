@@ -1,0 +1,162 @@
+.not-found-container {
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  background-color: #0a0a0a;
+  color: #fff;
+  --mouse-x: -100%;
+  --mouse-y: -100%;
+  cursor: crosshair;
+}
+
+.reveal-mask {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+  pointer-events: none; /* per permettere al mouse di essere letto dal padre */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Effetto Torcia/Lente */
+  -webkit-mask-image: radial-gradient(
+    circle 180px at var(--mouse-x) var(--mouse-y),
+    black 0%,
+    rgba(0, 0, 0, 0.4) 60%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    circle 180px at var(--mouse-x) var(--mouse-y),
+    black 0%,
+    rgba(0, 0, 0, 0.4) 60%,
+    transparent 100%
+  );
+}
+
+.content-to-reveal {
+  pointer-events: none;
+}
+
+.glitch-text-404 {
+  font-family: "ByteBounce", sans-serif;
+  font-size: 12rem;
+  line-height: 1;
+  color: #6c5aa9;
+  text-shadow: 0 0 20px rgba(177, 158, 239, 0.5);
+}
+
+.btn-restart-game {
+  pointer-events: auto; /* rende cliccabile il bottone nonostante la maschera */
+  display: inline-block;
+  padding: 12px 30px;
+  border: 2px solid #b19eef;
+  color: #b19eef;
+  text-decoration: none;
+  font-weight: bold;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+  background: transparent;
+  margin-top: 1rem;
+}
+
+.btn-restart-game:hover {
+  background: #3d3263;
+  color: #fff;
+  box-shadow: 0 0 30px rgba(177, 158, 239, 0.6);
+  transform: scale(1.05);
+}
+
+.spiegone {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .glitch-text-404 {
+    font-size: 7rem;
+  }
+  /* rimuove la maschera su mobile per facilitarne la lettura */
+  .reveal-mask {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+}
+
+/* Animazione Shakerante */
+@keyframes button-shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-2px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(2px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(-2px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(2px, -2px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 1px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(1px, -1px) rotate(0deg);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.boss-warning-box {
+  background: rgba(0, 20, 0, 0.8); /* Verde scuro radar */
+  border: 2px solid #00ff00;
+  box-shadow:
+    0 0 15px rgba(0, 255, 0, 0.3),
+    inset 0 0 15px rgba(0, 255, 0, 0.2);
+  padding: 3rem;
+  text-align: center;
+  position: relative;
+}
+
+/* Decorazioni angoli stile interfaccia militare */
+.boss-warning-box::before {
+  content: "ENCRYPTION: ACTIVE";
+  position: absolute;
+  top: -25px;
+  left: 0;
+  font-size: 0.7rem;
+  color: #00ff00;
+  letter-spacing: 2px;
+}
+
+.text-mgs-green {
+  color: #00ff00;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* Pulsante Shaker */
+.btn-mgs-transmission {
+  background: #004400;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 15px 40px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.2s;
+  animation: button-shake 0.9s infinite;
+}
+
+.btn-mgs-transmission:hover {
+  background: #00ff00;
+  color: #000;
+  animation: none;
+  box-shadow: 0 0 20px #00ff00;
+}

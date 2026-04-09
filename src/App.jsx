@@ -73,6 +73,7 @@ export default function App() {
               />
               <Route path="*" Component={NotFoundPage} />
             </Route>
+            <Route path="*" Component={NotFoundPage} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

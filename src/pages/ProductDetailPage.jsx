@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useMain } from "../contexts/MainContext";
-import { getGameGif } from "../utils/gameUtilities";
+import "../assets/css/gameCard.css";
+import "../assets/css/addToCart.css";
 import axios from "axios";
+
+import NotFoundPage from "./NotFoundPage";
+
+import { getGameGif } from "../utils/gameUtilities";
+
 // Components
 import AiChatDrawer from "../components/AiChatDrawer";
 // CSS
 import "../assets/css/gameCard.css";
 import "../assets/css/detailed.css";
-
 
 export default function ProductDetailPage() {
   const navigate = useNavigate();
@@ -16,16 +21,59 @@ export default function ProductDetailPage() {
   const [added, setAdded] = useState(false);
   const [button, setButton] = useState(false);
 
+  // GESTIONE ERRORI url---
+  const [notFound, setNotFound] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const { fetchDataDetailed, productDetailed, addItem } = useMain();
   const { slug } = useParams();
 
+  // Fetch dati globali --> context
   useEffect(() => {
     fetchDataDetailed(slug);
     window.scrollTo(0, 0);
   }, [slug]);
 
-  const priceNumber = parseFloat(productDetailed?.price);
-  const discountNumber = parseFloat(productDetailed?.discount_value);
+  // Funzione Fetch Locale --> per piattaforme e reviews e validazione
+  const fetchSlugData = () => {
+    setLoading(true);
+    axios
+      .get(`http://localhost:3000/products/` + slug)
+      .then((res) => {
+        if (res.data.result) {
+          setProduct(res.data.result);
+          setNotFound(false);
+        } else {
+          // se la risposta è 200 ma il result è null/vuoto
+          setNotFound(true);
+        }
+      })
+      .catch((err) => {
+        // se il server risponde 404 o altro
+        console.error("Errore nel recupero prodotto:", err);
+        setNotFound(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  // per caricare i dati al cambio slug
+  useEffect(fetchSlugData, [slug]);
+
+  // RENDERING CON CONDIZIONE
+  if (notFound) {
+    return <NotFoundPage />;
+  }
+
+  if (loading) {
+    return (
+      <div className="text-white text-center py-5">Caricamento in corso...</div>
+    );
+  }
+
+  const priceNumber = parseInt(productDetailed?.price);
+  const discountNumber = parseInt(productDetailed?.discount_value);
   const discountedPrice = priceNumber - discountNumber;
   const hasDiscount = discountNumber > 0;
 
@@ -58,19 +106,6 @@ export default function ProductDetailPage() {
     }
   };
 
-  // Fetch Data
-  const fetchSlugData = () => {
-    axios
-      .get(`http://localhost:3000/products/` + slug)
-      .then((res) => {
-        setProduct(res.data.result);
-      })
-      .catch((err) => {
-        if (!err.response.data.success) navigate("/notfoundslug");
-      });
-  };
-
-  // Handlers
   const handleCarrelloBtn = () => {
     addItem(product);
     setAdded(true);
@@ -82,13 +117,11 @@ export default function ProductDetailPage() {
     }, 2000);
   };
 
-  // useEffects
-  useEffect(fetchSlugData, []);
-
   return (
     <div
       className="container-manual py-3 byte-bounce"
-      style={{ color: "var(--light-blue)" }}>
+      style={{ color: "var(--light-blue)" }}
+    >
       {/* Product Name */}
       <div className="d-flex justify-content-between detailed-title">
         <h1 style={{ color: "var(--viola)" }} className="star-crush">
@@ -111,7 +144,8 @@ export default function ProductDetailPage() {
           <button
             className={`buttonCart fs-text mt-5 ${added ? "added" : ""}`}
             onClick={handleCarrelloBtn}
-            disabled={button}>
+            disabled={button}
+          >
             {added ? "Aggiunto!" : "Aggiungi al carrello"}
           </button>
         </div>
