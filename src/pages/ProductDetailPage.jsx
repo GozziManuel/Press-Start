@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useMain } from "../contexts/MainContext";
 import "../assets/css/gameCard.css";
-import "../assets/css/addToCart.css";
+import "../assets/css/detailed.css";
 import axios from "axios";
 
 import NotFoundPage from "./NotFoundPage";

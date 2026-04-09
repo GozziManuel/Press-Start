@@ -28,6 +28,10 @@ export default function Checkout() {
     setTotaleLoot,
     setLoot,
   } = useMain();
+  // LOADER
+  const [isLoading, setIsLoading] = useState(false);
+
+  // OTHER STATES
   const [inputValidation, setInputValidation] = useState(false);
   const [dataSend, setDataSend] = useState(initData);
   const daPagare = isCoupon.result.valid
@@ -58,18 +62,24 @@ export default function Checkout() {
 
   const handleDataSubmit = (e) => {
     e.preventDefault();
+    setIsLoading(true);
     console.log(dataSend);
-    axios.post("http://localhost:3000/checkout", dataSend).then((res) => {
-      // Generiamo un token finto nel front-end
-      localStorage.setItem("order_access", "true"); // Reset e navigazione
-      navigate("/greetings", { replace: true });
-      localStorage.removeItem("loot");
-      setLoot([]);
-      setIsCoupon({ result: { valid: false } });
-      setFinLoot([]);
-      // setTotaleLoot(0.0);
-      setDataSend(initData);
-    });
+    axios
+      .post("http://localhost:3000/checkout", dataSend)
+      .then((res) => {
+        // Generiamo un token finto nel front-end
+        localStorage.setItem("order_access", "true"); // Reset e navigazione
+        navigate("/greetings", { replace: true });
+        localStorage.removeItem("loot");
+        setLoot([]);
+        setIsCoupon({ result: { valid: false } });
+        setFinLoot([]);
+        // setTotaleLoot(0.0);
+        setDataSend(initData);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -244,7 +254,20 @@ export default function Checkout() {
               </div>
             </div>
 
-            <button className="btn-pay star-crush">Effettua Ordine</button>
+            <button className="btn-pay star-crush" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <span
+                    className="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  Elaborazione...
+                </>
+              ) : (
+                "Effettua Ordine"
+              )}
+            </button>
 
             <p className="secure-note">
               <i className="bi bi-lock-fill" /> Pagamento sicuro
