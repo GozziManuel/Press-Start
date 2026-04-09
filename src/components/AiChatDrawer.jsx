@@ -125,7 +125,7 @@ export default function AiChatDrawer({ product }) {
       </button>
 
       <div className={`chat-drawer ${isOpen ? "open" : ""}`}>
-        <div className="chat-header mt-5 d-flex">
+        <div className="chat-header  d-flex">
           <div className="text chatTitleContainer">
             <p
               className="chat-title mb-0 fs-3 "

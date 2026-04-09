@@ -122,10 +122,3 @@
 .chat-input button {
   width: 40px;
 }
-
-.chatTitleContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-  justify-content: end;
-}
