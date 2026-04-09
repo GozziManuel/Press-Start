@@ -51,6 +51,7 @@ export default function Footer() {
     <footer>
       <div style={{ overflowX: "hidden" }}>
         <motion.img
+          className="pacman"
           ref={pacmanRef}
           src="/Mr-Pacman.png"
           alt="Pac-Man"

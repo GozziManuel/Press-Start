@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import "../assets/css/thankyoupage.css";
+import { Link } from "react-router";
 
 export default function ThankYouPage() {
   useEffect(() => {
@@ -10,15 +12,26 @@ export default function ThankYouPage() {
     };
   }, []);
   return (
-    <div className="container-manual">
-      <div className="d-flex justify-content-center">
-        <div className="card p-4 byte-bounce">
-          <h2 className="star-crush gr-viola">Grazie!</h2>
-          <p className="text fs-text">
-            Grazie per aver scelto di acquistare un gioco da questo sito.
-          </p>
-          <p className="text fs-text">Il tuo ordine sarà inviato a breve.</p>
-        </div>
+    <div
+      className="d-flex justify-content-center align-items-center mt-5 "
+      style={{ width: "100%" }}
+    >
+      <div className="thank-container ">
+        <div className="check-icon">✔</div>
+
+        <h1 className="thank-title text fs-1 star-crush">Grazie!</h1>
+
+        <p className="thank-text  text fs-4 byte-bounce">
+          Grazie per aver acquistato un gioco su Press Start.
+        </p>
+
+        <p className="thank-text text fs-5 byte-bounce mb-5">
+          Il tuo ordine sara' inviato a breve.
+        </p>
+
+        <Link className="thank-btn fs-5 byte-bounce" to={"/products"}>
+          Torna ai giochi
+        </Link>
       </div>
     </div>
   );
