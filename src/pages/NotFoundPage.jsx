@@ -5,9 +5,41 @@ import "../assets/css/notFound.css";
 
 export default function NotFoundPage() {
   const containerRef = useRef(null);
+  const [userTriggered, setUserTriggered] = useState(false);
 
-  // gestione animazione
-  const [isAnimating, setIsAnimating] = useState(false);
+  // Funzione per leggere il localStorage immediatamente. Questo evita che la pagina 404 appaia per un istante prima del video.
+  const [isAnimating, setIsAnimating] = useState(() => {
+    return localStorage.getItem("pressStart_404_intro_seen") !== "true";
+  });
+
+  const userAudioHelper = ["/sn1.mp3", "/sn2.mp3"];
+
+  // LOGICA AUDIO RANDOM
+  useEffect(() => {
+    // se l'intro è attiva, esce. L'audio partirà quando isAnimating diventerà false.
+    if (isAnimating) return;
+
+    const randomIndex = Math.floor(Math.random() * userAudioHelper.length);
+    const audio = new Audio(userAudioHelper[randomIndex]);
+    audio.volume = 0.4;
+
+    // Definiamo il timer
+    const audioTimer = setTimeout(() => {
+      audio.play().catch((err) => {
+        console.warn(
+          "Audio 404 bloccato (normale senza interazione utente):",
+          err,
+        );
+      });
+    }, 2000); // <--- 2000ms di delay
+
+    // Cleanup function
+    return () => {
+      clearTimeout(audioTimer); // Cancella il timer se l'utente se ne va prima dei 2 secondi
+      audio.pause();
+      audio.src = "";
+    };
+  }, [isAnimating]); // riesegue quando finisce il video o se l'utente entra e l'intro è già stata vista
 
   // mouse mask
   useEffect(() => {
@@ -30,26 +62,16 @@ export default function NotFoundPage() {
     return () => container.removeEventListener("mousemove", handleMouseMove);
   }, [isAnimating]);
 
-  // Logica da eseguire solo la prima volta intro big-boss
-  useEffect(() => {
-    // controllo se l'utente ha già visto l'intro nel localStorage
-    const hasSeenIntro = localStorage.getItem("pressStart_404_intro_seen");
-
-    if (!hasSeenIntro) {
-      // se non ha mai visto l'intro
-      setIsAnimating(true);
-    }
-  }, []);
-
-  // Funzione chiamata quando finisce il video intro
+  // Funzione che avvisa quando finisce il video intro
   const finishIntro = () => {
     setIsAnimating(false);
     localStorage.setItem("pressStart_404_intro_seen", "true");
   };
 
   // Funzione che in caso di link diretto alla 404 previene l'incartamento del video e lo esegue in modalità muted
-  const handleVideoReady = (e) => {
+  const handleVideoCrash = (e) => {
     const videoElement = e.target;
+    videoElement.muted = false;
     const playPromise = videoElement.play();
 
     if (playPromise !== undefined) {
@@ -71,16 +93,34 @@ export default function NotFoundPage() {
       className="not-found-container position-relative d-flex align-items-center justify-content-center overflow-hidden"
     >
       {isAnimating ? (
-        /* First time --> video intro */
         <div className="intro-video-overlay">
-          <video
-            src="/real-boss.mp4"
-            autoPlay
-            playsInline
-            className="fullscreen-video"
-            onEnded={finishIntro} // per evitare desincronizzazioni dovute ad un pc lento se si utilizza setTimeout
-            onCanPlay={handleVideoReady}
-          />
+          {!userTriggered ? (
+            /* Schermata di attesa per ottenere l'interazione dell'utente */
+            <div className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark text-white">
+              <h2
+                style={{ fontFamily: "star-crush, sans-serif" }}
+                className="mb-4"
+              >
+                WARNING BOSS APPROACHING
+              </h2>
+              <button
+                className="btn-restart-game"
+                onClick={() => setUserTriggered(true)}
+              >
+                ACCEPT TRANSMISSION
+              </button>
+            </div>
+          ) : (
+            /* Ora che l'utente ha cliccato, il video partirà con l'audio senza problemi */
+            <video
+              src="/real-boss.mp4"
+              autoPlay
+              playsInline
+              className="fullscreen-video"
+              onEnded={finishIntro} // per evitare desincronizzazioni dovute ad un pc lento se si utilizza setTimeout
+              onCanPlay={handleVideoCrash}
+            />
+          )}
         </div>
       ) : (
         /* SCENA B: La pagina 404 standard */
