@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useMain } from "../contexts/MainContext";
+import { getGameGif } from "../utils/gameUtilities";
+import axios from "axios";
+// Components
+import AiChatDrawer from "../components/AiChatDrawer";
+// CSS
 import "../assets/css/gameCard.css";
 import "../assets/css/detailed.css";
-import axios from "axios";
-import { getGameGif } from "../utils/gameUtilities";
+
 
 export default function ProductDetailPage() {
   const navigate = useNavigate();
@@ -84,8 +88,7 @@ export default function ProductDetailPage() {
   return (
     <div
       className="container-manual py-3 byte-bounce"
-      style={{ color: "var(--light-blue)" }}
-    >
+      style={{ color: "var(--light-blue)" }}>
       {/* Product Name */}
       <div className="d-flex justify-content-between detailed-title">
         <h1 style={{ color: "var(--viola)" }} className="star-crush">
@@ -108,8 +111,7 @@ export default function ProductDetailPage() {
           <button
             className={`buttonCart fs-text mt-5 ${added ? "added" : ""}`}
             onClick={handleCarrelloBtn}
-            disabled={button}
-          >
+            disabled={button}>
             {added ? "Aggiunto!" : "Aggiungi al carrello"}
           </button>
         </div>
@@ -166,6 +168,9 @@ export default function ProductDetailPage() {
           <p key={id}>WIP</p>
         ))}
       </div>
+      <AiChatDrawer
+        product={{ ...productDetailed, platforms: product?.platforms }}
+      />
     </div>
   );
 }
