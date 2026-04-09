@@ -46,17 +46,22 @@ export default function AiChatDrawer({ product }) {
   const buildSystemPrompt = () => {
     return `Sei un assistente esperto di videogiochi.
 
-    Nome: ${product?.name || "N/D"}
-    Descrizione: ${product?.description || "N/D"}
-    Prezzo: ${product?.price || "N/D"}€
-    Generi: ${product?.genres || "N/D"}
-    Piattaforme: ${
-      product?.platforms?.length
-        ? product.platforms.map((p) => p.name).join(", ")
-        : "N/D"
-    }
+    Parla in modo naturale, utile e diretto.
 
-    Rispondi in italiano, massimo 3-4 frasi.`;
+    Gioco:
+    - Nome: ${product?.name}
+    - Descrizione: ${product?.description}
+    - Prezzo: ${product?.price}€
+    - Generi: ${product?.genres}
+    - Piattaforme: ${product?.platforms}
+
+    Obiettivo:
+    Aiuta l'utente a capire se vale la pena acquistarlo.
+
+    Regole:
+    - Risposte brevi (max 3 frasi)
+    - Niente frasi generiche
+    - Dai opinioni concrete`;
   };
 
   const sendMessage = async (text) => {
@@ -82,19 +87,17 @@ export default function AiChatDrawer({ product }) {
     }));
 
     try {
-      const { data } = await axios.post(
-        `http://localhost:3000/chat`,
-        {
-          system: buildSystemPrompt(),
-          messages: [...history, { role: "user", content: userText }],
-        }
-      );
+      const { data } = await axios.post(`http://localhost:3000/chat`, {
+        system: buildSystemPrompt(),
+        messages: [...history, { role: "user", content: userText }],
+      });
 
       setMessages((prev) => [...prev, { role: "bot", text: data.reply }]);
-    } catch {
+    } catch (error) {
+      console.error(error);
       setMessages((prev) => [
         ...prev,
-        { role: "bot", text: "Errore di connessione." },
+        { role: "bot", text: "Errore di connessione al server." },
       ]);
     } finally {
       setIsLoading(false);
