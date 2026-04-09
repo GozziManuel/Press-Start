@@ -220,9 +220,7 @@ export default function Checkout() {
               <span className="byte-bounce fs-3 gr-viola">
                 Totale da pagare{" "}
               </span>
-              <span className="fs-3">
-                {parseFloat(daPagare.toFixed(2))} &euro;{" "}
-              </span>
+              <span className="fs-3">{daPagare.toFixed(2)} &euro; </span>
             </div>
             <hr className="separator my-4" />
 
