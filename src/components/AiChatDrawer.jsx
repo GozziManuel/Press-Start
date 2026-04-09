@@ -117,24 +117,34 @@ export default function AiChatDrawer({ product }) {
         <div className="chat-overlay" onClick={() => setIsOpen(false)} />
       )}
 
-      <button className="chat-toggle" onClick={() => setIsOpen(!isOpen)}>
+      <button
+        className={isOpen ? "" : "chat-toggle"}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         🤖 AI CHAT
       </button>
 
       <div className={`chat-drawer ${isOpen ? "open" : ""}`}>
-        <div className="chat-header">
-          <div>
-            <p className="chat-title">GAME ASSISTANT</p>
-            <p className="chat-sub">{product?.name}</p>
+        <div className="chat-header mt-5 d-flex">
+          <div className="text chatTitleContainer">
+            <p
+              className="chat-title mb-0 fs-3 "
+              style={{ color: "var(--viola)" }}
+            >
+              GAME ASSISTANT
+            </p>
+            <p className="chat-sub mb-0 fs-4 text">{product?.name}</p>
           </div>
-          <button onClick={() => setIsOpen(false)}>✕</button>
+          <button onClick={() => setIsOpen(false)} className=" buttonYES my-3">
+            ✕
+          </button>
         </div>
 
-        <div className="chat-messages">
+        <div className="chat-messages pixel-sans">
           {messages.map((msg, i) => (
             <div key={i} className={`msg ${msg.role}`}>
-              {msg.role === "bot" && <span className="bot-label">AI</span>}
-              {msg.text}
+              {msg.role === "bot" && <span className="bot-label fs-5">AI</span>}
+              {<span className="text">{msg.text}</span>}
             </div>
           ))}
 
@@ -144,16 +154,20 @@ export default function AiChatDrawer({ product }) {
         </div>
 
         {showQuick && (
-          <div className="quick">
+          <div className="quick pixel-sans">
             {QUICK_QUESTIONS.map((q) => (
-              <button key={q} onClick={() => sendMessage(q)}>
+              <button
+                key={q}
+                onClick={() => sendMessage(q)}
+                style={{ color: "var(--viola)" }}
+              >
                 {q}
               </button>
             ))}
           </div>
         )}
 
-        <div className="chat-input">
+        <div className="chat-input pixel-sans">
           <textarea
             ref={textareaRef}
             value={input}
@@ -165,7 +179,11 @@ export default function AiChatDrawer({ product }) {
             onKeyDown={handleKey}
             placeholder="Scrivi..."
           />
-          <button onClick={() => sendMessage()} disabled={!input.trim()}>
+          <button
+            onClick={() => sendMessage()}
+            disabled={!input.trim()}
+            className="buttonNO p-0"
+          >
             ➤
           </button>
         </div>
