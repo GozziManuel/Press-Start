@@ -23,7 +23,7 @@ export default function NotFoundPage() {
     const audio = new Audio(userAudioHelper[randomIndex]);
     audio.volume = 0.4;
 
-    // Definiamo il timer
+    // Funzione che attiva  il timer una volta che l'intro è terminata
     const audioTimer = setTimeout(() => {
       audio.play().catch((err) => {
         console.warn(
@@ -35,7 +35,7 @@ export default function NotFoundPage() {
 
     // Cleanup function
     return () => {
-      clearTimeout(audioTimer); // Cancella il timer se l'utente se ne va prima dei 2 secondi
+      clearTimeout(audioTimer); // annulla il timer se l'utente se ne va prima dei 2 secondi
       audio.pause();
       audio.src = "";
     };
@@ -76,7 +76,7 @@ export default function NotFoundPage() {
 
     if (playPromise !== undefined) {
       playPromise.catch((error) => {
-        // se entra qui, significa che il browser ha bloccato l'autoplay unmuted.
+        // se entra qui, significa che il browser ha bloccato l'autoplay
         console.warn(
           "Autoplay con audio bloccato. Forzato il mute per eseguire lo stesso il video.",
           error,
@@ -93,31 +93,55 @@ export default function NotFoundPage() {
       className="not-found-container position-relative d-flex align-items-center justify-content-center overflow-hidden"
     >
       {isAnimating ? (
-        <div className="intro-video-overlay">
+        <div className="intro-video-overlay bg-black">
           {!userTriggered ? (
-            /* Schermata di attesa per ottenere l'interazione dell'utente */
-            <div className="d-flex flex-column align-items-center justify-content-center h-100 bg-dark text-white">
-              <h2
-                style={{ fontFamily: "star-crush, sans-serif" }}
-                className="mb-4"
-              >
-                WARNING BOSS APPROACHING
-              </h2>
-              <button
-                className="btn-restart-game"
-                onClick={() => setUserTriggered(true)}
-              >
-                ACCEPT TRANSMISSION
-              </button>
+            /* CODEC */
+            <div className="d-flex flex-column align-items-center justify-content-center h-100">
+              <div className="boss-warning-box">
+                <h2
+                  className="text-mgs-green mb-2"
+                  style={{ fontFamily: "star-crush, sans-serif" }}
+                >
+                  [ ERROR: SIGNAL DETECTED ]
+                </h2>
+                <p
+                  className="text-mgs-green opacity-75 mb-4"
+                  style={{ fontSize: "0.9rem" }}
+                >
+                  LOCALIZZAZIONE: OUT OF BOUNDS
+                  <br />
+                  STATO-MISSIONE: RILEVATO DA UNITÀ "SNAKE" ...shadowing/tailing
+                </p>
+
+                <div className="mb-4">
+                  <span className="text-white bg-danger px-2 py-1 small fw-bold">
+                    PURSUE FLEEING HOSTILE
+                  </span>
+                </div>
+
+                <h4
+                  className="text-white mb-5"
+                  style={{ letterSpacing: "1px" }}
+                >
+                  Boss: "I found you! Let's go back..."
+                </h4>
+
+                <button
+                  className="btn-mgs-transmission"
+                  onClick={() => setUserTriggered(true)}
+                >
+                  Good Game
+                </button>
+              </div>
             </div>
           ) : (
-            /* Ora che l'utente ha cliccato, il video partirà con l'audio senza problemi */
+            /* Video Video Intro */
             <video
               src="/real-boss.mp4"
               autoPlay
               playsInline
               className="fullscreen-video"
-              onEnded={finishIntro} // per evitare desincronizzazioni dovute ad un pc lento se si utilizza setTimeout
+              onEnded={finishIntro}
               onCanPlay={handleVideoCrash}
             />
           )}
