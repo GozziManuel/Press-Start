@@ -7,8 +7,12 @@ export default function NotFoundPage() {
   const containerRef = useRef(null);
   const [userTriggered, setUserTriggered] = useState(false);
 
-  // Funzione per leggere il localStorage immediatamente. Questo evita che la pagina 404 appaia per un istante prima del video.
+  // STATO PER RILEVARE SE IL DISP è MOBILE
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 768);
+
+  // Funzione per leggere il localStorage immediatamente. Questo evita che la pagina 404 appaia per un istante prima del video. Se è mobile sta false
   const [isAnimating, setIsAnimating] = useState(() => {
+    if (window.innerWidth <= 768) return false;
     return localStorage.getItem("pressStart_404_intro_seen") !== "true";
   });
 
@@ -17,7 +21,7 @@ export default function NotFoundPage() {
   // LOGICA AUDIO RANDOM
   useEffect(() => {
     // se l'intro è attiva, esce. L'audio partirà quando isAnimating diventerà false.
-    if (isAnimating) return;
+    if (isAnimating || isMobile) return;
 
     const randomIndex = Math.floor(Math.random() * userAudioHelper.length);
     const audio = new Audio(userAudioHelper[randomIndex]);
@@ -39,7 +43,7 @@ export default function NotFoundPage() {
       audio.pause();
       audio.src = "";
     };
-  }, [isAnimating]); // riesegue quando finisce il video o se l'utente entra e l'intro è già stata vista
+  }, [isAnimating, isMobile]); // riesegue quando finisce il video o se l'utente entra e l'intro è già stata vista
 
   // mouse mask
   useEffect(() => {
@@ -92,7 +96,7 @@ export default function NotFoundPage() {
       ref={containerRef}
       className="not-found-container position-relative d-flex align-items-center justify-content-center overflow-hidden"
     >
-      {isAnimating ? (
+      {isAnimating && !isMobile ? (
         <div className="intro-video-overlay bg-black">
           {!userTriggered ? (
             /* CODEC */
@@ -149,23 +153,25 @@ export default function NotFoundPage() {
       ) : (
         /* SCENA B: La pagina 404 standard */
         <>
-          <GhostCursor
-            // Visuals
-            color="#B19EEF"
-            brightness={2}
-            edgeIntensity={0}
-            // Trail and motion
-            trailLength={50}
-            inertia={0.5}
-            // Post-processing
-            grainIntensity={0.05}
-            bloomStrength={0.1}
-            bloomRadius={1}
-            bloomThreshold={0.025}
-            // Fade-out behavior
-            fadeDelayMs={1000}
-            fadeDurationMs={1500}
-          />
+          {!isMobile && (
+            <GhostCursor
+              // Visuals
+              color="#B19EEF"
+              brightness={2}
+              edgeIntensity={0}
+              // Trail and motion
+              trailLength={50}
+              inertia={0.5}
+              // Post-processing
+              grainIntensity={0.05}
+              bloomStrength={0.1}
+              bloomRadius={1}
+              bloomThreshold={0.025}
+              // Fade-out behavior
+              fadeDelayMs={1000}
+              fadeDurationMs={1500}
+            />
+          )}
 
           {/* Contenuto rivelato dalla lente CSS */}
           <div className="reveal-mask">
