@@ -12,26 +12,84 @@ export default function ThankYouPage() {
     };
   }, []);
   return (
-    <div
-      className="d-flex justify-content-center align-items-center mt-5 "
-      style={{ width: "100%" }}
-    >
-      <div className="thank-container ">
-        <div className="check-icon">✔</div>
+    <div className="thank-page-wrapper">
+      <div className="thank-container">
+        {/* Angoli */}
+        <div className="corner corner-tl"></div>
+        <div className="corner corner-tr"></div>
+        <div className="corner corner-bl"></div>
+        <div className="corner corner-br"></div>
 
-        <h1 className="thank-title text fs-1 star-crush">Grazie!</h1>
+        <h1 className="thank-title star-crush" data-text="MISSIONE COMPLETATA">
+          MISSION ACCOMPLISHED
+        </h1>
 
-        <p className="thank-text  text fs-4 byte-bounce">
-          MISSIONE COMPLETATA <br /> Il tuo acquisto e' andato a buon fine.{" "}
-        </p>
+        <div className="stats-box byte-bounce">
+          <p className="thank-text">
+            <span className="label">ORDER ID:</span>
+            <span className="value">#1234</span>
+          </p>
+          <p className="thank-text">
+            <span className="label">PURCHASE DATE:</span>
+            <span className="value">10/04/2026</span>
+          </p>
+          <p className="thank-text">
+            <span className="label">TOTAL AMOUNT:</span>
+            <span className="value">70.01</span>
+          </p>
+          <p className="thank-text">
+            <span className="label">STATUS:</span>
+            <span className="value">ORDINE ELABORATO</span>
+          </p>
+          <p className="thank-text">
+            <span className="label">REWARD:</span>
+            <span className="value">20p POTERE D'ACQUISTO</span>
+          </p>
+        </div>
 
-        <p className="thank-text text fs-5 byte-bounce mb-5">
-          Il tuo ordine sara' inviato a breve.
-        </p>
+        {/* AVATAR */}
+        <div className="dev-team-section">
+          <p className="team-label byte-bounce">
+            Thank you for your purchase! It truly supports our dev team's work.
+            We hope you enjoyed using our site as much as we enjoyed coding it.
+          </p>
+          <div className="dev-team-display">
+            <div className="dev-avatar">
+              <img
+                src="/kirby-greetings2.gif"
+                alt="Developer 1"
+                className="kirby-greetings-avatar"
+              />
+            </div>
+            <div className="dev-avatar">
+              <img
+                src="/donkey-kong2.gif"
+                alt="Developer 2"
+                className="donkey-kong-avatar"
+              />
+            </div>
+            <div className="dev-avatar">
+              <img
+                src="/crash-bandicoot-greetings2.gif"
+                alt="Developer 2"
+                className="crash-bandicoot-avatar"
+              />
+            </div>
+            <div className="dev-avatar">
+              <img
+                src="/frog-greetings.gif"
+                alt="Developer 2"
+                className="frog-greetings-avatar"
+              />
+            </div>
+          </div>
+        </div>
 
-        <Link className="thank-btn fs-5 byte-bounce" to={"/products"}>
-          Torna ai giochi
-        </Link>
+        <div className="btn-wrapper">
+          <Link className="thank-btn byte-bounce" to={"/products"}>
+            FEEL FREE TO KEEP EXPLORING
+          </Link>
+        </div>
       </div>
     </div>
   );
