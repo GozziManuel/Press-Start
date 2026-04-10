@@ -71,7 +71,6 @@ export default function App() {
                   // {/* </AdminRoute> */}
                 }
               />
-              <Route path="*" Component={NotFoundPage} />
             </Route>
             <Route path="*" Component={NotFoundPage} />
           </Routes>
