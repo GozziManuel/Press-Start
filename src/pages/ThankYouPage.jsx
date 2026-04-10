@@ -14,12 +14,6 @@ export default function ThankYouPage() {
   return (
     <div className="thank-page-wrapper">
       <div className="thank-container">
-        {/* Angoli */}
-        <div className="corner corner-tl"></div>
-        <div className="corner corner-tr"></div>
-        <div className="corner corner-bl"></div>
-        <div className="corner corner-br"></div>
-
         <h1 className="thank-title star-crush" data-text="MISSIONE COMPLETATA">
           MISSION ACCOMPLISHED
         </h1>
