@@ -46,14 +46,6 @@ export default function App() {
               <Route path="/register" Component={RegisterPage} />
               <Route path="/loot" Component={LootPage} />
               <Route path="/checkout" Component={CheckoutPage} />
-              <Route
-                path="/greetings"
-                element={
-                  <AuthRouteGreetings>
-                    <ThankYouPage />
-                  </AuthRouteGreetings>
-                }
-              />
 
               <Route
                 path="/user/:username"
@@ -72,6 +64,14 @@ export default function App() {
                 }
               />
             </Route>
+            <Route
+              path="/greetings"
+              element={
+                <AuthRouteGreetings>
+                  <ThankYouPage />
+                </AuthRouteGreetings>
+              }
+            />
             <Route path="*" Component={NotFoundPage} />
           </Routes>
         </BrowserRouter>

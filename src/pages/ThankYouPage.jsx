@@ -35,7 +35,7 @@ export default function ThankYouPage() {
           </p>
           <p className="thank-text">
             <span className="label">TOTAL AMOUNT:</span>
-            <span className="value">101.45$</span>
+            <span className="value">70.01</span>
           </p>
           <p className="thank-text">
             <span className="label">STATUS:</span>
