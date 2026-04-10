@@ -66,16 +66,20 @@ export default function ProductsListPage() {
   // Handle for select
   const handleSelect = (e) => {
     setSelect(e.target.value);
+    urlSetter("select", e.target.value);
   };
   // Handle for Advanced Select
   const handleConsoleSelect = (e) => {
     setadvancedConsoleSelect(e.target.value);
+    urlSetter("consolle", e.target.value);
   };
   const handleGenreSelect = (e) => {
     setadvancedGenreSelect(e.target.value);
+    urlSetter("genre", e.target.value);
   };
   const handlePublisherSelect = (e) => {
     setadvancedPublisherSelect(e.target.value);
+    urlSetter("publisher", e.target.value);
   };
   const handleResetFilters = () => {
     setadvancedGenreSelect("");
@@ -100,8 +104,14 @@ export default function ProductsListPage() {
   const handleSearch = (e) => {
     const { value } = e.target;
     setSearch(value);
-    setSearchParams({ search: value });
+    urlSetter("search", value);
   };
+
+  function urlSetter(key, value) {
+    const param = new URLSearchParams(searchParams);
+    param.set(key, value);
+    setSearchParams(param);
+  }
 
   useEffect(() => {
     if (!search.trim()) {
