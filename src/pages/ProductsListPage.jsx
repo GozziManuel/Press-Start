@@ -91,7 +91,6 @@ export default function ProductsListPage() {
       consolle: advancedConsoleSelect,
       search: search,
     };
-    console.log(obj);
     axios.post("http://localhost:3000/products/advanced", obj).then((res) => {
       setProductList(res.data.products);
       setCloneProductList(res.data.products);
@@ -101,7 +100,14 @@ export default function ProductsListPage() {
   const handleSearch = (e) => {
     const { value } = e.target;
     setSearch(value);
+    setSearchParams({ search: value });
   };
+
+  useEffect(() => {
+    if (!search.trim()) {
+      setSearchParams("");
+    }
+  }, [search]);
 
   useEffect(fetchAdvanced, [
     advancedConsoleSelect,
@@ -112,9 +118,9 @@ export default function ProductsListPage() {
   ]);
 
   // useEffects
-  useEffect(() => {
-    setSearch(searchParams.get("search") || "");
-  }, [searchParams]);
+  // useEffect(() => {
+  //   setSearch(searchParams.get("search") || "");
+  // }, [searchParams]);
 
   // useEffect(() => {
   //   const query = searchParams.get("search") || "";
