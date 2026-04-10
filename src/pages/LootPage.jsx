@@ -224,7 +224,7 @@ export default function LootPage() {
                   </div>
                 </div>
                 <div className="col-12 col-sm-6 col-lg-6 row">
-                  <div className="col-4 text text-center d-flex justify-content-center align-items-start">
+                  <div className="col-4 text text-center d-flex justify-content-start align-items-center flex-column">
                     {el.discount_value > 0 && (
                       <span
                         style={{
