@@ -35,7 +35,10 @@ export default function ThankYouPage() {
           </p>
           <p className="thank-text">
             <span className="label">TOTAL AMOUNT:</span>
-            <span className="value">{daPagare.toFixed(2)} &euro;</span>
+            <span className="value">
+              {daPagare.toFixed(2)}
+              <span className="pixel-sans"> &euro;</span>
+            </span>
           </p>
           <p className="thank-text">
             <span className="label">STATUS:</span>
