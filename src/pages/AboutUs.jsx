@@ -2,6 +2,7 @@ import { NavLink } from "react-router";
 import "../assets/css/AboutUs.css";
 
 import { useMain } from "../contexts/MainContext";
+import { useEffect, useState } from "react";
 
 const team = [
   {
@@ -28,7 +29,26 @@ const team = [
 export default function AboutUs() {
   const { triggerEffect, activeEffect, setActiveEffect } = useMain();
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    // Funzione che controlla la dimensione della finestra
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkScreenSize();
+
+    window.addEventListener("resize", checkScreenSize);
+
+    //cleanup listener
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
+  }, []);
+
   const handleMemberClick = (id) => {
+    if (isMobile) return; // blocca l'esecuzione su mobile
     if (id === 0) triggerEffect("glitch");
     else if (id === 1) setActiveEffect("lanyard");
     else if (id === 2) setActiveEffect("target");
@@ -66,10 +86,16 @@ export default function AboutUs() {
           {team.map((member, id) => (
             <li
               key={id}
-              className={`team-row byte-bounce ${activeEffect === "target" ? "cursor-target" : ""}`} // Classe per il mirino
-              onClick={() => handleMemberClick(id)}
+              className={`team-row byte-bounce ${
+                !isMobile && activeEffect === "target" ? "cursor-target" : ""
+              }`}
             >
-              <div className="member-info-container">
+              <div
+                className="member-info-container"
+                // disabilitazione del cursore su mobile
+                onClick={() => handleMemberClick(id)}
+                style={{ cursor: isMobile ? "default" : "pointer" }}
+              >
                 <span className="arrow-purple">{">"}</span>
                 <span
                   className="member-name"
@@ -83,12 +109,12 @@ export default function AboutUs() {
                 </div>
 
                 {/* GIF a destra */}
-                {member.gif && (
-                  <div className="gif-preview-container d-sm-none d-md-block">
+                {!isMobile && member.gif && (
+                  <div className="gif-preview-container">
                     <img
                       src={member.gif}
-                      alt="anim"
-                      className="size-gif d-sm-none d-md-block"
+                      alt={`${member.name} animation`}
+                      className="size-gif"
                     />
                   </div>
                 )}
