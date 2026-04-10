@@ -63,7 +63,6 @@ export default function Checkout() {
   const handleDataSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(dataSend);
     axios
       .post("http://localhost:3000/checkout", dataSend)
       .then((res) => {

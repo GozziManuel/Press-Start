@@ -45,9 +45,7 @@ export default function LoginPage() {
       } else {
         navigate("/user/" + user.username);
       }
-    } catch (err) {
-      console.log(err.response.data);
-    }
+    } catch (err) {}
   };
   return (
     <main>

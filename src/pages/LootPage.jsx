@@ -105,11 +105,9 @@ export default function LootPage() {
     axios
       .post("http://localhost:3000/coupon", forged)
       .then((res) => {
-        console.log("Dati ricevuti dal server:", res.data);
         setIsCoupon(res.data);
 
         if (res.data && res.data.result && res.data.result.valid === true) {
-          console.log("3. Esito: VALIDO");
           setCouponMessage({
             text: "Codice valido ed inserito!",
             type: "success",
@@ -128,8 +126,6 @@ export default function LootPage() {
         });
       });
   };
-
-  console.log(totaleLoot);
 
   return (
     <div className="container-manual py-5">

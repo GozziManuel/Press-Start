@@ -29,12 +29,7 @@ export default function NotFoundPage() {
 
     // Funzione che attiva  il timer una volta che l'intro è terminata
     const audioTimer = setTimeout(() => {
-      audio.play().catch((err) => {
-        console.warn(
-          "Audio 404 bloccato (normale senza interazione utente):",
-          err,
-        );
-      });
+      audio.play().catch((err) => {});
     }, 2000); // <--- 2000ms di delay
 
     // Cleanup function
@@ -80,11 +75,6 @@ export default function NotFoundPage() {
 
     if (playPromise !== undefined) {
       playPromise.catch((error) => {
-        // se entra qui, significa che il browser ha bloccato l'autoplay
-        console.warn(
-          "Autoplay con audio bloccato. Forzato il mute per eseguire lo stesso il video.",
-          error,
-        );
         videoElement.muted = true;
         videoElement.play();
       });

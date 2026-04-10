@@ -46,9 +46,7 @@ export default function RegisterPage() {
       .then((res) => {
         navigate("/login");
       })
-      .catch((err) => {
-        console.log("errore");
-      });
+      .catch((err) => {});
   };
 
   return (
