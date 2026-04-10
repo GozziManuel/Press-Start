@@ -58,23 +58,6 @@ export default function ProductsListPage() {
     { value: "Platform", nome: "Platform" },
   ];
 
-  // Fetch Selected Data
-  const fetchSelectData = () => {
-    if (select === "all") {
-      axios.get(`http://localhost:3000/products`).then((res) => {
-        setCloneProductList(res.data.result.products);
-        setProductList(res.data.result.products);
-      });
-    } else {
-      axios
-        .get(`http://localhost:3000/search/order?by=${select}`)
-        .then((res) => {
-          setCloneProductList(res.data.result);
-          setProductList(res.data.result);
-        });
-    }
-  };
-
   // Handle Functions
   const handleCheckValue = (e) => {
     setChecked(e.target.checked);
@@ -106,12 +89,18 @@ export default function ProductsListPage() {
       genre: advancedGenreSelect,
       publisher: advancedPublisherSelect,
       consolle: advancedConsoleSelect,
+      search: search,
     };
-
+    console.log(obj);
     axios.post("http://localhost:3000/products/advanced", obj).then((res) => {
       setProductList(res.data.products);
       setCloneProductList(res.data.products);
     });
+  };
+
+  const handleSearch = (e) => {
+    const { value } = e.target;
+    setSearch(value);
   };
 
   useEffect(fetchAdvanced, [
@@ -119,98 +108,27 @@ export default function ProductsListPage() {
     advancedPublisherSelect,
     advancedGenreSelect,
     select,
+    search,
   ]);
-
-  // Search bar
-  // const handleSearch = (e) => {
-  //   const value = e.target.value;
-  //   setSearch(value);
-  //   if (value.trim() === "") {
-  //     setSearchParams({});
-  //   } else {
-  //     setSearchParams({ search: value });
-  //   }
-  // };
-
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    setSearch(value);
-
-    if (value.trim() === "") {
-      setCloneProductList(productList); // reset
-      setSearchParams({});
-    } else {
-      const filtered = productList.filter((product) =>
-        product.name.toLowerCase().includes(value.toLowerCase()),
-      );
-
-      setCloneProductList(filtered);
-      setSearchParams({ search: value });
-    }
-  };
-
-  // Filter for Product List
-  // const productList = Array.isArray(listedProducts)
-  //   ? listedProducts.filter((product) => {
-  //       const matchesSearch = product.name
-  //         .trim()
-  //         .toLowerCase()
-  //         .includes(search.toLowerCase());
-
-  //       const matchesGenre = advancedGenreSelect
-  //         ? product.genres?.includes(advancedGenreSelect)
-  //         : true;
-
-  //       const matchesPlatform = advancedConsoleSelect
-  //         ? product.platforms?.includes(advancedConsoleSelect)
-  //         : true;
-
-  //       const matchesPublisher = advancedPublisherSelect
-  //         ? product.companies?.includes(advancedPublisherSelect)
-  //         : true;
-
-  //       return (
-  //         matchesSearch && matchesGenre && matchesPlatform && matchesPublisher
-  //       );
-  //     })
-  //   : [];
-  // Sincronizza listedProducts quando products del context cambia
-
-  // useEffect(() => {
-  //   if (products?.products) {
-  //     setProductList(products.products);
-  //     setListedProducts(products.products);
-  //   }
-  // }, [products]);
 
   // useEffects
   useEffect(() => {
     setSearch(searchParams.get("search") || "");
   }, [searchParams]);
 
-  // Quando select cambia, chiama fetchSelectData
-  useEffect(() => {
-    if (
-      !advancedConsoleSelect &&
-      !advancedPublisherSelect &&
-      !advancedGenreSelect
-    )
-      fetchSelectData();
-  }, [select]);
+  // useEffect(() => {
+  //   const query = searchParams.get("search") || "";
+  //   setSearch(query);
 
-  useEffect(() => {
-    const query = searchParams.get("search") || "";
-    setSearch(query);
-
-    if (query.trim() === "") {
-      setCloneProductList(productList);
-    } else {
-      const filtered = productList.filter((product) =>
-        product.name.toLowerCase().includes(query.toLowerCase()),
-      );
-      setCloneProductList(filtered);
-    }
-  }, [searchParams, productList]);
+  //   if (query.trim() === "") {
+  //     setCloneProductList(productList);
+  //   } else {
+  //     const filtered = productList.filter((product) =>
+  //       product.name.toLowerCase().includes(query.toLowerCase()),
+  //     );
+  //     setCloneProductList(filtered);
+  //   }
+  // }, [searchParams, productList]);
 
   return (
     <div className="container-manual py-3 byte-bounce">
