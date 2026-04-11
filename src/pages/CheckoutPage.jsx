@@ -196,8 +196,8 @@ export default function Checkout() {
                 className="card-header  byte-bounce fs-5 px-3 text-center"
                 style={{ color: "var(--danger-text)" }}
               >
-                E' necessario mettere caratteri adeguati nel campo: solo
-                caratteri alfabetici
+                E' necessario mettere solo caratteri alfabetici sei seguenti
+                campi: Nome, Cognome, Citta', Nazione
               </div>
             </div>
           </div>
