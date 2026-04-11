@@ -204,8 +204,8 @@ export default function ProductsListPage() {
               >
                 {" "}
                 <option value={""}>Scegli una piattaforma</option>
-                {AdvancedConsoleOptions.map((option) => (
-                  <option value={option.value} key={option.value}>
+                {AdvancedConsoleOptions.map((option, id) => (
+                  <option value={option.value} key={id}>
                     {option.nome}
                   </option>
                 ))}
@@ -247,11 +247,11 @@ export default function ProductsListPage() {
         {cloneProductList.length === 0 ? (
           <h1 className="text-center  gr-viola" style={{ width: "100%" }}>
             Nessun risultato! Magari lo aggiungeremo presto{" "}
-            <i class="bi bi-emoji-smile-fill"></i>
+            <i className="bi bi-emoji-smile-fill"></i>
           </h1>
         ) : (
-          cloneProductList.map((data) => (
-            <div className="col card-animate" key={data.id}>
+          cloneProductList.map((data, id) => (
+            <div className="col card-animate" key={id}>
               <GameCard data={data} checked={checked} />
             </div>
           ))

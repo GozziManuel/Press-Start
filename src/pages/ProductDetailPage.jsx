@@ -50,7 +50,6 @@ export default function ProductDetailPage() {
       })
       .catch((err) => {
         // se il server risponde 404 o altro
-        console.error("Errore nel recupero prodotto:", err);
         setNotFound(true);
       })
       .finally(() => {

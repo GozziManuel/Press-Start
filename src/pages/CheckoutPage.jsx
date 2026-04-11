@@ -63,7 +63,6 @@ export default function Checkout() {
   const handleDataSubmit = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(dataSend);
     axios
       .post("http://localhost:3000/checkout", dataSend)
       .then((res) => {
@@ -209,9 +208,13 @@ export default function Checkout() {
           <h2 className="star-crush gr-viola">Il tuo ordine</h2>
 
           <div>
-            {finLoot.map((el) => {
+            {finLoot.map((el, id) => {
               return (
-                <div style={{ color: "var(--text-primary)" }} className="fs-4">
+                <div
+                  style={{ color: "var(--text-primary)" }}
+                  className="fs-4"
+                  key={id}
+                >
                   <span className="byte-bounce ">
                     {el.name} x {el.quantity}{" "}
                   </span>

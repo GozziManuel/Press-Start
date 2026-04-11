@@ -15,7 +15,6 @@ import closeGameAudio from "../assets/doomModeStaff/the-doom-slayer-ending.mp3";
 
 export default function DefaultTemplate() {
   const { activeEffect, setActiveEffect } = useMain();
-  console.log("L'effetto attivo nel template è:", activeEffect);
 
   const handleExitDoom = () => {
     // blocca tutti gli audio
