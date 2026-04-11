@@ -74,6 +74,10 @@ export default function GameCard({ data, checked }) {
                 <span style={{ color: "var(--light-blue)" }}>Genre:</span>{" "}
                 {data.genre_name}
               </p>
+              {/* TEST DESCRIPTION */}
+              <p>
+                <span>{data.description}</span>
+              </p>
             </div>
           )}
           <div>{discountProduct()}</div>

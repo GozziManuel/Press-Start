@@ -1,79 +1,33 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router";
-import { useMain } from "../contexts/MainContext.jsx";
 import axios from "axios";
 import GameCard from "../components/GameCard";
 // CSS
 import "../assets/css/searchBar.css";
+import {
+  selectOptions,
+  AdvancedConsoleOptions,
+  AdvancedGenreOptions,
+  AdvancedPublisherOptions,
+} from "../assets/data/dataList.js";
 
 export default function ProductsListPage() {
   // Context
-  const { products } = useMain();
   const [searchParams, setSearchParams] = useSearchParams();
 
   // States
   const [checked, setChecked] = useState(true);
-  const [search, setSearch] = useState(searchParams.get("search") || "");
-  // const [listedProducts, setListedProducts] = useState([]);
-  const [select, setSelect] = useState("all");
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
   const [productList, setProductList] = useState([]);
   const [cloneProductList, setCloneProductList] = useState([]);
-  // Stati per l'advanced search
-  const [advancedConsoleSelect, setadvancedConsoleSelect] = useState("");
-  const [advancedPublisherSelect, setadvancedPublisherSelect] = useState("");
-  const [advancedGenreSelect, setadvancedGenreSelect] = useState("");
 
-  // Opzioni per il Select
-  const selectOptions = [
-    { value: "all", nome: "All" },
-    { value: "name", nome: "Name" },
-    { value: "price", nome: "Price" },
-    { value: "discount_value", nome: "Discounted" },
-    { value: "created_at", nome: "Last" },
-  ];
-  const AdvancedConsoleOptions = [
-    { value: "NES", nome: "NES" },
-    { value: "SNES", nome: "SNES" },
-    { value: "Nintendo 64", nome: "Nintendo 64" },
-    { value: "Sega Mega Drive", nome: "Sega Mega Drive" },
-    { value: "PlayStation 1", nome: "PlayStation 1" },
-    { value: "Sega Saturn", nome: "Sega Saturn" },
-    { value: "Arcade", nome: "Arcade" },
-  ];
-  const AdvancedPublisherOptions = [
-    { value: "Nintendo", nome: "Nintendo" },
-    { value: "Sega", nome: "Sega" },
-    { value: "Sony", nome: "Sony" },
-    { value: "Vari", nome: "Vari" },
-  ];
-  const AdvancedGenreOptions = [
-    { value: "Shooter", nome: "Shooter" },
-    { value: "Survival Horror", nome: "Survival Horror" },
-    { value: "Racing", nome: "Racing" },
-    { value: "Puzzle", nome: "Puzzle" },
-    { value: "Fighting", nome: "Fighting" },
-    { value: "Action-Adventure", nome: "Action-Adventure" },
-    { value: "RPG", nome: "RPG" },
-    { value: "Platform", nome: "Platform" },
-  ];
+  const search = searchParams.get("search") || "";
+  const select = searchParams.get("select") || "all";
+  const consolle = searchParams.get("consolle") || "";
+  const publisher = searchParams.get("publisher") || "";
+  const genre = searchParams.get("genre") || "";
 
-  // Fetch Selected Data
-  const fetchSelectData = () => {
-    if (select === "all") {
-      axios.get(`http://localhost:3000/products`).then((res) => {
-        setCloneProductList(res.data.result.products);
-        setProductList(res.data.result.products);
-      });
-    } else {
-      axios
-        .get(`http://localhost:3000/search/order?by=${select}`)
-        .then((res) => {
-          setCloneProductList(res.data.result);
-          setProductList(res.data.result);
-        });
-    }
-  };
+  const [empty, setEmpty] = useState(true);
 
   // Handle Functions
   const handleCheckValue = (e) => {
@@ -82,135 +36,77 @@ export default function ProductsListPage() {
 
   // Handle for select
   const handleSelect = (e) => {
-    setSelect(e.target.value);
+    urlSetter("select", e.target.value);
   };
   // Handle for Advanced Select
   const handleConsoleSelect = (e) => {
-    setadvancedConsoleSelect(e.target.value);
+    urlSetter("consolle", e.target.value);
   };
   const handleGenreSelect = (e) => {
-    setadvancedGenreSelect(e.target.value);
+    urlSetter("genre", e.target.value);
   };
   const handlePublisherSelect = (e) => {
-    setadvancedPublisherSelect(e.target.value);
+    urlSetter("publisher", e.target.value);
   };
+  const handleSearch = (e) => {
+    const { value } = e.target;
+    urlSetter("search", value);
+  };
+
   const handleResetFilters = () => {
-    setadvancedGenreSelect("");
-    setadvancedPublisherSelect("");
-    setadvancedConsoleSelect("");
+    setSearchParams((el) => {
+      const params = new URLSearchParams(el);
+      params.delete("genre");
+      params.delete("publisher");
+      params.delete("consolle");
+      params.delete("select");
+      return params;
+    });
   };
 
   const fetchAdvanced = () => {
     const obj = {
       order: select,
-      genre: advancedGenreSelect,
-      publisher: advancedPublisherSelect,
-      consolle: advancedConsoleSelect,
+      genre: genre,
+      publisher: publisher,
+      consolle: consolle,
+      search: search,
     };
-
     axios.post("http://localhost:3000/products/advanced", obj).then((res) => {
       setProductList(res.data.products);
       setCloneProductList(res.data.products);
     });
   };
 
-  useEffect(fetchAdvanced, [
-    advancedConsoleSelect,
-    advancedPublisherSelect,
-    advancedGenreSelect,
-    select,
-  ]);
+  function urlSetter(key, value) {
+    const param = new URLSearchParams(searchParams);
+    param.set(key, value);
+    setSearchParams(param);
+  }
 
-  // Search bar
-  // const handleSearch = (e) => {
-  //   const value = e.target.value;
-  //   setSearch(value);
-  //   if (value.trim() === "") {
-  //     setSearchParams({});
-  //   } else {
-  //     setSearchParams({ search: value });
-  //   }
-  // };
-
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    setSearch(value);
-
-    if (value.trim() === "") {
-      setCloneProductList(productList); // reset
-      setSearchParams({});
-    } else {
-      const filtered = productList.filter((product) =>
-        product.name.toLowerCase().includes(value.toLowerCase()),
-      );
-
-      setCloneProductList(filtered);
-      setSearchParams({ search: value });
-    }
-  };
-
-  // Filter for Product List
-  // const productList = Array.isArray(listedProducts)
-  //   ? listedProducts.filter((product) => {
-  //       const matchesSearch = product.name
-  //         .trim()
-  //         .toLowerCase()
-  //         .includes(search.toLowerCase());
-
-  //       const matchesGenre = advancedGenreSelect
-  //         ? product.genres?.includes(advancedGenreSelect)
-  //         : true;
-
-  //       const matchesPlatform = advancedConsoleSelect
-  //         ? product.platforms?.includes(advancedConsoleSelect)
-  //         : true;
-
-  //       const matchesPublisher = advancedPublisherSelect
-  //         ? product.companies?.includes(advancedPublisherSelect)
-  //         : true;
-
-  //       return (
-  //         matchesSearch && matchesGenre && matchesPlatform && matchesPublisher
-  //       );
-  //     })
-  //   : [];
-  // Sincronizza listedProducts quando products del context cambia
-
-  // useEffect(() => {
-  //   if (products?.products) {
-  //     setProductList(products.products);
-  //     setListedProducts(products.products);
-  //   }
-  // }, [products]);
-
-  // useEffects
   useEffect(() => {
-    setSearch(searchParams.get("search") || "");
+    fetchAdvanced();
   }, [searchParams]);
 
-  // Quando select cambia, chiama fetchSelectData
   useEffect(() => {
-    if (
-      !advancedConsoleSelect &&
-      !advancedPublisherSelect &&
-      !advancedGenreSelect
-    )
-      fetchSelectData();
-  }, [select]);
-
-  useEffect(() => {
-    const query = searchParams.get("search") || "";
-    setSearch(query);
-
-    if (query.trim() === "") {
-      setCloneProductList(productList);
-    } else {
-      const filtered = productList.filter((product) =>
-        product.name.toLowerCase().includes(query.toLowerCase()),
-      );
-      setCloneProductList(filtered);
+    if (!search) {
+      setSearchParams((el) => {
+        const para = new URLSearchParams(el);
+        para.delete("search");
+        return para;
+      });
     }
-  }, [searchParams, productList]);
+  }, [search]);
+
+  useEffect(() => {
+    if (select === "all") {
+      setSearchParams((el) => {
+        const para = new URLSearchParams(el);
+        para.delete("select");
+        return para;
+      });
+    }
+  }, [select]);
 
   return (
     <div className="container-manual py-3 byte-bounce">
@@ -267,7 +163,7 @@ export default function ProductsListPage() {
               <select
                 className="form-select"
                 aria-label="Default select example"
-                value={advancedGenreSelect}
+                value={genre}
                 onChange={handleGenreSelect}
               >
                 {" "}
@@ -285,7 +181,7 @@ export default function ProductsListPage() {
               <select
                 className="form-select"
                 aria-label="Default select example"
-                value={advancedPublisherSelect}
+                value={publisher}
                 onChange={handlePublisherSelect}
               >
                 {" "}
@@ -303,7 +199,7 @@ export default function ProductsListPage() {
               <select
                 className="form-select"
                 aria-label="Default select example"
-                value={advancedConsoleSelect}
+                value={select}
                 onChange={handleConsoleSelect}
               >
                 {" "}
