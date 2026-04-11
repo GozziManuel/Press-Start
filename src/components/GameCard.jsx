@@ -67,12 +67,16 @@ export default function GameCard({ data, checked }) {
                 </p>
                 <p className="fs-3 col-12 col-sm-6 text-end">
                   <span style={{ color: "var(--light-blue)" }}>Company:</span>{" "}
-                  {data.companies}
+                  {data.companies_list}
                 </p>
               </div>
               <p className="fs-3">
                 <span style={{ color: "var(--light-blue)" }}>Genre:</span>{" "}
-                {data.genres}
+                {data.genre_name}
+              </p>
+              {/* TEST DESCRIPTION */}
+              <p>
+                <span>{data.description}</span>
               </p>
             </div>
           )}
