@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import axios from "axios";
 import GameCard from "../components/GameCard";
@@ -19,15 +19,12 @@ export default function ProductsListPage() {
   const [checked, setChecked] = useState(true);
   const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
   const [productList, setProductList] = useState([]);
-  const [cloneProductList, setCloneProductList] = useState([]);
 
   const search = searchParams.get("search") || "";
   const select = searchParams.get("select") || "all";
   const consolle = searchParams.get("consolle") || "";
   const publisher = searchParams.get("publisher") || "";
   const genre = searchParams.get("genre") || "";
-
-  const [empty, setEmpty] = useState(true);
 
   // Handle Functions
   const handleCheckValue = (e) => {
@@ -64,6 +61,7 @@ export default function ProductsListPage() {
     });
   };
 
+  // Fetch
   const fetchAdvanced = () => {
     const obj = {
       order: select,
@@ -74,7 +72,6 @@ export default function ProductsListPage() {
     };
     axios.post("http://localhost:3000/products/advanced", obj).then((res) => {
       setProductList(res.data.products);
-      setCloneProductList(res.data.products);
     });
   };
 
@@ -84,6 +81,7 @@ export default function ProductsListPage() {
     setSearchParams(param);
   }
 
+  // useEffects
   useEffect(() => {
     fetchAdvanced();
   }, [searchParams]);
@@ -162,8 +160,7 @@ export default function ProductsListPage() {
                 className="form-select"
                 aria-label="Default select example"
                 value={genre}
-                onChange={handleGenreSelect}
-              >
+                onChange={handleGenreSelect}>
                 {" "}
                 <option value={""}>Scegli un genere</option>
                 {AdvancedGenreOptions.map((option) => (
@@ -180,8 +177,7 @@ export default function ProductsListPage() {
                 className="form-select"
                 aria-label="Default select example"
                 value={publisher}
-                onChange={handlePublisherSelect}
-              >
+                onChange={handlePublisherSelect}>
                 {" "}
                 <option value={""}>Scegli un publisher</option>
                 {AdvancedPublisherOptions.map((option) => (
@@ -197,9 +193,8 @@ export default function ProductsListPage() {
               <select
                 className="form-select"
                 aria-label="Default select example"
-                value={select}
-                onChange={handleConsoleSelect}
-              >
+                value={consolle}
+                onChange={handleConsoleSelect}>
                 {" "}
                 <option value={""}>Scegli una piattaforma</option>
                 {AdvancedConsoleOptions.map((option, id) => (
@@ -239,13 +234,13 @@ export default function ProductsListPage() {
             ? "row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5"
             : "row-cols-1"
         }`}>
-        {cloneProductList.length === 0 ? (
+        {productList.length === 0 ? (
           <h1 className="text-center  gr-viola" style={{ width: "100%" }}>
             Nessun risultato! Magari lo aggiungeremo presto
-            <i class="bi bi-emoji-smile-fill"></i>
+            <i className="bi bi-emoji-smile-fill"></i>
           </h1>
         ) : (
-          cloneProductList.map((data, id) => (
+          productList.map((data, id) => (
             <div className="col card-animate" key={id}>
               <GameCard data={data} checked={checked} />
             </div>

@@ -64,7 +64,7 @@ export default function GameCard({ data, checked }) {
                   <span style={{ color: "var(--light-blue)" }}>
                     Publisher:{" "}
                   </span>
-                  {data.companies}
+                  {data.companies_list}
                 </p>
               </div>
               <div className="col">
@@ -72,11 +72,11 @@ export default function GameCard({ data, checked }) {
                   <span style={{ color: "var(--light-blue)" }}>
                     Piattaforme:{" "}
                   </span>
-                  {data.platforms}
+                  {data.platforms_list}
                 </p>
                 <p className="fs-3">
                   <span style={{ color: "var(--light-blue)" }}>Genere: </span>
-                  {data.genres}
+                  {data.genre_name}
                 </p>
               </div>
             </div>
