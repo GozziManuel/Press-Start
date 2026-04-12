@@ -5,7 +5,7 @@ export default function GameCard({ data, checked }) {
   const priceNumber = parseFloat(data?.price);
   const discountNumber = parseFloat(data?.discount_value);
   const discountedPrice = priceNumber - discountNumber;
-
+  
   if (isNaN(priceNumber)) {
     return <div className="card h-100 p-3 text-center">Caricamento...</div>;
   }
@@ -66,8 +66,6 @@ export default function GameCard({ data, checked }) {
                   </span>
                   {data.companies_list}
                 </p>
-              </div>
-              <div className="col">
                 <p className="fs-3">
                   <span style={{ color: "var(--light-blue)" }}>
                     Piattaforme:{" "}
@@ -77,6 +75,14 @@ export default function GameCard({ data, checked }) {
                 <p className="fs-3">
                   <span style={{ color: "var(--light-blue)" }}>Genere: </span>
                   {data.genre_name}
+                </p>
+              </div>
+              <div className="col d-none d-sm-inline">
+                <p className="fs-3">
+                  <span style={{ color: "var(--light-blue)" }}>
+                    description:{" "}
+                  </span>
+                  {data.description}
                 </p>
               </div>
             </div>
