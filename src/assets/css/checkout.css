@@ -154,6 +154,7 @@
 }
 .labelfinder input {
   color: var(--text-primary);
+  margin-bottom: 10px;
 }
 .smoothIn {
   transition:
