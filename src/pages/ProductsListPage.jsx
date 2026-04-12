@@ -231,8 +231,7 @@ export default function ProductsListPage() {
           <a
             className="fs-5 mb-3 gr-viola advancedResearch nav-link "
             onClick={() => setShowAdvancedSearch(!showAdvancedSearch)}
-            style={{ cursor: "pointer" }}
-          >
+            style={{ cursor: "pointer" }}>
             Ricerca Avanzata
           </a>
         </div>
@@ -244,8 +243,7 @@ export default function ProductsListPage() {
             aria-label="Default select example"
             style={{ width: "100px" }}
             value={select}
-            onChange={handleSelect}
-          >
+            onChange={handleSelect}>
             {selectOptions.map((option) => (
               <option value={option.value} key={option.value}>
                 {option.nome}
@@ -268,8 +266,7 @@ export default function ProductsListPage() {
                 className="form-select"
                 aria-label="Default select example"
                 value={advancedGenreSelect}
-                onChange={handleGenreSelect}
-              >
+                onChange={handleGenreSelect}>
                 {" "}
                 <option value={""}>Scegli un genere</option>
                 {AdvancedGenreOptions.map((option) => (
@@ -286,8 +283,7 @@ export default function ProductsListPage() {
                 className="form-select"
                 aria-label="Default select example"
                 value={advancedPublisherSelect}
-                onChange={handlePublisherSelect}
-              >
+                onChange={handlePublisherSelect}>
                 {" "}
                 <option value={""}>Scegli un publisher</option>
                 {AdvancedPublisherOptions.map((option) => (
@@ -304,8 +300,7 @@ export default function ProductsListPage() {
                 className="form-select"
                 aria-label="Default select example"
                 value={advancedConsoleSelect}
-                onChange={handleConsoleSelect}
-              >
+                onChange={handleConsoleSelect}>
                 {" "}
                 <option value={""}>Scegli una piattaforma</option>
                 {AdvancedConsoleOptions.map((option) => (
@@ -318,8 +313,7 @@ export default function ProductsListPage() {
           </div>
           <button
             className="btn btn-primary mt-2 fs-text"
-            onClick={handleResetFilters}
-          >
+            onClick={handleResetFilters}>
             Reset Filtri
           </button>
         </div>
@@ -335,8 +329,7 @@ export default function ProductsListPage() {
         />
         <label
           className="form-check-label"
-          style={{ color: "var(--light-blue)" }}
-        >
+          style={{ color: "var(--light-blue)" }}>
           Grid mode
         </label>
       </div>
@@ -346,11 +339,10 @@ export default function ProductsListPage() {
           checked
             ? "row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5"
             : "row-cols-1"
-        }`}
-      >
+        }`}>
         {cloneProductList.length === 0 ? (
           <h1 className="text-center  gr-viola" style={{ width: "100%" }}>
-            Nessun risultato! Magari lo aggiungeremo presto{" "}
+            Nessun risultato! Magari lo aggiungeremo presto
             <i class="bi bi-emoji-smile-fill"></i>
           </h1>
         ) : (

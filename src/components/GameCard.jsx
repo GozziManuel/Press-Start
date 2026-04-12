@@ -14,21 +14,18 @@ export default function GameCard({ data, checked }) {
   const discountProduct = () => {
     if (!hasDiscount) {
       return (
-        <>
-          <p style={{ fontSize: "30px" }} className="m-0">
-            {data.price} {""}
-            <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
-          </p>
-        </>
+        <p style={{ fontSize: "45px" }} className="m-0">
+          {data.price}
+          <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
+        </p>
       );
     } else {
       return (
         <>
-          <div style={{ fontSize: "30px" }} className="m-0 d-flex">
-            <span className="text-decoration-line-through">{data.price} </span>
-            {""}
+          <div style={{ fontSize: "40px" }} className="m-0 d-flex">
+            <span className="text-decoration-line-through">{data.price}</span>
             <span style={{ fontFamily: "pixel-sans" }}>&euro;</span>
-            <p style={{ fontSize: "30px" }} className=" m-0 discountPrice">
+            <p style={{ fontSize: "40px" }} className=" m-0 discountPrice">
               {discountedPrice.toFixed(2)}
               <span style={{ fontFamily: "pixel-sans" }}>&euro;! </span>
             </p>
@@ -42,16 +39,14 @@ export default function GameCard({ data, checked }) {
       <div
         className={
           checked === true ? "card h-100" : "card h-100 d-flex flex-row"
-        }
-      >
+        }>
         <div>
           <img src={data.image} className="card-img-top cardImage" alt="img" />
         </div>
         <div className="card-body">
           <h5
-            className={!checked ? "card-title fs-1" : "card-title "}
-            style={{ fontSize: "25px" }}
-          >
+            className={!checked ? "card-title fs-1" : "card-title"}
+            style={{ fontSize: "35px" }}>
             {data.name}
           </h5>
           <hr
@@ -59,21 +54,31 @@ export default function GameCard({ data, checked }) {
             style={{ border: "solid 2px var(--light-blue)" }}
           />
           {!checked && (
-            <div>
-              <div className="d-flex row ">
-                <p className="fs-3  col-12 col-sm-6">
-                  <span style={{ color: "var(--viola)" }}>Studio:</span>{" "}
+            <div className="row row-cols-1 row-cols-sm-2">
+              <div className="col">
+                <p className="fs-3">
+                  <span style={{ color: "var(--light-blue)" }}>Studio: </span>
                   {data.studio_name}
                 </p>
-                <p className="fs-3 col-12 col-sm-6 text-end">
-                  <span style={{ color: "var(--light-blue)" }}>Company:</span>{" "}
+                <p className="fs-3">
+                  <span style={{ color: "var(--light-blue)" }}>
+                    Publisher:{" "}
+                  </span>
                   {data.companies}
                 </p>
               </div>
-              <p className="fs-3">
-                <span style={{ color: "var(--light-blue)" }}>Genre:</span>{" "}
-                {data.genres}
-              </p>
+              <div className="col">
+                <p className="fs-3">
+                  <span style={{ color: "var(--light-blue)" }}>
+                    Piattaforme:{" "}
+                  </span>
+                  {data.platforms}
+                </p>
+                <p className="fs-3">
+                  <span style={{ color: "var(--light-blue)" }}>Genere: </span>
+                  {data.genres}
+                </p>
+              </div>
             </div>
           )}
           <div>{discountProduct()}</div>
