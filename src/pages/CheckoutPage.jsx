@@ -77,10 +77,6 @@ export default function Checkout() {
       setEmptyInput(true);
       setIsShaking(true);
       setTimeout(() => setIsShaking(false), 400);
-      window.scrollTo({
-        top: document.documentElement.scrollHeight,
-        behavior: "smooth",
-      });
     } else {
       setIsLoading(true);
       axios
