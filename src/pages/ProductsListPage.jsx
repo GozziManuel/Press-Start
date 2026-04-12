@@ -161,14 +161,9 @@ export default function ProductsListPage() {
               <select
                 className="form-select"
                 aria-label="Default select example"
-<<<<<<< HEAD
-                value={advancedGenreSelect}
-                onChange={handleGenreSelect}>
-=======
                 value={genre}
                 onChange={handleGenreSelect}
               >
->>>>>>> 194f06646daf7836febb0ba74460f7e953e48a8d
                 {" "}
                 <option value={""}>Scegli un genere</option>
                 {AdvancedGenreOptions.map((option) => (
@@ -184,14 +179,9 @@ export default function ProductsListPage() {
               <select
                 className="form-select"
                 aria-label="Default select example"
-<<<<<<< HEAD
-                value={advancedPublisherSelect}
-                onChange={handlePublisherSelect}>
-=======
                 value={publisher}
                 onChange={handlePublisherSelect}
               >
->>>>>>> 194f06646daf7836febb0ba74460f7e953e48a8d
                 {" "}
                 <option value={""}>Scegli un publisher</option>
                 {AdvancedPublisherOptions.map((option) => (
@@ -207,14 +197,9 @@ export default function ProductsListPage() {
               <select
                 className="form-select"
                 aria-label="Default select example"
-<<<<<<< HEAD
-                value={advancedConsoleSelect}
-                onChange={handleConsoleSelect}>
-=======
                 value={select}
                 onChange={handleConsoleSelect}
               >
->>>>>>> 194f06646daf7836febb0ba74460f7e953e48a8d
                 {" "}
                 <option value={""}>Scegli una piattaforma</option>
                 {AdvancedConsoleOptions.map((option, id) => (
