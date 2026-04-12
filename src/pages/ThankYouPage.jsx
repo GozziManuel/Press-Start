@@ -1,8 +1,14 @@
 import { useEffect } from "react";
 import "../assets/css/thankyoupage.css";
 import { Link } from "react-router";
+import { useMain } from "../contexts/MainContext";
 
 export default function ThankYouPage() {
+  const { isCoupon, totaleLoot } = useMain();
+  const daPagare = isCoupon.result.valid
+    ? parseFloat(totaleLoot) - isCoupon.result.discount
+    : parseFloat(totaleLoot);
+
   useEffect(() => {
     // Funziona così:
     // Al caricamento: non fa nulla (lascia il token vivo per la Guardia)
@@ -29,7 +35,10 @@ export default function ThankYouPage() {
           </p>
           <p className="thank-text">
             <span className="label">TOTAL AMOUNT:</span>
-            <span className="value">70.01</span>
+            <span className="value">
+              {daPagare.toFixed(2)}
+              <span className="pixel-sans"> &euro;</span>
+            </span>
           </p>
           <p className="thank-text">
             <span className="label">STATUS:</span>

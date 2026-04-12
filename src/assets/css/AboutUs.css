@@ -1,25 +1,36 @@
+/* --- HERO SECTION --- */
 .hero {
   text-align: center;
   padding: 70px 20px;
+  opacity: 0;
+  animation: heroReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .hero h1 {
   font-size: 56px;
   margin-bottom: 20px;
-
   color: var(--gr-viola);
+  opacity: 0;
+  filter: blur(10px);
+  transform: scale(0.9);
+  animation: powerOn 0.8s ease-out 0.3s forwards;
 }
 
 .hero p {
   font-size: 20px;
   max-width: 600px;
   margin: 0 auto 30px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 0.6s ease-out 0.8s forwards;
 }
 
 .hero-buttons {
   display: flex;
   justify-content: center;
   gap: 15px;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out 1.2s forwards;
 }
 
 .button {
@@ -38,31 +49,7 @@
   animation: float 3s ease-in-out infinite;
 }
 
-.about p {
-  max-width: 600px;
-  margin: 0 auto;
-  line-height: 1.7;
-}
-
-/* Team */
-.team li {
-  list-style: none;
-  margin: 10px 0;
-  font-size: 18px;
-  position: relative;
-  transition: transform 0.2s ease;
-}
-.team li:hover {
-  transform: translateX(5px);
-}
-.team li::before {
-  content: ">";
-  margin-right: 10px;
-  color: var(--viola);
-}
-
-/* Avatars */
-
+/* --- TEAM SECTION --- */
 .team-wrapper {
   text-align: left;
   padding-left: 5%;
@@ -71,6 +58,11 @@
 .title-left {
   font-size: 35px;
   margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: titleAppear 0.6s ease-out 0.5s forwards;
+  border-left: 4px solid var(--gr-viola);
+  padding-left: 15px;
 }
 
 .team-list-vertical {
@@ -81,6 +73,11 @@
 
 .team-row {
   margin-bottom: 25px;
+  transition: transform 0.2s ease;
+}
+
+.team-row:hover {
+  transform: translateX(5px);
 }
 
 .member-info-container {
@@ -88,19 +85,29 @@
   align-items: center;
   gap: 15px;
   max-width: 352px;
-  cursor: pointer;
+  width: fit-content;
 }
 
 .arrow-purple {
   color: #a855f7;
   font-weight: bold;
   font-size: 32px;
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-15px);
+  animation:
+    safeSlideIn 0.5s ease-out forwards,
+    blink 0.8s infinite;
 }
 
 .member-name {
   font-size: 28px;
   color: white;
   min-width: 200px;
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-15px);
+  animation: safeSlideIn 0.5s ease-out forwards;
 }
 
 .avatar-small {
@@ -109,6 +116,9 @@
   border-radius: 50%;
   overflow: hidden;
   border: 2px solid white;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: safePop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
 .avatar-small img {
@@ -117,31 +127,46 @@
   object-fit: cover;
 }
 
-/* --- GIF's--- */
+/* Ritardi delle animazioni a cascata */
+.team-row:nth-child(1) .member-name,
+.team-row:nth-child(1) .avatar-small {
+  animation-delay: 0.7s;
+}
+.team-row:nth-child(2) .member-name,
+.team-row:nth-child(2) .avatar-small {
+  animation-delay: 0.9s;
+}
+.team-row:nth-child(3) .member-name,
+.team-row:nth-child(3) .avatar-small {
+  animation-delay: 1.1s;
+}
+.team-row:nth-child(4) .member-name,
+.team-row:nth-child(4) .avatar-small {
+  animation-delay: 1.3s;
+}
 
+/* --- GIF PREVIEW ON HOVER --- */
 .gif-preview-container {
   position: absolute;
-  left: 450px; /* sposta la GIF  */
+  left: 450px;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
 }
 
 .size-gif {
-  width: 600px; /* dimensionamento */
+  width: 600px;
   height: auto;
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Effetto "pop" */
-  filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.5)); /* Bagliore viola */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.5));
 }
 
-/* la gif si attiva quando si passa sopra ad ogni membro */
 .member-info-container:hover .size-gif {
   opacity: 1;
 }
 
-/* --- Stili easter eggs --> effetti Speciali --- */
-
+/* EASTER EGGS --> Bottoni e Overlay */
 .glitch-container {
   position: fixed;
   inset: 0;
@@ -151,7 +176,7 @@
 .lanyard-overlay {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: 10;
   background: rgba(0, 0, 0, 0.8);
 }
 
@@ -160,7 +185,7 @@
   position: fixed;
   bottom: 40px;
   right: 40px;
-  z-index: 101;
+  z-index: 10;
   padding: 15px 30px;
   cursor: pointer;
   background: #a855f7;
@@ -170,7 +195,7 @@
   font-weight: bold;
   font-size: 18px;
   box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
-  transition: all 0.2s ease-in-out; /* Animazione fluida */
+  transition: all 0.2s ease-in-out;
 }
 
 .btn-close-effect:hover,
@@ -180,35 +205,11 @@
   box-shadow: 0 0 30px rgba(168, 85, 247, 0.8);
 }
 
-/* ANIMATION HERO */
-/* 1. Animazione del contenitore principale */
-.hero {
-  opacity: 0;
-  animation: heroReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.cursor-target {
+  cursor: crosshair !important;
 }
 
-/* 2. Animazione del Titolo (H1) - Effetto "Power On" */
-.hero h1 {
-  opacity: 0;
-  filter: blur(10px);
-  transform: scale(0.9);
-  animation: powerOn 0.8s ease-out 0.3s forwards;
-}
-
-/* 3. Animazione del Sottotitolo (P) */
-.hero p {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: slideUp 0.6s ease-out 0.8s forwards;
-}
-
-/* 4. Animazione dei Bottoni */
-.hero-buttons {
-  opacity: 0;
-  animation: fadeIn 0.5s ease-out 1.2s forwards;
-}
-
-/* --- KEYFRAMES --- */
+/* @@@ KEYFRAMES @@@ */
 
 @keyframes heroReveal {
   from {
@@ -248,14 +249,6 @@
     opacity: 1;
   }
 }
-/* Keyframes */
-
-/* OTHER ANIMATION */
-/* Extra: Animazione continua per la freccina ">" */
-.arrow-purple {
-  display: inline-block;
-  animation: blink 0.8s infinite;
-}
 
 @keyframes blink {
   0%,
@@ -268,54 +261,7 @@
     transform: translateX(3px);
   }
 }
-/* ANIMATION TEAM MEMBER */
-.title-left {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: titleAppear 0.6s ease-out 0.5s forwards;
-  /* Un leggero bordo a sinistra lo rende molto "dev" */
-  border-left: 4px solid var(--gr-viola);
-  padding-left: 15px;
-}
 
-@keyframes titleAppear {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.member-name,
-.arrow-purple {
-  display: inline-block;
-  opacity: 0;
-  transform: translateX(-15px);
-  animation: safeSlideIn 0.5s ease-out forwards;
-}
-
-/* 3. Animazione specifica per l'Avatar */
-.avatar-small {
-  opacity: 0;
-  transform: scale(0.5);
-  animation: safePop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-.team-row:nth-child(1) .member-name,
-.team-row:nth-child(1) .avatar-small {
-  animation-delay: 0.7s;
-}
-.team-row:nth-child(2) .member-name,
-.team-row:nth-child(2) .avatar-small {
-  animation-delay: 0.9s;
-}
-.team-row:nth-child(3) .member-name,
-.team-row:nth-child(3) .avatar-small {
-  animation-delay: 1.1s;
-}
-.team-row:nth-child(4) .member-name,
-.team-row:nth-child(4) .avatar-small {
-  animation-delay: 1.3s;
-}
-
-/* --- KEYFRAMES --- */
 @keyframes titleAppear {
   to {
     opacity: 1;

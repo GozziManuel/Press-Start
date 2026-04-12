@@ -105,11 +105,9 @@ export default function LootPage() {
     axios
       .post("http://localhost:3000/coupon", forged)
       .then((res) => {
-        console.log("Dati ricevuti dal server:", res.data);
         setIsCoupon(res.data);
 
         if (res.data && res.data.result && res.data.result.valid === true) {
-          console.log("3. Esito: VALIDO");
           setCouponMessage({
             text: "Codice valido ed inserito!",
             type: "success",
@@ -129,11 +127,9 @@ export default function LootPage() {
       });
   };
 
-  console.log(totaleLoot);
-
   return (
     <div className="container-manual py-5">
-      <div className="d-flex mb-5 align-items-center">
+      <div className="d-flex mb-2 align-items-center">
         <h2 className="fw-bold star-crush gr-viola">My Loot</h2>
         <img
           src="/mario-coin.gif"
@@ -150,10 +146,13 @@ export default function LootPage() {
           <div className="row fs-4 text-muted  pb-2 mb-2 d-none d-md-flex byte-bounce bordercard">
             <div className="col-1"></div>
             <div className="col-2"></div>
-            <div className="col-3 text ps-0">Prodotto</div>
-            <div className="col-2 text ps-0">Prezzo</div>
-            <div className="col-2 text ps-0">Quantita'</div>
-            <div className="col-2 text " style={{ color: "var(--viola)" }}>
+            <div className="col-1 text ps-0 text-center">Prodotto</div>
+            <div className="col-3 text ps-0 text-end ms-3">Prezzo</div>
+            <div className="col-2 text ps-0 text-end">Quantita'</div>
+            <div
+              className="col-2 text text-end pe-4"
+              style={{ color: "var(--viola)" }}
+            >
               Totale
             </div>
           </div>
@@ -196,73 +195,81 @@ export default function LootPage() {
                 key={i}
                 className="row align-items-center bordercard py-3 mb-2"
               >
-                <div className="col-1">
-                  <button
-                    className="btn btn-sm btn-outline-danger buttonYES"
-                    style={{
-                      width: 30,
-                      height: 30,
-                      padding: 0,
-                      lineHeight: 1,
-                    }}
-                    onClick={() => setSureRomove(el.id)}
-                  >
-                    ✕
-                  </button>
-                </div>
-                <div className="col-2">
-                  <img
-                    className="loot-img rounded"
-                    src={el.image}
-                    alt={el.name}
-                    style={{ width: 64, height: 64, objectFit: "cover" }}
-                  />
-                </div>
-                <div className="col-3 fs-5 text byte-bounce px-0">
-                  {el.name}
-                </div>
-                <div className="col-2 text">
-                  {el.discount_value > 0 && (
-                    <span
+                <div className="col-12 col-sm-6 pb-4 row ">
+                  <div className="col-4 d-flex justify-content-center align-items-center px-4">
+                    <button
+                      className="btn btn-sm btn-outline-danger buttonYES "
                       style={{
-                        textDecoration: "line-through",
-                        marginRight: 5,
+                        width: 30,
+                        height: 30,
+                        padding: 0,
+                        lineHeight: 1,
                       }}
+                      onClick={() => setSureRomove(el.id)}
                     >
-                      {el.price.toFixed(2)} &euro; <br />
-                    </span>
-                  )}
-                  <span className="discountCheckout">
-                    {el.finalPrice.toFixed(2)} &euro;
-                  </span>
-                </div>
-                <div className="col-2 p-0">
-                  <div className="col-2 p-0">
-                    {/* Wrapper necessario per il posizionamento della moneta */}
-                    <div className="counter-wrapper">
-                      {/* Se l'ID di questo elemento è in animazione, mostra la moneta */}
-                      {animatingId === el.id && (
-                        <div className="mario-coin"></div>
-                      )}
+                      ✕
+                    </button>
+                  </div>
+                  <div className="col-4 d-flex justify-content-center align-items-center">
+                    <img
+                      className="loot-img rounded"
+                      src={el.image}
+                      alt={el.name}
+                      style={{ width: 64, height: 64, objectFit: "cover" }}
+                    />
+                  </div>
 
-                      <input
-                        type="number"
-                        className="form-control px-1"
-                        style={{
-                          maxWidth: "60px",
-
-                          fontWeight: "bold",
-                        }}
-                        name="totale"
-                        onChange={(e) => handleQuantity(e, el)}
-                        value={el.quantity}
-                        min="1"
-                      />
-                    </div>
+                  <div className="col-4 fs-5 text byte-bounce px-0 d-flex justify-content-center justify-content-sm-start align-items-center text-sm-start text-center">
+                    {el.name}
                   </div>
                 </div>
-                <div className="col-2 fw-semibold text">
-                  {el.total.toFixed(2)} &euro;
+                <div className="col-12 col-sm-6 col-lg-6 row">
+                  <div className="col-4 text text-center d-flex justify-content-start align-items-center flex-column">
+                    {el.discount_value > 0 && (
+                      <span
+                        style={{
+                          textDecoration: "line-through",
+                          marginRight: 5,
+                        }}
+                      >
+                        {el.price.toFixed(2)} &euro; <br />
+                      </span>
+                    )}
+                    <span className="discountCheckout">
+                      {el.finalPrice.toFixed(2)} &euro;
+                    </span>
+                  </div>
+                  <div className="col-4 p-0 d-flex d-flex justify-content-center align-items-center">
+                    <div className="col-2 p-0 ">
+                      {/* Wrapper necessario per il posizionamento della moneta */}
+                      <div className="counter-wrapper">
+                        {/* Se l'ID di questo elemento è in animazione, mostra la moneta */}
+                        {animatingId === el.id && (
+                          <div className="mario-coin"></div>
+                        )}
+
+                        <input
+                          type="number"
+                          className="form-control px-1"
+                          style={{
+                            maxWidth: "60px",
+                            fontWeight: "bold",
+                            right: "17px",
+                            position: "relative",
+                          }}
+                          name="totale"
+                          onChange={(e) => handleQuantity(e, el)}
+                          value={el.quantity}
+                          min="1"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-4 fw-semibold text text-center d-flex  align-items-center flex-column">
+                    <span className="me-2 d-inline d-sm-none">Totale: </span>
+
+                    <span> {el.total.toFixed(2)} &euro;</span>
+                  </div>
                 </div>
               </div>
             ),

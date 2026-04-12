@@ -94,7 +94,6 @@ export default function AiChatDrawer({ product }) {
 
       setMessages((prev) => [...prev, { role: "bot", text: data.reply }]);
     } catch (error) {
-      console.error(error);
       setMessages((prev) => [
         ...prev,
         { role: "bot", text: "Errore di connessione al server." },

@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from "react-router";
+import { data, Link, Navigate, useNavigate } from "react-router";
 import { useMain } from "../contexts/MainContext";
 import "../assets/css/checkout.css";
 import { useEffect, useState } from "react";
@@ -30,10 +30,12 @@ export default function Checkout() {
   } = useMain();
   // LOADER
   const [isLoading, setIsLoading] = useState(false);
+  const [emptyInput, setEmptyInput] = useState(false);
 
   // OTHER STATES
   const [inputValidation, setInputValidation] = useState(false);
   const [dataSend, setDataSend] = useState(initData);
+  const [isShaking, setIsShaking] = useState(false);
   const daPagare = isCoupon.result.valid
     ? parseFloat(totaleLoot) - isCoupon.result.discount
     : parseFloat(totaleLoot);
@@ -55,6 +57,7 @@ export default function Checkout() {
         return;
       } else if (allowed.includes(lastChar)) {
         setInputValidation(false);
+        setEmptyInput(false);
       }
     }
     setDataSend({ ...dataSend, [name]: value });
@@ -62,24 +65,41 @@ export default function Checkout() {
 
   const handleDataSubmit = (e) => {
     e.preventDefault();
-    setIsLoading(true);
-    console.log(dataSend);
-    axios
-      .post("http://localhost:3000/checkout", dataSend)
-      .then((res) => {
-        // Generiamo un token finto nel front-end
-        localStorage.setItem("order_access", "true"); // Reset e navigazione
-        navigate("/greetings", { replace: true });
-        localStorage.removeItem("loot");
-        setLoot([]);
-        setIsCoupon({ result: { valid: false } });
-        setFinLoot([]);
-        // setTotaleLoot(0.0);
-        setDataSend(initData);
-      })
-      .finally(() => {
-        setIsLoading(false);
+
+    if (
+      dataSend.user_name === "" ||
+      dataSend.user_surname === "" ||
+      dataSend.user_email === "" ||
+      dataSend.shipping_city === "" ||
+      dataSend.shipping_country === ""
+    ) {
+      console.log("vuoto");
+      setEmptyInput(true);
+      setIsShaking(true);
+      setTimeout(() => setIsShaking(false), 400);
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
       });
+    } else {
+      setIsLoading(true);
+      axios
+        .post("http://localhost:3000/checkout", dataSend)
+        .then((res) => {
+          // Generiamo un token finto nel front-end
+          localStorage.setItem("order_access", "true"); // Reset e navigazione
+          navigate("/greetings", { replace: true });
+          localStorage.removeItem("loot");
+          setLoot([]);
+          setIsCoupon({ result: { valid: false } });
+          setFinLoot([]);
+          // setTotaleLoot(0.0);
+          setDataSend(initData);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
   };
 
   useEffect(() => {
@@ -98,7 +118,9 @@ export default function Checkout() {
   }, [finLoot]);
 
   return (
-    <div className="container-manual mt-4 labelfinder">
+    <div
+      className={`container-manual mt-4 labelfinder ${isShaking ? "shake-screen" : ""}`}
+    >
       <form onSubmit={handleDataSubmit}>
         {/* I tuoi dati */}
         <h2 className="star-crush gr-viola">I tuoi dati</h2>
@@ -112,7 +134,6 @@ export default function Checkout() {
                 type="text"
                 id="username-checkout"
                 value={dataSend.user_name}
-                required
               />
             </div>
             <div className="field col-sm-12 col-md-6">
@@ -121,7 +142,6 @@ export default function Checkout() {
                 name="user_surname"
                 onChange={handleDataSend}
                 type="text"
-                required
                 id="cognome-checkout"
                 value={dataSend.user_surname}
               />
@@ -132,7 +152,6 @@ export default function Checkout() {
                 name="user_email"
                 onChange={handleDataSend}
                 type="email"
-                required
                 id="email-checkout"
                 value={dataSend.user_email}
               />
@@ -143,7 +162,6 @@ export default function Checkout() {
                 name="shipping_country"
                 onChange={handleDataSend}
                 type="text"
-                required
                 id="nazione-checkout"
                 value={dataSend.shipping_country}
               />
@@ -154,7 +172,6 @@ export default function Checkout() {
                 name="shipping_city"
                 onChange={handleDataSend}
                 type="text"
-                required
                 id="citta-checkout"
                 value={dataSend.shipping_city}
               />
@@ -167,7 +184,6 @@ export default function Checkout() {
                 name="shipping_address"
                 onChange={handleDataSend}
                 type="text"
-                required
                 id="indirizzo-checkout"
                 value={dataSend.shipping_address}
               />
@@ -178,7 +194,6 @@ export default function Checkout() {
                 name="shipping_postal_code"
                 onChange={handleDataSend}
                 type="text"
-                required
                 id="cap-checkout"
                 value={dataSend.shipping_postal_code}
               />
@@ -197,8 +212,8 @@ export default function Checkout() {
                 className="card-header  byte-bounce fs-5 px-3 text-center"
                 style={{ color: "var(--danger-text)" }}
               >
-                E' necessario mettere caratteri adeguati nel campo: solo
-                caratteri alfabetici
+                E' necessario mettere solo caratteri alfabetici sei seguenti
+                campi: Nome, Cognome, Citta', Nazione
               </div>
             </div>
           </div>
@@ -209,9 +224,13 @@ export default function Checkout() {
           <h2 className="star-crush gr-viola">Il tuo ordine</h2>
 
           <div>
-            {finLoot.map((el) => {
+            {finLoot.map((el, id) => {
               return (
-                <div style={{ color: "var(--text-primary)" }} className="fs-4">
+                <div
+                  style={{ color: "var(--text-primary)" }}
+                  className="fs-4"
+                  key={id}
+                >
                   <span className="byte-bounce ">
                     {el.name} x {el.quantity}{" "}
                   </span>
@@ -255,7 +274,21 @@ export default function Checkout() {
                 <input placeholder="•••" maxLength={3} type="password" />
               </div>
             </div>
-
+            {emptyInput && (
+              <div className="d-flex justify-content-center">
+                <div
+                  className="validationContainer mb-3 py-3"
+                  style={{ maxWidth: "18rem;" }}
+                >
+                  <div
+                    className="card-header  byte-bounce fs-5 px-3 text-center"
+                    style={{ color: "var(--danger-text)" }}
+                  >
+                    Input Vuoti non ammessi!
+                  </div>
+                </div>
+              </div>
+            )}
             <button className="btn-pay star-crush" disabled={isLoading}>
               {isLoading ? (
                 <>
