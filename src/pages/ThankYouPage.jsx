@@ -31,7 +31,7 @@ export default function ThankYouPage() {
           </p>
           <p className="thank-text">
             <span className="label">PURCHASE DATE:</span>
-            <span className="value">10/04/2026</span>
+            <span className="value">13/04/2026</span>
           </p>
           <p className="thank-text">
             <span className="label">TOTAL AMOUNT:</span>

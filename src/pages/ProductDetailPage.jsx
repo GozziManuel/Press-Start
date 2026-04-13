@@ -195,12 +195,12 @@ export default function ProductDetailPage() {
         </div>
       </div>
       {/* Reviews */}
-      <div>
+      {/* <div>
         <h2 className="mt-4">Reviews</h2>
         {product?.reviews?.map((el, id) => (
           <p key={id}>WIP</p>
         ))}
-      </div>
+      </div> */}
       <AiChatDrawer
         product={{ ...productDetailed, platforms: product?.platforms }}
       />
